@@ -1,8 +1,62 @@
 import React from "react";
 import "../../../styles/register.css";
-import { Link } from "react-router-dom";
+import { Form, Link, redirect } from "react-router-dom";
 import FormInput from "../../../components/layout-client/FormInput";
-import FormSelect from "../../../components/layout-client/FormSelect"; // Import FormSelect
+import FormSelect from "../../../components/layout-client/FormSelect";
+import axiosInstance from "../../../libs/axiosInterceptor";
+// import customFetch from "../../../utils/customFetch";
+// import { saveToLocalStorage } from "../../../utils/localStorage";
+// import { keyLocalStorage } from "../../../constants/keyConstant";
+// import { GlobalContext } from "../../../contexts/GlobalProviders";
+import {
+  showSuccessToast,
+  showErrorToast,
+} from "../../../utils/toastNotifications";
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+
+  // Kiểm tra password và confirm-password
+  if (data.password !== data["confirm-password"]) {
+    showErrorToast("Passwords do not match");
+    return null;
+  }
+
+  // Mapping dữ liệu sang định dạng API yêu cầu
+  const mappedData = {
+    firstName: data.firstName,
+    lastName: data.lastName,
+    phonenumber: data.phone,
+    email: data.email,
+    password: data.password,
+    roleCode: data.role === "Công ty" ? "COMPANY" : "CANDIDATE",
+    genderCode: data.gender === "Nam" ? "M" : "FE",
+    statusCode: "S1",
+    image: "avatar.jpg",
+  };
+
+  // console.log("Request payload:", mappedData);
+
+  try {
+    // Gọi API đăng ký
+    const response = await axiosInstance.post("/auth/register", mappedData);
+    // console.log("Response data:", response.data);
+
+    // Kiểm tra status code
+    if (response.status === 201) {
+      showSuccessToast("Register success! Please login to continue.");
+      return redirect("/auth/login");
+    } else {
+      showErrorToast("Registration failed");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error:", error.response?.data);
+    showErrorToast(error?.response?.data?.message || "Registration failed");
+    return error;
+  }
+};
 
 const Register = () => {
   return (
@@ -11,17 +65,7 @@ const Register = () => {
         <div className="register-container">
           <div className="register-box">
             <h2>Create an Account</h2>
-            <form action="#" method="POST">
-              {/* Họ */}
-              <FormInput
-                type="text"
-                name="lastName"
-                id="lastName"
-                placeholder="Enter your last name"
-                icon="fas fa-user"
-                required={true}
-              />
-              {/* Tên */}
+            <Form method="POST">
               <FormInput
                 type="text"
                 name="firstName"
@@ -30,7 +74,15 @@ const Register = () => {
                 icon="fas fa-user"
                 required={true}
               />
-              {/* Số điện thoại */}
+              <FormInput
+                type="text"
+                name="lastName"
+                id="lastName"
+                placeholder="Enter your last name"
+                icon="fas fa-user"
+                required={true}
+              />
+
               <FormInput
                 type="tel"
                 name="phone"
@@ -39,7 +91,6 @@ const Register = () => {
                 icon="fas fa-phone"
                 required={true}
               />
-              {/* Email */}
               <FormInput
                 type="email"
                 name="email"
@@ -48,7 +99,6 @@ const Register = () => {
                 icon="fas fa-envelope"
                 required={true}
               />
-              {/* Mật khẩu */}
               <FormInput
                 type="password"
                 name="password"
@@ -57,7 +107,6 @@ const Register = () => {
                 icon="fas fa-lock"
                 required={true}
               />
-              {/* Nhập lại mật khẩu */}
               <FormInput
                 type="password"
                 name="confirm-password"
@@ -66,26 +115,22 @@ const Register = () => {
                 icon="fas fa-lock"
                 required={true}
               />
-              {/* Ứng viên hay Nhà tuyển dụng */}
               <FormSelect
                 label=""
                 name="role"
-                list={["Ứng viên", "Nhà tuyển dụng"]}
+                list={["Ứng viên", "Công ty"]}
                 defaultValue="Ứng viên"
-                size="select-md" // Có thể tùy chỉnh size nếu cần
               />
-              {/* Nam hay Nữ */}
               <FormSelect
                 label=""
                 name="gender"
                 list={["Nam", "Nữ"]}
                 defaultValue="Nam"
-                size="select-md" // Có thể tùy chỉnh size nếu cần
               />
               <button type="submit" className="register-btn">
                 Sign Up
               </button>
-            </form>
+            </Form>
             <p className="alternate-option">
               Already have an account? <Link to="/auth/login">Login here</Link>
             </p>
