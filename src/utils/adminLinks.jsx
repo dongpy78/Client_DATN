@@ -3,32 +3,42 @@ import { MdQueryStats } from "react-icons/md";
 import { FaWpforms } from "react-icons/fa";
 import { ImProfile } from "react-icons/im";
 import { MdAdminPanelSettings } from "react-icons/md";
+import { BsBuildingCheck } from "react-icons/bs";
+import { FaHome } from "react-icons/fa";
+import { BsFillFileTextFill } from "react-icons/bs";
+import { BsFillPersonCheckFill } from "react-icons/bs";
+import { GrTransaction } from "react-icons/gr";
 
 const links = [
   {
-    text: "add job",
+    text: "Home page",
     path: ".",
-    icon: <FaWpforms />,
+    icon: <FaHome />,
   },
   {
-    text: "all jobs",
-    path: "all-job",
-    icon: <MdQueryStats />,
+    text: "Manage Company",
+    path: "edit-company",
+    icon: <BsBuildingCheck />,
   },
   {
-    text: "stats",
-    path: "stats",
-    icon: <IoBarChartSharp />,
+    text: "Manage Posts",
+    path: "list-posts",
+    icon: <BsFillFileTextFill />,
+  },
+  {
+    text: "Manage Candidate",
+    path: "list-candidates",
+    icon: <BsFillPersonCheckFill />,
+  },
+  {
+    text: "History Post",
+    path: "history-post",
+    icon: <GrTransaction />,
   },
   {
     text: "profile",
     path: "profile",
     icon: <ImProfile />,
-  },
-  {
-    text: "admin",
-    path: "admin-page",
-    icon: <MdAdminPanelSettings />,
   },
 ];
 
