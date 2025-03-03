@@ -1,0 +1,130 @@
+/* Container cho user profile */
+.user-profile {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Avatar và tên người dùng */
+.user-avatar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 25px;
+  transition: background 0.3s ease;
+}
+
+.user-avatar:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.avatar-img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #00d4ff;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.user-avatar:hover .avatar-img {
+  transform: scale(1.1);
+}
+
+.user-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.5px;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  padding: 10px 0;
+  min-width: 160px;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: dropdownFadeIn 0.3s ease forwards;
+}
+
+/* Animation khi mở dropdown */
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Nút trong dropdown */
+.dropdown-item {
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background: linear-gradient(90deg, #00d4ff, #00c4b4);
+  color: #fff;
+  transform: translateX(5px);
+}
+
+/* Style chung cho header (để đồng bộ) */
+.header-btn {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.btn-user {
+  padding: 8px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.head-btn1 {
+  background: transparent;
+  border: 2px solid #00d4ff;
+  color: #00d4ff;
+}
+
+.head-btn1:hover {
+  background: #00d4ff;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+.head-btn2 {
+  background: linear-gradient(90deg, #00d4ff, #00c4b4);
+  color: #fff;
+  border: none;
+}
+
+.head-btn2:hover {
+  background: linear-gradient(90deg, #00c4b4, #00d4ff);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}

@@ -1,20 +1,70 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../../../public/assets/img/logo/logo.png";
 import links from "../../utils/links";
 import MobileMenu from "./MobileMenu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import customFetch from "../../utils/customFetch";
+import {
+  deleteFromLocalStorage,
+  getFromLocalStorage,
+} from "../../utils/localStorage";
+import { keyLocalStorage } from "../../constants/keyConstant";
+import {
+  showSuccessToast,
+  showErrorToast,
+} from "../../utils/toastNotifications";
+import LogoutUser from "./LogoutUser";
+// import "./Header.css";
 
 const Header = () => {
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const updateLoginStatus = () => {
+      const token = getFromLocalStorage(keyLocalStorage.accessToken);
+      const storedUser = getFromLocalStorage("user");
+      console.log("Header - Token:", token);
+      console.log("Header - User:", storedUser);
+
+      if (token && storedUser) {
+        setIsLoggedIn(true);
+        setUser({
+          name: `${storedUser.firstName} ${storedUser.lastName}`.trim(),
+          avatar: storedUser.image || null,
+        });
+      } else {
+        setIsLoggedIn(false);
+        setUser(null);
+      }
+    };
+
+    updateLoginStatus();
+  }, []);
+
+  const logoutUser = async () => {
+    try {
+      await customFetch.post("/auth/logout");
+      deleteFromLocalStorage(keyLocalStorage.accessToken);
+      deleteFromLocalStorage("user");
+      showSuccessToast("Logout success!");
+      setIsLoggedIn(false);
+      setUser(null);
+      navigate("/");
+    } catch (error) {
+      showErrorToast(error?.response?.data?.msg || "Logout failed");
+    }
+  };
+
   return (
     <>
       <header>
-        {/* Header Start */}
         <div className="header-area header-transparrent">
           <div className="headder-top header-sticky">
             <div className="container">
               <div className="row align-items-center">
                 <div className="col-lg-3 col-md-2">
-                  {/* Logo */}
                   <div className="logo">
                     <Link to="/">
                       <img src={logo} alt="" />
@@ -23,7 +73,6 @@ const Header = () => {
                 </div>
                 <div className="col-lg-9 col-md-9">
                   <div className="menu-wrapper">
-                    {/* Main-menu */}
                     <div className="main-menu">
                       <nav className="d-none d-lg-block">
                         <ul id="navigation">
@@ -35,18 +84,25 @@ const Header = () => {
                         </ul>
                       </nav>
                     </div>
-                    {/* Header-btn */}
                     <div className="header-btn d-none f-right d-lg-block">
-                      <Link to="/auth/register" className="btn-user head-btn1">
-                        Đăng ký
-                      </Link>
-                      <Link to="/auth/login" className="btn-user head-btn2">
-                        Đăng nhập
-                      </Link>
+                      {isLoggedIn ? (
+                        <LogoutUser user={user} logoutUser={logoutUser} />
+                      ) : (
+                        <>
+                          <Link
+                            to="/auth/register"
+                            className="btn-user head-btn1"
+                          >
+                            Đăng ký
+                          </Link>
+                          <Link to="/auth/login" className="btn-user head-btn2">
+                            Đăng nhập
+                          </Link>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
-                {/* Mobile Menu */}
                 <div className="col-12">
                   <div className="mobile_menu d-block d-lg-none">
                     <MobileMenu />
@@ -56,7 +112,6 @@ const Header = () => {
             </div>
           </div>
         </div>
-        {/* Header End */}
       </header>
     </>
   );

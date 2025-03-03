@@ -1,0 +1,110 @@
+/* Container chính */
+.logout-container-new {
+  position: relative;
+  display: inline-block;
+}
+
+/* Thông tin user (avatar + tên) */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 15px;
+  background: linear-gradient(45deg, #6b48ff, #00ddeb);
+  border-radius: 25px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-info:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 221, 235, 0.5);
+}
+
+.user-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  transition: transform 0.3s ease;
+}
+
+.user-info:hover .user-avatar {
+  transform: rotate(10deg);
+}
+
+.user-icon {
+  font-size: 35px;
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.user-info:hover .user-icon {
+  transform: rotate(10deg);
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Panel trượt */
+.logout-panel {
+  position: absolute;
+  top: 50px;
+  right: -21px;
+  width: 220px;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transform: translateX(100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 1000;
+}
+
+.logout-panel.open {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Nội dung trong panel */
+.panel-content {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  height: 100%;
+}
+
+/* Mỗi item trong panel */
+.panel-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.panel-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.panel-icon {
+  font-size: 18px;
+}
+
+.icon-dropdown-header > svg {
+  width: 28px;
+  height: 28px;
+  color: #fff;
+}

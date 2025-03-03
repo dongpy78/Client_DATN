@@ -21,7 +21,7 @@ export const action = async ({ request }) => {
       password: data.password,
     });
 
-    console.log("Response data:", response.data);
+    // console.log("Response data:", response.data);
 
     // Kiểm tra trạng thái thành công (thường là 200 hoặc 201)
     if (response.status === 200 || response.status === 201) {
@@ -35,9 +35,9 @@ export const action = async ({ request }) => {
 
       // Redirect dựa trên roleCode
       if (user.roleCode === "COMPANY") {
-        return redirect("/admin");
+        window.location.href = "/admin";
       } else {
-        return redirect("/");
+        window.location.href = "/";
       }
     }
 
