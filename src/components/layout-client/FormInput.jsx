@@ -1,17 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 
-const FormInput = ({ type, name, id, placeholder, icon, required = false }) => {
+const FormInput = ({
+  type,
+  name,
+  id,
+  placeholder,
+  icon,
+  required = false,
+  className = "form-group",
+}) => {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  // Xác định type hiển thị (text hoặc password)
+  const inputType = type === "password" && isPasswordVisible ? "text" : type;
+
+  // Toggle visibility khi click vào icon khóa
+  const togglePasswordVisibility = () => {
+    if (type === "password") {
+      setIsPasswordVisible(!isPasswordVisible);
+    }
+  };
+
   return (
-    <div className="form-group">
-      {icon && <i className={`${icon} icon`} />}
+    <div className={className}>
       <input
-        type={type}
-        name={name}
+        type={inputType}
+        name={name || id}
         id={id}
         placeholder={placeholder}
         required={required}
-        className="input input-bordered" // Giữ class cơ bản, bạn có thể thêm class từ Register nếu cần
+        className="input input-bordered"
       />
+      {icon && (
+        <i
+          className={`${icon} icon ${
+            type === "password" ? "toggle-password" : ""
+          }`}
+          onClick={type === "password" ? togglePasswordVisibility : null}
+        />
+      )}
     </div>
   );
 };

@@ -1,6 +1,31 @@
 import React from "react";
 import "../../../styles/forget-password.css";
-import { Link } from "react-router-dom";
+import { Form, Link, redirect } from "react-router-dom";
+import FormInput from "../../../components/layout-client/FormInput"; // Import FormInput
+import {
+  showSuccessToast,
+  showErrorToast,
+} from "../../../utils/toastNotifications";
+import axiosInstance from "../../../libs/axiosInterceptor";
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+
+  try {
+    const response = await axiosInstance.post("/auth/forgot-password", {
+      email: data.email,
+    });
+
+    if (response.status === 200 || response.status === 201) {
+      showSuccessToast(response.data.message);
+      return redirect("/auth/login");
+    }
+  } catch (error) {
+    showErrorToast(error?.response?.data?.message);
+    return error;
+  }
+};
 
 const ForgotPassword = () => {
   return (
@@ -10,18 +35,15 @@ const ForgotPassword = () => {
           <div className="auth-box">
             <h2>Forgot Password</h2>
             <p>Enter your email to receive a new password</p>
-            <form action="#">
-              <div className="input-group">
-                <div className="input-with-icon">
-                  <i className="fas fa-envelope" />
-                  <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter your email"
-                    required=""
-                  />
-                </div>
-              </div>
+            <Form method="POST">
+              <FormInput
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Enter your email"
+                icon="fas fa-envelope"
+                required={true}
+              />
               <button type="submit" className="auth-btn">
                 <i className="fas fa-paper-plane" /> Send New Password
               </button>
@@ -31,7 +53,7 @@ const ForgotPassword = () => {
                   <Link to="/auth/login">Login</Link>
                 </p>
               </div>
-            </form>
+            </Form>
           </div>
         </div>
       </div>
