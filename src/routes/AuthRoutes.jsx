@@ -4,6 +4,7 @@ import ForgotPassword from "../pages/auth/forgot-password";
 import LayoutAuth from "../layouts/LayoutAuth";
 
 import { action as registerAction } from "../pages/auth/register";
+import { action as loginAction } from "../pages/auth/login";
 
 const authRoutes = {
   path: "auth",
@@ -12,6 +13,7 @@ const authRoutes = {
     {
       path: "login",
       element: <Login />,
+      action: loginAction,
     },
     {
       path: "register",
