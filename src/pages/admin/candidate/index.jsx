@@ -1,7 +1,8 @@
 import React from "react";
+import Wrapper from "/public/assets/wrappers/DashboardFormPage";
 
 const Candidate = () => {
-  return <div>Candidate</div>;
+  return <Wrapper>Candidate</Wrapper>;
 };
 
 export default Candidate;
