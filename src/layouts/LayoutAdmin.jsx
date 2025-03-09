@@ -12,7 +12,7 @@ const LayoutAdmin = ({ isDarkThemeEnabled }) => {
       <main className={`dashboard ${isDarkTheme ? "dark-theme" : ""}`}>
         <SmallSidebar />
         <BigSidebar />
-        <div>
+        <div className="wrapper-test">
           <Navbar />
           <div className="dashboard-page">
             <Outlet />

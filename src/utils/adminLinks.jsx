@@ -17,7 +17,7 @@ const links = [
   },
   {
     text: "Manage Company",
-    path: "edit-company",
+    path: "company",
     icon: <BsBuildingCheck />,
   },
   {

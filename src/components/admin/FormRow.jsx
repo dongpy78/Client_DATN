@@ -2,16 +2,7 @@ import React from "react";
 
 const FormRow = React.forwardRef(
   (
-    {
-      type,
-      name,
-      labelText,
-      defaultValue,
-      onChange,
-      error,
-      placeholder,
-      disabled,
-    },
+    { type, name, labelText, value, onChange, error, placeholder, disabled },
     ref
   ) => {
     return (
@@ -25,7 +16,7 @@ const FormRow = React.forwardRef(
           name={name}
           className="form-input"
           placeholder={placeholder}
-          defaultValue={defaultValue || ""}
+          value={value || ""}
           onChange={onChange}
           disabled={disabled}
           ref={ref} // Ref được truyền xuống input

@@ -6,6 +6,12 @@ import Home from "../pages/admin/home";
 import Post from "../pages/admin/post";
 import Profile from "../pages/admin/profile";
 import NotFound from "../pages/NotFound";
+import EditCompany from "../components/company/EditCompany";
+import { loader as companyLoader } from "../pages/admin/company";
+import AddCompany, {
+  action as addCompanyAction,
+} from "../components/company/AddCompany";
+import { action as editCompanyAction } from "../components/company/EditCompany";
 
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("darkTheme") === "true";
@@ -17,10 +23,24 @@ const isDarkThemeEnabled = checkDefaultTheme();
 
 const AdminRoutes = {
   path: "/admin",
-  element: <LayoutAdmin isDarkThemeEnabled={isDarkThemeEnabled} />, // Sử dụng LayoutAdmin
+  element: <LayoutAdmin isDarkThemeEnabled={isDarkThemeEnabled} />,
   children: [
     { index: true, path: "", element: <Home /> },
-    { path: "edit-company", element: <Company /> },
+    {
+      path: "company",
+      element: <Company />,
+      loader: companyLoader,
+    },
+    {
+      path: "company/add",
+      element: <AddCompany />,
+      action: addCompanyAction,
+    },
+    {
+      path: "company/edit",
+      element: <EditCompany />,
+      action: editCompanyAction,
+    },
     { path: "list-posts", element: <Post /> },
     { path: "list-candidates", element: <Candidate /> },
     { path: "history-post", element: <HistoryPost /> },
