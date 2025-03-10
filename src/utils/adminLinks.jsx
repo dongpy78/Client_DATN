@@ -22,7 +22,7 @@ const links = [
   },
   {
     text: "Manage Posts",
-    path: "list-posts",
+    path: "post",
     icon: <BsFillFileTextFill />,
   },
   {

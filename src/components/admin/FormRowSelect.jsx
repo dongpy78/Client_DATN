@@ -1,10 +1,4 @@
-const FormRowSelect = ({
-  name,
-  labelText,
-  list,
-  defaultValue = "",
-  onChange,
-}) => {
+const FormRowSelect = ({ name, labelText, list, value, onChange }) => {
   return (
     <div className="form-row">
       <label htmlFor={name} className="form-label">
@@ -14,13 +8,15 @@ const FormRowSelect = ({
         name={name}
         id={name}
         className="form-select"
-        defaultValue={defaultValue}
+        value={value} // Sử dụng value thay vì defaultValue để đồng bộ với state
         onChange={onChange}
       >
-        {list.map((itemValue) => {
+        {list.map((item) => {
+          const value = typeof item === "string" ? item : item.value;
+          const label = typeof item === "string" ? item : item.label;
           return (
-            <option key={itemValue} value={itemValue}>
-              {itemValue}
+            <option key={value} value={value}>
+              {label}
             </option>
           );
         })}
@@ -28,4 +24,5 @@ const FormRowSelect = ({
     </div>
   );
 };
+
 export default FormRowSelect;

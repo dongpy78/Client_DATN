@@ -70,7 +70,7 @@ const Wrapper = styled.section`
   }
 
   .form-row {
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
   }
 
   .form-textarea {

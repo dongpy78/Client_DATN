@@ -12,6 +12,14 @@ import AddCompany, {
   action as addCompanyAction,
 } from "../components/company/AddCompany";
 import { action as editCompanyAction } from "../components/company/EditCompany";
+import AddPost, { action as addPostAction } from "../components/post/AddPost";
+import EditPost from "../components/post/EditPost";
+
+// Import loader và action từ Post
+import {
+  loader as postLoader,
+  action as postAction,
+} from "../pages/admin/post";
 
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("darkTheme") === "true";
@@ -41,7 +49,16 @@ const AdminRoutes = {
       element: <EditCompany />,
       action: editCompanyAction,
     },
-    { path: "list-posts", element: <Post /> },
+    { path: "post", element: <Post />, loader: postLoader, action: postAction },
+    {
+      path: "post/add",
+      element: <AddPost />,
+      action: addPostAction,
+    },
+    {
+      path: "post/edit/:id",
+      element: <EditPost />, // Placeholder, sẽ thêm sau
+    },
     { path: "list-candidates", element: <Candidate /> },
     { path: "history-post", element: <HistoryPost /> },
     { path: "profile", element: <Profile /> },

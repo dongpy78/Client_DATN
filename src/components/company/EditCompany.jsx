@@ -8,7 +8,6 @@ import {
   showErrorToast,
 } from "../../utils/toastNotifications";
 import { getFromLocalStorage } from "../../utils/localStorage";
-import { keyLocalStorage } from "../../constants/keyConstant";
 import MDEditor from "@uiw/react-md-editor";
 import { marked } from "marked";
 
