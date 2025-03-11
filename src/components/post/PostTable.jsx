@@ -53,13 +53,6 @@ const PostTable = ({ typePost, currentPage = 1, totalCount = 0 }) => {
                   >
                     <FaEdit />
                   </Link>
-                  <button
-                    title="Delete post"
-                    onClick={() => onDelete(post.id)}
-                    className="delete-btn"
-                  >
-                    <MdDelete />
-                  </button>
                 </td>
               </tr>
             ))}

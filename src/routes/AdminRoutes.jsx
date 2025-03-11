@@ -13,7 +13,10 @@ import AddCompany, {
 } from "../components/company/AddCompany";
 import { action as editCompanyAction } from "../components/company/EditCompany";
 import AddPost, { action as addPostAction } from "../components/post/AddPost";
-import EditPost from "../components/post/EditPost";
+import EditPost, {
+  loader as editPostLoader,
+  action as editPostAction,
+} from "../components/post/EditPost";
 
 // Import loader và action từ Post
 import {
@@ -57,7 +60,9 @@ const AdminRoutes = {
     },
     {
       path: "post/edit/:id",
-      element: <EditPost />, // Placeholder, sẽ thêm sau
+      element: <EditPost />,
+      loader: editPostLoader,
+      action: editPostAction,
     },
     { path: "list-candidates", element: <Candidate /> },
     { path: "history-post", element: <HistoryPost /> },
