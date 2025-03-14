@@ -22,6 +22,7 @@ const SearchPost = () => {
           "/get-allcode?type=POSTSTATUS"
         );
         const data = response.data.data || [];
+        console.log("POSTSTATUS response:", data);
         const options = [
           { value: "all", label: "Tất cả" },
           ...data.map((item) => ({
@@ -32,7 +33,6 @@ const SearchPost = () => {
         setStatusOptions(options);
       } catch (error) {
         console.error("Error fetching POSTSTATUS:", error);
-        showErrorToast("Failed to load post status options.");
       }
     };
 
@@ -77,13 +77,13 @@ const SearchPost = () => {
         <div className="form-center">
           <FormRow
             type="search"
-            name="title"
+            name="search"
             labelText="Tìm theo tiêu đề"
             value={searchValue}
             onChange={(e) => {
               const newValue = e.target.value;
               setSearchValue(newValue);
-              debounce(handleChange, "title")(newValue);
+              debounce(handleChange, "search")(newValue);
             }}
             placeholder="e.g., Tuyển lập trình viên"
           />

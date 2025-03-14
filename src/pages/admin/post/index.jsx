@@ -8,25 +8,47 @@ import {
   showErrorToast,
 } from "../../../utils/toastNotifications";
 import { getFromLocalStorage } from "../../../utils/localStorage";
-import { useActionData, useLoaderData, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useActionData,
+  useLoaderData,
+  useNavigate,
+} from "react-router-dom";
 
 export const loader = async ({ request }) => {
   const params = new URLSearchParams(request.url.split("?")[1]);
   const page = parseInt(params.get("page") || "1", 10);
-  const limit = 5; // Hoặc 10 nếu bạn muốn khớp với test API
+  const limit = 5; // Giữ nguyên limit cho phân trang
   const offset = (page - 1) * limit;
   const user = getFromLocalStorage("user");
-  console.log(user);
+  const search = params.get("search") || "";
+  const status = params.get("status") || "all";
+
+  console.log("Loader params:", {
+    page,
+    limit,
+    offset,
+    search,
+    status,
+    companyId: user?.companyId,
+  });
 
   try {
-    const response = await axiosInstance.get(
-      `/posts/list-post?limit=${limit}&offset=${offset}&companyId=${user.companyId}`
-    );
+    let url = `/posts/list-post?limit=${limit}&offset=${offset}&companyId=${
+      user?.companyId || ""
+    }`;
+    if (search) url += `&search=${encodeURIComponent(search)}`;
+
+    console.log("Fetching URL in loader:", url);
+    const response = await axiosInstance.get(url);
+    console.log("Loader API response:", response.data);
+
     if (response.status === 200) {
       const numOfPages = Math.ceil(response.data.data.count / limit) || 1;
       return {
-        typeJobs: response.data.data.rows || [], // Đảm bảo lấy đúng rows
-        searchValues: {},
+        typeJobs: response.data.data.rows || [],
+        allJobs: [], // Placeholder, sẽ được cập nhật sau
+        searchValues: { search, status },
         numOfPages,
         currentPage: page,
         totalCount: response.data.data.count || 0,
@@ -34,10 +56,14 @@ export const loader = async ({ request }) => {
     }
     throw new Error("Failed to fetch type jobs.");
   } catch (error) {
-    console.error("Error fetching type jobs:", error);
+    console.error(
+      "Error fetching type jobs:",
+      error.response?.data || error.message
+    );
     return {
       typeJobs: [],
-      searchValues: {},
+      allJobs: [],
+      searchValues: { search, status },
       numOfPages: 1,
       currentPage: 1,
       totalCount: 0,
@@ -47,23 +73,29 @@ export const loader = async ({ request }) => {
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
-  const searchValues = Object.fromEntries(formData);
+  const search = formData.get("search") || "";
+  const status = formData.get("status") || "all";
   const params = new URLSearchParams(request.url.split("?")[1]);
   const page = parseInt(params.get("page") || "1", 10);
   const offset = (page - 1) * 5;
+  const user = getFromLocalStorage("user");
+
   try {
-    const searchQuery = searchValues.search
-      ? `&search=${encodeURIComponent(searchValues.search)}`
-      : "";
-    const url = `/posts/list-post?limit=5&offset=${offset}${searchQuery}`;
-    console.log("Fetching URL:", url);
+    let url = `/posts/list-post?limit=5&offset=${offset}&companyId=${
+      user?.companyId || ""
+    }`;
+    if (search) url += `&search=${encodeURIComponent(search)}`;
+
+    console.log("Fetching URL in action:", url);
     const response = await axiosInstance.get(url);
-    console.log("API response:", response.data);
+    console.log("Action API response:", response.data);
+
     if (response.status === 200) {
       const numOfPages = Math.ceil(response.data.data.count / 5) || 1;
       return {
-        typeJobs: response.data.data.rows || [], // Đảm bảo lấy đúng rows
-        searchValues,
+        typeJobs: response.data.data.rows || [],
+        allJobs: [], // Placeholder, sẽ được cập nhật sau
+        searchValues: { search, status },
         numOfPages,
         currentPage: page,
         totalCount: response.data.data.count || 0,
@@ -71,10 +103,14 @@ export const action = async ({ request }) => {
     }
     throw new Error("Failed to fetch type jobs.");
   } catch (error) {
-    console.error("Error fetching type jobs:", error);
+    console.error(
+      "Error fetching type jobs:",
+      error.response?.data || error.message
+    );
     return {
       typeJobs: [],
-      searchValues,
+      allJobs: [],
+      searchValues: { search, status },
       numOfPages: 1,
       currentPage: page,
       totalCount: 0,
@@ -82,15 +118,36 @@ export const action = async ({ request }) => {
   }
 };
 
+// Hàm lấy toàn bộ dữ liệu
+const fetchAllJobs = async (companyId) => {
+  let allJobs = [];
+  let offset = 0;
+  const limit = 100; // Giới hạn số lượng tối đa, điều chỉnh nếu cần
+
+  while (true) {
+    const url = `/posts/list-post?limit=${limit}&offset=${offset}&companyId=${companyId}`;
+    const response = await axiosInstance.get(url);
+    const jobs = response.data.data.rows || [];
+    allJobs = [...allJobs, ...jobs];
+    if (jobs.length < limit) break; // Dừng nếu không còn dữ liệu
+    offset += limit;
+  }
+
+  return allJobs;
+};
+
 const Post = () => {
   const loaderData = useLoaderData();
   const actionData = useActionData();
   const navigate = useNavigate();
   const [typePost, setTypePost] = useState(loaderData?.typeJobs || []);
+  const [allJobs, setAllJobs] = useState(loaderData?.allJobs || []); // Lưu toàn bộ dữ liệu
   const [totalCount, setTotalCount] = useState(loaderData?.totalCount || 0);
   const [loading, setLoading] = useState(false);
   const numOfPages = actionData?.numOfPages || loaderData?.numOfPages || 1;
   const currentPage = actionData?.currentPage || loaderData?.currentPage || 1;
+  const searchValues = actionData?.searchValues ||
+    loaderData?.searchValues || { search: "", status: "all" };
 
   const handlePageChange = (pageNumber) => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -99,27 +156,70 @@ const Post = () => {
   };
 
   useEffect(() => {
+    const user = getFromLocalStorage("user");
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const jobs = await fetchAllJobs(user?.companyId || "");
+        setAllJobs(jobs);
+        filterJobs(jobs, searchValues.search, searchValues.status); // Lọc ngay khi tải dữ liệu
+      } catch (error) {
+        console.error("Error fetching all jobs:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (allJobs.length === 0) {
+      fetchData();
+    }
+  }, []); // Chạy một lần khi component mount
+
+  useEffect(() => {
     if (actionData) {
-      setTypePost(actionData.typeJobs || []);
+      filterJobs(
+        allJobs,
+        actionData.searchValues.search,
+        actionData.searchValues.status
+      );
       setTotalCount(actionData.totalCount || 0);
     } else {
-      setTypePost(loaderData?.typeJobs || []);
+      filterJobs(
+        allJobs,
+        loaderData?.searchValues.search,
+        loaderData?.searchValues.status
+      );
       setTotalCount(loaderData?.totalCount || 0);
     }
-  }, [loaderData, actionData]);
+    console.log("Updated typePost:", typePost, "Total Count:", totalCount);
+  }, [loaderData, actionData, allJobs]);
+
+  const filterJobs = (jobs, search, status) => {
+    let filteredJobs = [...jobs];
+    if (search) {
+      filteredJobs = filteredJobs.filter((job) =>
+        job.postDetailData?.name?.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+    if (status && status !== "all") {
+      filteredJobs = filteredJobs.filter((job) => job.statusCode === status);
+    }
+    setTypePost(filteredJobs.slice((currentPage - 1) * 5, currentPage * 5)); // Phân trang
+    setTotalCount(filteredJobs.length); // Cập nhật tổng số lượng sau lọc
+  };
 
   return (
     <>
       <SearchPost />
+
       <PostTable
         typePost={typePost}
-        // onDelete={handleDelete}
         currentPage={currentPage}
         totalCount={totalCount}
       />
       {numOfPages > 1 && (
-        <PageTypeJob
-          numOfPages={numOfPages}
+        <PagePagination
+          numOfPages={Math.ceil(totalCount / 5)} // Cập nhật numOfPages dựa trên tổng số sau lọc
           currentPage={currentPage}
           handlePageChange={handlePageChange}
         />

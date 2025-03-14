@@ -9,6 +9,9 @@ const PostTable = ({ typePost, currentPage = 1, totalCount = 0 }) => {
     return (
       <PostTableWrapper>
         <h5>Không có bài đăng nào để hiển thị...</h5>
+        <Link to="/admin/post/add" className="btn add-user-btn">
+          Thêm bài đăng
+        </Link>
       </PostTableWrapper>
     );
   }

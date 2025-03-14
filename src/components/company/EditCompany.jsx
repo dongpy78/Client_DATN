@@ -35,7 +35,7 @@ export const action = async ({ request }) => {
     console.log("API Response:", response.data);
     if (response.status === 200) {
       showSuccessToast("Company updated successfully!");
-      return redirect("/admin/company");
+      return redirect("/admin/company"); // Sửa lại đường dẫn để đúng với danh sách công ty
     }
   } catch (error) {
     console.error("Update Error:", error.response?.data);
@@ -60,11 +60,12 @@ const EditCompany = ({ initialData }) => {
     website: initialData?.website || "",
     amountEmployer: initialData?.amountEmployer || "",
     taxnumber: initialData?.taxnumber || "",
-    thumbnail: null, // Lưu file object nếu upload mới
-    coverImage: null, // Lưu file object nếu upload mới
-    thumbnailUrl: initialData?.thumbnail || "", // Lưu URL hiện tại
-    coverImageUrl: initialData?.coverimage || initialData?.coverImage || "", // Lưu URL hiện tại
-    file: initialData?.file || "",
+    thumbnail: null, // File object nếu upload mới
+    coverImage: null, // File object nếu upload mới
+    file: null, // File object nếu upload mới
+    thumbnailUrl: initialData?.thumbnail || "", // URL hiện tại
+    coverImageUrl: initialData?.coverimage || initialData?.coverImage || "", // URL hiện tại
+    fileUrl: initialData?.file || "", // URL hiện tại của file
   });
 
   const [thumbnailPreview, setThumbnailPreview] = useState(
@@ -73,6 +74,7 @@ const EditCompany = ({ initialData }) => {
   const [coverImagePreview, setCoverImagePreview] = useState(
     formValues.coverImageUrl
   );
+  const [filePreview, setFilePreview] = useState(formValues.fileUrl);
 
   useEffect(() => {
     const fetchUpdatedData = async () => {
@@ -102,12 +104,13 @@ const EditCompany = ({ initialData }) => {
               response.data.data.coverimage ||
               response.data.data.coverImage ||
               "",
-            file: response.data.data.file || "",
+            fileUrl: response.data.data.file || "",
           }));
           setThumbnailPreview(response.data.data.thumbnail || "");
           setCoverImagePreview(
             response.data.data.coverimage || response.data.data.coverImage || ""
           );
+          setFilePreview(response.data.data.file || "");
         }
       } catch (error) {
         console.error("Fetch Updated Data Error:", error.response?.data);
@@ -123,12 +126,16 @@ const EditCompany = ({ initialData }) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const maxSize = 512 * 1024; // 0.5MB
+    const maxSize = 2 * 1024 * 1024; // 2MB
     if (file.size > maxSize) {
       showErrorToast(
         `${
-          field === "thumbnail" ? "Thumbnail" : "Cover Image"
-        } vượt quá kích thước 0.5MB!`
+          field === "thumbnail"
+            ? "Thumbnail"
+            : field === "coverImage"
+            ? "Cover Image"
+            : "File"
+        } vượt quá kích thước 2MB!`
       );
       return;
     }
@@ -140,6 +147,9 @@ const EditCompany = ({ initialData }) => {
     } else if (field === "coverImage") {
       setFormValues({ ...formValues, coverImage: file });
       setCoverImagePreview(previewUrl);
+    } else if (field === "file") {
+      setFormValues({ ...formValues, file: file });
+      setFilePreview(previewUrl);
     }
   };
 
@@ -155,7 +165,7 @@ const EditCompany = ({ initialData }) => {
     <Wrapper>
       <Form
         method="post"
-        action="/admin/company/edit"
+        action="/admin/company/edit" // Sửa lại đường dẫn để đúng với danh sách công ty
         className="form"
         encType="multipart/form-data"
       >
@@ -227,7 +237,7 @@ const EditCompany = ({ initialData }) => {
           />
           <div className="form-row form-select-image">
             <label htmlFor="thumbnail" className="form-label">
-              Thumbnail (max 0.5MB)
+              Thumbnail (max 2MB)
             </label>
             {thumbnailPreview && (
               <img
@@ -244,7 +254,6 @@ const EditCompany = ({ initialData }) => {
               accept="image/*"
               onChange={(e) => handleFileChange(e, "thumbnail")}
             />
-            {/* Gửi URL hiện tại nếu không upload file mới */}
             <input
               type="hidden"
               name="thumbnailUrl"
@@ -253,7 +262,7 @@ const EditCompany = ({ initialData }) => {
           </div>
           <div className="form-row form-select-image">
             <label htmlFor="coverImage" className="form-label">
-              Cover Image (max 0.5MB)
+              Cover Image (max 2MB)
             </label>
             {coverImagePreview && (
               <img
@@ -270,23 +279,45 @@ const EditCompany = ({ initialData }) => {
               accept="image/*"
               onChange={(e) => handleFileChange(e, "coverImage")}
             />
-            {/* Gửi URL hiện tại nếu không upload file mới */}
             <input
               type="hidden"
               name="coverImageUrl"
               value={formValues.coverImageUrl}
             />
           </div>
-          <FormRow
-            type="text"
-            name="file"
-            labelText="File tài liệu URL"
-            value={formValues.file}
-            onChange={(e) =>
-              setFormValues({ ...formValues, file: e.target.value })
-            }
-            placeholder="Nhập URL tài liệu"
-          />
+        </div>
+
+        <div className="form-center">
+          <div className="form-row form-select-image">
+            <label htmlFor="file" className="form-label">
+              File tài liệu (max 2MB)
+            </label>
+            {filePreview && (
+              <div className="file-preview">
+                {/* Hiển thị preview nếu file là PDF */}
+                {filePreview.endsWith(".pdf") ? (
+                  <iframe
+                    src={filePreview}
+                    width="100%"
+                    height="200px"
+                    title="File Preview"
+                    style={{ border: "1px solid #ddd", borderRadius: "4px" }}
+                  />
+                ) : (
+                  <p>File hiện tại: {filePreview.split("/").pop()}</p>
+                )}
+              </div>
+            )}
+            <input
+              type="file"
+              id="file"
+              name="file"
+              className="form-input"
+              accept=".pdf,.doc,.docx" // Hạn chế loại file nếu cần
+              onChange={(e) => handleFileChange(e, "file")}
+            />
+            <input type="hidden" name="fileUrl" value={formValues.fileUrl} />
+          </div>
         </div>
 
         <div data-color-mode="light">
