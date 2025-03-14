@@ -1,3 +1,4 @@
+// import * as XLSX from "xlsx/xlsx.mjs";
 class CommonUtils {
   static getBase64(file) {
     return new Promise((resolve, reject) => {

@@ -10,6 +10,7 @@ import {
 import { getFromLocalStorage } from "../../utils/localStorage";
 import MDEditor from "@uiw/react-md-editor";
 import { marked } from "marked";
+import CommonUtils from "../../utils/CommonUtils";
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
@@ -35,7 +36,7 @@ export const action = async ({ request }) => {
     console.log("API Response:", response.data);
     if (response.status === 200) {
       showSuccessToast("Company updated successfully!");
-      return redirect("/admin/company"); // Sửa lại đường dẫn để đúng với danh sách công ty
+      return redirect("/admin/company");
     }
   } catch (error) {
     console.error("Update Error:", error.response?.data);
@@ -47,8 +48,6 @@ export const action = async ({ request }) => {
 };
 
 const EditCompany = ({ initialData }) => {
-  console.log("EditCompany initialData:", initialData);
-
   const [formValues, setFormValues] = useState({
     id: initialData?.id || "",
     name: initialData?.name || "",
@@ -76,6 +75,33 @@ const EditCompany = ({ initialData }) => {
   );
   const [filePreview, setFilePreview] = useState(formValues.fileUrl);
 
+  console.log(filePreview);
+
+  let handleOnChangeFile = async (event) => {
+    let data = event.target.files;
+    let file = data[0];
+    console.log("file", file);
+    if (file) {
+      if (file.size > 2097152) {
+        showErrorToast("File của bạn quá lớn. Chỉ gửi file dưới 2MB");
+        return;
+      }
+      let base64 = await CommonUtils.getBase64(file);
+
+      // Cập nhật fileUrl với URL tạm thời của file
+      const fileUrl = base64;
+
+      setFormValues({
+        ...formValues,
+        file: base64,
+        fileUrl: fileUrl, // Cập nhật fileUrl
+        isFileChange: true,
+      });
+
+      setFilePreview(fileUrl); // Cập nhật preview
+    }
+  };
+
   useEffect(() => {
     const fetchUpdatedData = async () => {
       const user = getFromLocalStorage("user");
@@ -85,6 +111,7 @@ const EditCompany = ({ initialData }) => {
         const response = await axiosInstance.get(
           `/companies/by-user?userId=${user.id}`
         );
+
         if (response.status === 200 && response.data.data) {
           setFormValues((prev) => ({
             ...prev,
@@ -287,40 +314,38 @@ const EditCompany = ({ initialData }) => {
           </div>
         </div>
 
-        <div className="form-center">
+        <div className="form-center" style={{ marginTop: "48px" }}>
           <div className="form-row form-select-image">
             <label htmlFor="file" className="form-label">
               File tài liệu (max 2MB)
             </label>
-            {filePreview && (
-              <div className="file-preview">
-                {/* Hiển thị preview nếu file là PDF */}
-                {filePreview.endsWith(".pdf") ? (
-                  <iframe
-                    src={filePreview}
-                    width="100%"
-                    height="200px"
-                    title="File Preview"
-                    style={{ border: "1px solid #ddd", borderRadius: "4px" }}
-                  />
-                ) : (
-                  <p>File hiện tại: {filePreview.split("/").pop()}</p>
-                )}
-              </div>
-            )}
+
             <input
               type="file"
               id="file"
               name="file"
               className="form-input"
-              accept=".pdf,.doc,.docx" // Hạn chế loại file nếu cần
-              onChange={(e) => handleFileChange(e, "file")}
+              accept=".pdf" // Hạn chế loại file nếu cần
+              onChange={(event) => handleOnChangeFile(event)}
             />
             <input type="hidden" name="fileUrl" value={formValues.fileUrl} />
           </div>
         </div>
 
-        <div data-color-mode="light">
+        {filePreview && (
+          <div className="file-preview" style={{ marginTop: "16px" }}>
+            <label htmlFor="file" className="form-label">
+              Hiển thị
+            </label>
+            <iframe
+              width={"100%"}
+              height={"700px"}
+              src={formValues.fileUrl}
+            ></iframe>
+          </div>
+        )}
+
+        <div data-color-mode="light" style={{ marginTop: "16px" }}>
           <label htmlFor="descriptionMarkdown" className="form-label">
             Mô tả (Markdown)
           </label>
