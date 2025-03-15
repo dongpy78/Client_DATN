@@ -48,6 +48,7 @@ export const action = async ({ request }) => {
 };
 
 const EditCompany = ({ initialData }) => {
+  console.log("Edit Company", initialData);
   const [formValues, setFormValues] = useState({
     id: initialData?.id || "",
     name: initialData?.name || "",

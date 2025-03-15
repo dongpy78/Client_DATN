@@ -11,6 +11,7 @@ import { getFromLocalStorage } from "../../utils/localStorage";
 import { keyLocalStorage } from "../../constants/keyConstant";
 import MDEditor from "@uiw/react-md-editor";
 import { marked } from "marked";
+import CommonUtils from "../../utils/CommonUtils";
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
@@ -67,6 +68,32 @@ const AddCompany = () => {
 
   const [thumbnailPreview, setThumbnailPreview] = useState(null);
   const [coverImagePreview, setCoverImagePreview] = useState(null);
+  const [filePreview, setFilePreview] = useState(formValues.file);
+
+  let handleOnChangeFilePdf = async (event) => {
+    let data = event.target.files;
+    let file = data[0];
+    console.log("file", file);
+    if (file) {
+      if (file.size > 2097152) {
+        showErrorToast("File của bạn quá lớn. Chỉ gửi file dưới 2MB");
+        return;
+      }
+      let base64 = await CommonUtils.getBase64(file);
+
+      // Cập nhật fileUrl với URL tạm thời của file
+      const fileUrl = base64;
+
+      setFormValues({
+        ...formValues,
+        file: base64,
+        fileUrl: fileUrl,
+        isFileChange: true,
+      });
+
+      setFilePreview(fileUrl); // Cập nhật preview
+    }
+  };
 
   const handleFileChange = (e, field) => {
     const file = e.target.files[0];
@@ -213,17 +240,38 @@ const AddCompany = () => {
               onChange={(e) => handleFileChange(e, "coverImage")}
             />
           </div>
-          <FormRow
-            type="text"
-            name="file"
-            labelText="File tài liệu URL"
-            value={formValues.file}
-            onChange={(e) =>
-              setFormValues({ ...formValues, file: e.target.value })
-            }
-            placeholder="Nhập URL tài liệu"
-          />
         </div>
+
+        <div className="form-center" style={{ marginTop: "16px" }}>
+          <div className="form-row form-select-image">
+            <label htmlFor="file" className="form-label">
+              File tài liệu (max 2MB)
+            </label>
+
+            <input
+              type="file"
+              id="file"
+              name="file"
+              className="form-input"
+              accept=".pdf" // Hạn chế loại file nếu cần
+              onChange={(event) => handleOnChangeFilePdf(event)}
+            />
+            <input type="hidden" name="fileUrl" value={formValues.fileUrl} />
+          </div>
+        </div>
+
+        {filePreview && (
+          <div className="file-preview" style={{ marginTop: "16px" }}>
+            <label htmlFor="file" className="form-label">
+              Hiển thị
+            </label>
+            <iframe
+              width={"100%"}
+              height={"700px"}
+              src={formValues.file}
+            ></iframe>
+          </div>
+        )}
 
         <div data-color-mode="light">
           <label htmlFor="descriptionMarkdown" className="form-label">
