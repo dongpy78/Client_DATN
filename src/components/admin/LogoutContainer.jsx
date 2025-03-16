@@ -6,7 +6,6 @@ import { useState } from "react";
 
 const LogoutContainer = () => {
   const { user, logoutUser } = useContext(GlobalContext);
-
   const [showLogout, setShowLogout] = useState(false);
 
   return (
@@ -16,7 +15,21 @@ const LogoutContainer = () => {
         className="btn logout-btn"
         onClick={() => setShowLogout(!showLogout)}
       >
-        <FaUserCircle />
+        {user?.avatar ? (
+          <img
+            src={user.avatar}
+            alt="Avatar"
+            className="avatar"
+            style={{
+              width: "24px",
+              height: "24px",
+              borderRadius: "50%",
+              marginRight: "8px",
+            }}
+          />
+        ) : (
+          <FaUserCircle />
+        )}
         {user?.name}
         <FaCaretDown />
       </button>

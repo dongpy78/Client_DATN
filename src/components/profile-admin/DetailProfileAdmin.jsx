@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Wrapper from "../../assets/wrappers/DashboardFormPage";
 import { Form } from "react-router-dom";
 import FormRow from "../../components/admin/FormRow";
@@ -9,10 +9,12 @@ import {
 } from "../../utils/toastNotifications";
 import { getFromLocalStorage } from "../../utils/localStorage";
 import FormRowSelect from "../admin/FormRowSelect";
+import { GlobalContext } from "../../contexts/GlobalProviders";
 
 const DetailProfileAdmin = () => {
   const userStorage = getFromLocalStorage("user");
-  const [user, setUser] = useState(null);
+  const { setUser } = useContext(GlobalContext); // Lấy setUser từ GlobalContext
+  const [user, setLocalUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [genderOptions, setGenderOptions] = useState([]);
 
@@ -47,7 +49,7 @@ const DetailProfileAdmin = () => {
             userData.image = savedImageUrl;
             userData.imageReview = savedImageUrl;
           }
-          setUser(userData);
+          setLocalUser(userData);
         }
       } catch (error) {
         console.error("Lỗi khi lấy thông tin người dùng:", error);
@@ -62,7 +64,7 @@ const DetailProfileAdmin = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (["firstName", "lastName", "address", "phonenumber"].includes(name)) {
-      setUser((prevUser) => ({
+      setLocalUser((prevUser) => ({
         ...prevUser,
         userAccountData: {
           ...prevUser.userAccountData,
@@ -70,7 +72,7 @@ const DetailProfileAdmin = () => {
         },
       }));
     } else {
-      setUser((prevUser) => ({
+      setLocalUser((prevUser) => ({
         ...prevUser,
         [name]: value,
       }));
@@ -110,17 +112,24 @@ const DetailProfileAdmin = () => {
     }
     try {
       const objectUrl = URL.createObjectURL(file);
-      setUser((prevUser) => ({
+      setLocalUser((prevUser) => ({
         ...prevUser,
         imageReview: objectUrl,
       }));
       const imageUrl = await uploadImage(file);
-      setUser((prevUser) => ({
+      setLocalUser((prevUser) => ({
         ...prevUser,
         image: imageUrl,
         imageReview: imageUrl,
       }));
       localStorage.setItem("userImage", imageUrl);
+
+      // Cập nhật user trong GlobalContext
+      setUser((prevUser) => ({
+        ...prevUser,
+        avatar: imageUrl,
+        name: `${user.userAccountData.firstName} ${user.userAccountData.lastName}`.trim(),
+      }));
     } catch (error) {
       showErrorToast("Không thể upload ảnh");
     }
@@ -130,7 +139,7 @@ const DetailProfileAdmin = () => {
     e.preventDefault();
     try {
       const userData = {
-        id: userStorage.id, // Thêm id từ localStorage
+        id: userStorage.id,
         firstName: user.userAccountData.firstName || "",
         lastName: user.userAccountData.lastName || "",
         address: user.userAccountData.address || "",
@@ -152,6 +161,12 @@ const DetailProfileAdmin = () => {
           },
         }
       );
+
+      // Cập nhật user trong GlobalContext
+      setUser({
+        name: `${userData.firstName} ${userData.lastName}`.trim(),
+        avatar: userData.image,
+      });
 
       showSuccessToast(
         response.data.message || "Cập nhật thông tin thành công"
