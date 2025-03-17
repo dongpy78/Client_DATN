@@ -1,6 +1,37 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import axiosInstance from "../../libs/axiosInterceptor";
+import {
+  showErrorToast,
+  showSuccessToast,
+} from "../../utils/toastNotifications";
 
 const OurServiceStart = () => {
+  const [jobs, setJob] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axiosInstance.get(
+          `/job-types-count?limit=10&offset=0`
+        );
+
+        if (response.status === 200) {
+          const jobData = response.data.data;
+          setJob(jobData);
+        }
+      } catch (error) {
+        console.error("Lỗi khi lấy thông tin người dùng:", error);
+        showErrorToast("Không thể tải thông tin người dùng.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
+
   return (
     <>
       <div className="our-services section-pad-t30">
@@ -15,20 +46,39 @@ const OurServiceStart = () => {
             </div>
           </div>
           <div className="row d-flex justify-contnet-center">
-            <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-              <div className="single-services text-center mb-30">
-                <div className="services-ion">
-                  <span className="flaticon-tour" />
-                </div>
-                <div className="services-cap">
-                  <h5>
-                    <a href="job_listing.html">Design &amp; Creative</a>
-                  </h5>
-                  <span>(653)</span>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
+            {loading ? (
+              <p>Đang tải...</p>
+            ) : jobs && jobs.length > 0 ? (
+              jobs.map((job) => {
+                const jobType = job.postDetailData.jobTypePostData;
+                return (
+                  <div
+                    key={jobType.code}
+                    className="col-xl-3 col-lg-3 col-md-4 col-sm-6"
+                  >
+                    <div className="single-services text-center mb-30">
+                      <div className="services-ion">
+                        <img
+                          src={jobType.image}
+                          alt={jobType.value}
+                          style={{ width: "62px", height: "62px" }}
+                        />
+                      </div>
+                      <div className="services-cap">
+                        <h5>
+                          <a href="job_listing.html">{jobType.value}</a>
+                        </h5>
+                        <span>({job.amount})</span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <p>Không có dữ liệu loại công việc.</p>
+            )}
+
+            {/* <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
               <div className="single-services text-center mb-30">
                 <div className="services-ion">
                   <span className="flaticon-cms" />
@@ -118,7 +168,7 @@ const OurServiceStart = () => {
                   <span>(658)</span>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
           {/* More Btn */}
           {/* Section Button */}
