@@ -25,8 +25,8 @@ const Header = () => {
     const updateLoginStatus = () => {
       const token = getFromLocalStorage(keyLocalStorage.accessToken);
       const storedUser = getFromLocalStorage("user");
-      console.log("Header - Token:", token);
-      console.log("Header - User:", storedUser);
+      // console.log("Header - Token:", token);
+      // console.log("Header - User:", storedUser);
 
       if (token && storedUser) {
         setIsLoggedIn(true);
