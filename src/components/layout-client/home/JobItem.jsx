@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 const JobItem = ({ data }) => {
   const handleSplitTime = (time) => {
@@ -10,17 +11,17 @@ const JobItem = ({ data }) => {
       <div className="single-job-items mb-30">
         <div className="job-items">
           <div className="company-img">
-            <a href="job_details.html">
+            <Link href="job_details.html">
               <img
                 style={{ width: "85px", height: "85px" }}
                 src={data.userPostData.userCompanyData.thumbnail}
               />
-            </a>
+            </Link>
           </div>
           <div className="job-tittle">
-            <a href="job_details.html">
+            <Link href="job_details.html">
               <h4>{data.postDetailData.name}</h4>
-            </a>
+            </Link>
             <ul>
               <li>{data.postDetailData.jobLevelPostData.value}</li>
               <li>
@@ -32,9 +33,9 @@ const JobItem = ({ data }) => {
           </div>
         </div>
         <div className="items-link f-right">
-          <a href="job_details.html">
+          <Link href="job_details.html">
             {data.postDetailData.workTypePostData.value}
-          </a>
+          </Link>
           <span>{handleSplitTime(data.timePost)}</span>
         </div>
       </div>

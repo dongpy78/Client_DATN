@@ -8,6 +8,7 @@ import About from "../pages/about";
 import Job from "../pages/job";
 import Company from "../pages/company";
 import Contact from "../pages/contact";
+import DetailJob from "../components/layout-client/job/JobDetail";
 
 const mainRoutes = {
   path: "/",
@@ -32,6 +33,10 @@ const mainRoutes = {
     {
       path: "contact",
       element: <Contact />,
+    },
+    {
+      path: "detail-job/:id", // Thêm route mới cho trang chi tiết công việc
+      element: <DetailJob />,
     },
   ],
 };

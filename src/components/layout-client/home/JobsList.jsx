@@ -1,5 +1,6 @@
 import React from "react";
 import JobItem from "./JobItem";
+import { Link } from "react-router-dom";
 
 const JobsList = ({ dataFeature }) => {
   // Kiểm tra nếu mảng rỗng
@@ -10,7 +11,9 @@ const JobsList = ({ dataFeature }) => {
   return (
     <>
       {dataFeature.map((data) => (
-        <JobItem key={data.id} data={data} />
+        <Link to={`/detail-job/${data.id}`}>
+          <JobItem key={data.id} data={data} />
+        </Link>
       ))}
     </>
   );

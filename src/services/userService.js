@@ -1,24 +1,6 @@
 // userService.js
 import fetchApi from "../utils/fetchApi";
 
-// const getListPostService = (data) => {
-//   const params = {
-//     limit: data.limit,
-//     offset: data.offset,
-//     categoryJobCode: data.categoryJobCode || "",
-//     addressCode: data.addressCode || "",
-//     salaryJobCode: data.salaryJobCode || "",
-//     categoryJoblevelCode: data.categoryJoblevelCode || "",
-//     categoryWorktypeCode: data.categoryWorktypeCode || "",
-//     experienceJobCode: data.experienceJobCode || "",
-//     sortName: data.sortName || false,
-//     search: data.search || "",
-//     ...(data.isHot === 1 && { isHot: "1" }), // Chuỗi "1" để khớp backend
-//   };
-
-//   return fetchApi.get("/posts/filter", { params });
-// };
-
 const getListPostService = (data) => {
   if (!data?.search) {
     data.search = "";
@@ -33,4 +15,8 @@ const getListPostService = (data) => {
   );
 };
 
-export { getListPostService };
+const getDetailPostByIdService = (id) => {
+  return fetchApi.get(`/posts/detail?id=${id}`);
+};
+
+export { getListPostService, getDetailPostByIdService };
