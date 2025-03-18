@@ -19,4 +19,8 @@ const getDetailPostByIdService = (id) => {
   return fetchApi.get(`/posts/detail?id=${id}`);
 };
 
-export { getListPostService, getDetailPostByIdService };
+const getDetailUserById = (id) => {
+  return fetchApi.get(`/auth/detail-user?userId=${id}`);
+};
+
+export { getListPostService, getDetailPostByIdService, getDetailUserById };
