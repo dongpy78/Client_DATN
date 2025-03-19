@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   FaUserCircle,
   FaInfoCircle,
@@ -7,26 +7,56 @@ import {
   FaFileUpload,
 } from "react-icons/fa";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { Link, useNavigate } from "react-router-dom";
-import "./LogoutUser.css"; // Đường dẫn CSS mới
+import { useNavigate } from "react-router-dom";
+import "./LogoutUser.css";
+import {
+  getFromLocalStorage,
+  deleteFromLocalStorage,
+} from "../../utils/localStorage";
+import {
+  showSuccessToast,
+  showErrorToast,
+} from "../../utils/toastNotifications";
+import { GlobalContext } from "../../contexts/GlobalProviders";
 
-const LogoutUser = ({ user, logoutUser }) => {
+const LogoutUser = () => {
+  const { user, setUser } = useContext(GlobalContext); // Lấy user và setUser từ GlobalContext
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Lấy thông tin từ localStorage khi component mount lần đầu
+    const userStorage = getFromLocalStorage("user");
+    if (userStorage && !user) {
+      setUser({
+        ...userStorage,
+        name: `${userStorage.firstName} ${userStorage.lastName}`.trim(),
+        avatar: userStorage.image,
+      });
+    }
+  }, [setUser, user]);
+
+  const logoutUser = () => {
+    deleteFromLocalStorage("user");
+    deleteFromLocalStorage("accessToken");
+    setUser(null); // Xóa user khỏi GlobalContext
+    showSuccessToast("Logout Success");
+    window.location.href = "/";
+  };
+
   const handleProfile = () => {
     setIsPanelOpen(false);
-    navigate("/candidate/info"); // Điều hướng đến trang thông tin
+    navigate("/candidate/info");
   };
 
   const handleSettings = () => {
     setIsPanelOpen(false);
-    navigate("/candidate/usersetting"); // Điều hướng đến trang cài đặt
+    navigate("/candidate/usersetting");
   };
 
   const handleJobUpload = () => {
     setIsPanelOpen(false);
-    navigate("/candidate/cv-post"); // Điều hướng đến trang cài đặt
+    navigate("/candidate/cv-post");
   };
 
   return (
@@ -37,7 +67,7 @@ const LogoutUser = ({ user, logoutUser }) => {
         ) : (
           <FaUserCircle className="user-icon" />
         )}
-        <span className="user-name">{user?.name || "User"}</span>
+        <span className="user-name">{user?.name || "Người dùng"}</span>
         <span className="icon-dropdown-header">
           <RiArrowDropDownLine />
         </span>

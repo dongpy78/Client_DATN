@@ -44,7 +44,7 @@ const GlobalProvider = ({ children }) => {
       await customFetch.post("/auth/logout");
       deleteFromLocalStorage(keyLocalStorage.accessToken);
       deleteFromLocalStorage("user");
-      setUser(null); // Reset user về null
+      setUser(""); // Reset user về null
       showSuccessToast("Logout success!");
       navigate("/");
     } catch (error) {

@@ -1,7 +1,12 @@
 import React from "react";
+import CandidateInfo from "../../components/candidate/CandidateInfo";
 
 const ProfileUser = () => {
-  return <div>ProfileUser</div>;
+  return (
+    <>
+      <CandidateInfo />
+    </>
+  );
 };
 
 export default ProfileUser;
