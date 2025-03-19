@@ -9,6 +9,9 @@ import Job from "../pages/job";
 import Company from "../pages/company";
 import Contact from "../pages/contact";
 import DetailJob from "../components/layout-client/job/JobDetail";
+import ProfileUser from "../pages/profile-user";
+import UserSetting from "../pages/usersetting";
+import CVPost from "../pages/cv-post";
 
 const mainRoutes = {
   path: "/",
@@ -37,6 +40,18 @@ const mainRoutes = {
     {
       path: "detail-job/:id", // Thêm route mới cho trang chi tiết công việc
       element: <DetailJob />,
+    },
+    {
+      path: "candidate/info", // Thêm route mới cho trang chi tiết công việc
+      element: <ProfileUser />,
+    },
+    {
+      path: "/candidate/usersetting", // Thêm route mới cho trang chi tiết công việc
+      element: <UserSetting />,
+    },
+    {
+      path: "/candidate/cv-post", // Thêm route mới cho trang chi tiết công việc
+      element: <CVPost />,
     },
   ],
 };

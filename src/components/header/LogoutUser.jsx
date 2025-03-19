@@ -4,9 +4,10 @@ import {
   FaInfoCircle,
   FaCog,
   FaSignOutAlt,
+  FaFileUpload,
 } from "react-icons/fa";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./LogoutUser.css"; // Đường dẫn CSS mới
 
 const LogoutUser = ({ user, logoutUser }) => {
@@ -15,12 +16,17 @@ const LogoutUser = ({ user, logoutUser }) => {
 
   const handleProfile = () => {
     setIsPanelOpen(false);
-    navigate("/profile"); // Điều hướng đến trang thông tin
+    navigate("/candidate/info"); // Điều hướng đến trang thông tin
   };
 
   const handleSettings = () => {
     setIsPanelOpen(false);
-    navigate("/settings"); // Điều hướng đến trang cài đặt
+    navigate("/candidate/usersetting"); // Điều hướng đến trang cài đặt
+  };
+
+  const handleJobUpload = () => {
+    setIsPanelOpen(false);
+    navigate("/candidate/cv-post"); // Điều hướng đến trang cài đặt
   };
 
   return (
@@ -45,6 +51,10 @@ const LogoutUser = ({ user, logoutUser }) => {
           <div className="panel-item" onClick={handleSettings}>
             <FaCog className="panel-icon" />
             <span>Cài đặt</span>
+          </div>
+          <div className="panel-item" onClick={handleJobUpload}>
+            <FaFileUpload className="panel-icon" />
+            <span>Công việc đã nộp</span>
           </div>
           <div className="panel-item" onClick={logoutUser}>
             <FaSignOutAlt className="panel-icon" />
