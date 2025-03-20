@@ -1,7 +1,12 @@
 import React from "react";
+import SettingUser from "../../components/candidate/SettingUser";
 
 const UserSetting = () => {
-  return <div>UserSetting</div>;
+  return (
+    <>
+      <SettingUser />
+    </>
+  );
 };
 
 export default UserSetting;

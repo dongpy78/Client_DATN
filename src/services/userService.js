@@ -23,4 +23,24 @@ const getDetailUserById = (id) => {
   return fetchApi.get(`/auth/detail-user?userId=${id}`);
 };
 
-export { getListPostService, getDetailPostByIdService, getDetailUserById };
+const UpdateUserSettingService = (data) => {
+  return fetchApi.put(`/setDataUserSetting`, data);
+};
+
+//===============ALL CODE========================//
+const getAllCodeService = (type) => {
+  return fetchApi.get(`/get-allcode?type=${type}`);
+};
+
+const getAllSkillByJobCode = (categoryJobCode) => {
+  return fetchApi.get(`skills-by-jobcode?categoryJobCode=${categoryJobCode}`);
+};
+
+export {
+  getListPostService,
+  getDetailPostByIdService,
+  getDetailUserById,
+  getAllCodeService,
+  UpdateUserSettingService,
+  getAllSkillByJobCode,
+};

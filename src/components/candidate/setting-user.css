@@ -1,0 +1,121 @@
+/* CSS cho form container */
+.candidate-info-area {
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+}
+
+/* CSS cho card */
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+/* CSS cho form group */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+}
+
+/* CSS cho input và select */
+.form-control,
+.ant-select-selector {
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  font-size: 14px;
+  color: #333;
+}
+
+.ant-select-selector {
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+/* CSS cho button */
+.btn1 {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn1:hover {
+  background-color: #0056b3;
+}
+
+.btn1:active {
+  background-color: #004080;
+}
+
+/* CSS cho iframe */
+iframe {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 1rem;
+}
+
+/* CSS cho checkbox */
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-top: 0.5rem;
+}
+
+/* CSS cho form group */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+/* Ẩn input file mặc định */
+.form-file {
+  display: none;
+}
+
+/* Tạo nút tùy chỉnh */
+.custom-file-upload {
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.custom-file-upload:hover {
+  background-color: #0056b3;
+}
+
+.custom-file-label {
+  cursor: pointer;
+}
+
+/* CSS cho responsive design */
+@media (max-width: 768px) {
+  .col-md-6,
+  .col-md-12 {
+    width: 100%;
+  }
+
+  .form-group label {
+    margin-bottom: 0.5rem;
+  }
+}
