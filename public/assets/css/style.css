@@ -100,6 +100,14 @@
 [data-opacity="9"]::before {
   opacity: 0.9;
 }
+
+html {
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box; /* Đảm bảo padding/margin không làm tràn nội dung */
+}
 body {
   font-family: "Muli", sans-serif;
   font-weight: normal;
