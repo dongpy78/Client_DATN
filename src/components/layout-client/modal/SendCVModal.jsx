@@ -10,8 +10,9 @@ import { getDetailUserById } from "../../../services/userService";
 import { getFromLocalStorage } from "../../../utils/localStorage";
 import "./modal.css";
 
-const SendCVModal = (props) => {
+function SendCVModal(props) {
   const userData = getFromLocalStorage("user");
+  console.log("userData:", userData);
   const [isLoading, setIsLoading] = useState(false);
   const [inputValue, setInputValue] = useState({
     userId: "",
@@ -22,33 +23,89 @@ const SendCVModal = (props) => {
     linkFileUser: "",
     fileUser: "",
   });
-
   const [typeCv, setTypeCv] = useState("pcCv");
 
+  let bufferToBase64 = (bufferObj) => {
+    if (bufferObj && bufferObj.type === "Buffer" && bufferObj.data) {
+      const uint8Array = new Uint8Array(bufferObj.data);
+      const binaryString = String.fromCharCode.apply(null, uint8Array);
+      return `data:application/pdf;base64,${btoa(binaryString)}`;
+    }
+    return bufferObj;
+  };
+
+  let dataURLtoFile = (dataurl, filename) => {
+    if (!dataurl || typeof dataurl !== "string" || !dataurl.includes("data:")) {
+      console.error("Invalid data URL:", dataurl);
+      return null;
+    }
+    try {
+      var arr = dataurl.split(",");
+      var mime = arr[0].match(/:(.*?);/)[1];
+      var bstr = atob(arr[1]);
+      var n = bstr.length;
+      var u8arr = new Uint8Array(n);
+
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new File([u8arr], filename, { type: mime });
+    } catch (error) {
+      console.error("Error converting data URL to file:", error);
+      return null;
+    }
+  };
+
   let getFileCv = async (id) => {
-    let res = await getDetailUserById(id);
-    console.log("getDetailUserById: ", res);
-    setInputValue({
-      ...inputValue,
-      ["userId"]: id,
-      ["postId"]: props.postId,
-      ["linkFileUser"]: res.data.userAccountData.userSettingData.file
-        ? URL.createObjectURL(
-            dataURLtoFile(
-              res.data.userAccountData.userSettingData.file,
-              "yourCV"
-            )
-          )
-        : "",
-      ["fileUser"]: res.data.userAccountData.userSettingData.file
-        ? res.data.userAccountData.userSettingData.file
-        : "",
-    });
+    try {
+      let res = await getDetailUserById(id);
+      // console.log("getDetailUserById response:", res);
+      if (res && res.data) {
+        const userFileRaw =
+          res.data.userAccountData?.userSettingData?.file || "";
+        const userFile =
+          typeof userFileRaw === "object"
+            ? bufferToBase64(userFileRaw)
+            : userFileRaw;
+
+        setInputValue({
+          ...inputValue,
+          userId: id,
+          postId: props.postId,
+          linkFileUser: userFile
+            ? URL.createObjectURL(dataURLtoFile(userFile, "yourCV"))
+            : "",
+          fileUser: userFile,
+        });
+      } else {
+        console.error("No data returned from getDetailUserById");
+      }
+    } catch (error) {
+      console.error("Error fetching user CV:", error);
+      setInputValue((prev) => ({
+        ...prev,
+        userId: userData?.id || "",
+        postId: props.postId || "",
+      }));
+    }
   };
 
   useEffect(() => {
-    if (userData) getFileCv(userData.id);
-  }, []);
+    console.log(
+      "useEffect running with userData:",
+      userData,
+      "postId:",
+      props.postId
+    );
+    if (userData && props.postId) {
+      getFileCv(userData.id);
+    } else {
+      console.error("Missing userData or postId:", {
+        userData,
+        postId: props.postId,
+      });
+    }
+  }, [userData, props.postId]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -67,20 +124,6 @@ const SendCVModal = (props) => {
     }
   };
 
-  let dataURLtoFile = (dataurl, filename) => {
-    var arr = dataurl.split(","),
-      mime = arr[0].match(/:(.*?);/)[1],
-      bstr = atob(arr[1]),
-      n = bstr.length,
-      u8arr = new Uint8Array(n);
-
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
-    }
-
-    return new File([u8arr], filename, { type: mime });
-  };
-
   const handleOnChangeFile = async (event) => {
     let data = event.target.files;
     let file = data[0];
@@ -92,8 +135,8 @@ const SendCVModal = (props) => {
       let base64 = await CommonUtils.getBase64(file);
       setInputValue({
         ...inputValue,
-        ["file"]: base64,
-        ["linkFile"]: URL.createObjectURL(file),
+        file: base64,
+        linkFile: URL.createObjectURL(file),
       });
     }
   };
@@ -101,21 +144,20 @@ const SendCVModal = (props) => {
   const handleSendCV = async () => {
     setIsLoading(true);
 
-    // Log giá trị userId và postId để kiểm tra
     console.log("userId:", inputValue.userId);
     console.log("postId:", inputValue.postId);
 
-    let cvSend = "";
-    if (typeCv === "userCv") {
-      cvSend = inputValue.fileUser;
-    } else {
-      cvSend = inputValue.file;
-    }
-
-    // Log giá trị cvSend để kiểm tra
+    let cvSend = typeCv === "userCv" ? inputValue.fileUser : inputValue.file;
     console.log("cvSend:", cvSend);
 
-    // Log toàn bộ dữ liệu gửi lên server
+    if (!inputValue.userId || !inputValue.postId || !cvSend) {
+      showErrorToast(
+        "Vui lòng cung cấp đầy đủ thông tin (userId, postId, file CV)"
+      );
+      setIsLoading(false);
+      return;
+    }
+
     const requestData = {
       userId: inputValue.userId,
       file: cvSend,
@@ -130,24 +172,21 @@ const SendCVModal = (props) => {
       if (kq) {
         setInputValue({
           ...inputValue,
-          ["file"]: "",
-          ["description"]: "",
-          ["linkFile"]: "",
+          file: "",
+          description: "",
+          linkFile: "",
         });
         showSuccessToast("Đã gửi thành công");
         props.onHide();
       } else {
-        // Hiển thị thông báo lỗi từ backend
         showErrorToast(kq.message || "Gửi thất bại");
       }
     } catch (error) {
       setIsLoading(false);
       console.error("Error sending CV:", error);
-
-      // Trích xuất thông báo lỗi từ phản hồi của API
-      const errorMessage =
-        error.response?.data?.message || "Đã xảy ra lỗi khi gửi CV";
-      showErrorToast(errorMessage);
+      showErrorToast(
+        error.response?.data?.message || "Đã xảy ra lỗi khi gửi CV"
+      );
     }
   };
 
@@ -162,7 +201,7 @@ const SendCVModal = (props) => {
           className="mt-2"
           style={{ width: "100%" }}
           rows="5"
-          onChange={(event) => handleChange(event)}
+          onChange={handleChange}
         />
         <div className="d-flex" style={{ justifyContent: "space-between" }}>
           <div>
@@ -181,8 +220,8 @@ const SendCVModal = (props) => {
             type="file"
             className="mt-2"
             accept=".pdf"
-            onChange={(event) => handleOnChangeFile(event)}
-          ></input>
+            onChange={handleOnChangeFile}
+          />
         )}
         {typeCv === "pcCv" && inputValue.linkFile && (
           <div>
@@ -191,13 +230,13 @@ const SendCVModal = (props) => {
               style={{ color: "blue" }}
               target="_blank"
             >
-              Nhấn vào đây để xem lại CV của bạn{" "}
+              Nhấn vào đây để xem lại CV của bạn
             </a>
           </div>
         )}
       </ModalBody>
       <ModalFooter style={{ justifyContent: "space-between" }}>
-        <div className="btn-user head-btn1" onClick={() => handleSendCV()}>
+        <div className="btn-user head-btn1" onClick={handleSendCV}>
           Gửi hồ sơ
         </div>
         <div className="btn-user head-btn1" onClick={props.onHide}>
@@ -220,6 +259,6 @@ const SendCVModal = (props) => {
       )}
     </Modal>
   );
-};
+}
 
 export default SendCVModal;

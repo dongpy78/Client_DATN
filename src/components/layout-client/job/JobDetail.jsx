@@ -7,29 +7,24 @@ import {
   showSuccessToast,
   showErrorToast,
 } from "../../../utils/toastNotifications";
+import { getFromLocalStorage } from "../../../utils/localStorage";
 
 const DetailJob = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [isActiveModal, setActiveModal] = useState(false); // Sửa lỗi chính tả
-  const [dataPost, setDataPost] = useState(null);
-
-  const fetchPost = async (id) => {
-    try {
-      const response = await getDetailPostByIdService(id);
-      if (response && response.data) {
-        setDataPost(response.data);
-        console.log(response.data);
-      }
-    } catch (error) {
-      console.error("Error fetching post details:", error);
-      showErrorToast("Failed to fetch post details.");
-    }
-  };
+  const [dataPost, setDataPost] = useState("");
 
   useEffect(() => {
     if (id) fetchPost(id);
-  }, [id]);
+  }, []);
+
+  const fetchPost = async (id) => {
+    let res = await getDetailPostByIdService(id);
+    if (res) {
+      setDataPost(res.data);
+    }
+  };
 
   const handleOpenModal = () => {
     if (!dataPost) {
@@ -45,7 +40,7 @@ const DetailJob = () => {
       return;
     }
 
-    const userData = JSON.parse(localStorage.getItem("user"));
+    const userData = getFromLocalStorage("user");
     if (userData) {
       setActiveModal(true); // Sửa lỗi chính tả
     } else {
