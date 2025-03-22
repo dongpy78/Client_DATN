@@ -11,6 +11,11 @@ class CommonUtils {
     });
   }
 
+  static removeSpace(str) {
+    str = str.trim();
+    return (str = str.replace(/\s+/g, " ").trim());
+  }
+
   static formatDate(time) {
     let a = moment.unix(new Date().getTime() / 1000).format("DD/MM/YYYY");
     let b = moment.unix(time / 1000).format("DD/MM/YYYY");

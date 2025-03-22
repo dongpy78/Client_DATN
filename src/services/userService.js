@@ -27,6 +27,12 @@ const UpdateUserSettingService = (data) => {
   return fetchApi.put(`/setDataUserSetting`, data);
 };
 
+const getListCompany = (data) => {
+  return fetchApi.get(
+    `/list-companies?limit=${data.limit}&offset=${data.offset}&search=${data.search}`
+  );
+};
+
 //===============ALL CODE========================//
 const getAllCodeService = (type) => {
   return fetchApi.get(`/get-allcode?type=${type}`);
@@ -43,4 +49,5 @@ export {
   getAllCodeService,
   UpdateUserSettingService,
   getAllSkillByJobCode,
+  getListCompany,
 };
