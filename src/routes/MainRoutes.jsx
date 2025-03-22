@@ -13,6 +13,7 @@ import ProfileUser from "../pages/profile-user";
 import UserSetting from "../pages/usersetting";
 import CVPost from "../pages/cv-post";
 import DetailCVUser from "../pages/detail-cv-user";
+import DetailCompany from "../components/company-user/DetailCompany";
 
 const mainRoutes = {
   path: "/",
@@ -57,6 +58,10 @@ const mainRoutes = {
     {
       path: "/candidate/cv-detail/:id", // Thêm route mới cho trang chi tiết công việc
       element: <DetailCVUser />,
+    },
+    {
+      path: "/detail-company/:id", // Thêm route mới cho trang chi tiết công việc
+      element: <DetailCompany />,
     },
   ],
 };

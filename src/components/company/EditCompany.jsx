@@ -83,10 +83,6 @@ const EditCompany = ({ initialData }) => {
     let file = data[0];
     console.log("file", file);
     if (file) {
-      if (file.size > 2097152) {
-        showErrorToast("File của bạn quá lớn. Chỉ gửi file dưới 2MB");
-        return;
-      }
       let base64 = await CommonUtils.getBase64(file);
 
       // Cập nhật fileUrl với URL tạm thời của file
@@ -153,20 +149,6 @@ const EditCompany = ({ initialData }) => {
   const handleFileChange = (e, field) => {
     const file = e.target.files[0];
     if (!file) return;
-
-    const maxSize = 2 * 1024 * 1024; // 2MB
-    if (file.size > maxSize) {
-      showErrorToast(
-        `${
-          field === "thumbnail"
-            ? "Thumbnail"
-            : field === "coverImage"
-            ? "Cover Image"
-            : "File"
-        } vượt quá kích thước 2MB!`
-      );
-      return;
-    }
 
     const previewUrl = URL.createObjectURL(file);
     if (field === "thumbnail") {

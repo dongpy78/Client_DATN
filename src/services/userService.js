@@ -42,6 +42,10 @@ const getAllSkillByJobCode = (categoryJobCode) => {
   return fetchApi.get(`skills-by-jobcode?categoryJobCode=${categoryJobCode}`);
 };
 
+const getDetailCompanyById = (id) => {
+  return fetchApi.get(`/companies/by-id?id=${id}`);
+};
+
 export {
   getListPostService,
   getDetailPostByIdService,
@@ -50,4 +54,5 @@ export {
   UpdateUserSettingService,
   getAllSkillByJobCode,
   getListCompany,
+  getDetailCompanyById,
 };

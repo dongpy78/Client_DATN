@@ -31,6 +31,7 @@ export const action = async ({ request }) => {
     console.log("Sending FormData to API...");
     const response = await axiosInstance.post("/create-new-company", formData, {
       headers: { "Content-Type": "multipart/form-data" },
+      timeout: 30000,
     });
     console.log("API Response:", response.data);
     if (response.status === 200) {
@@ -74,10 +75,6 @@ const AddCompany = () => {
     let file = data[0];
     console.log("file", file);
     if (file) {
-      if (file.size > 2097152) {
-        showErrorToast("File của bạn quá lớn. Chỉ gửi file dưới 2MB");
-        return;
-      }
       let base64 = await CommonUtils.getBase64(file);
 
       // Cập nhật fileUrl với URL tạm thời của file
@@ -97,16 +94,6 @@ const AddCompany = () => {
   const handleFileChange = (e, field) => {
     const file = e.target.files[0];
     if (!file) return;
-
-    const maxSize = 512 * 1024;
-    if (file.size > maxSize) {
-      showErrorToast(
-        `${
-          field === "thumbnail" ? "Thumbnail" : "Cover Image"
-        } vượt quá kích thước 0.5MB!`
-      );
-      return;
-    }
 
     const previewUrl = URL.createObjectURL(file);
     if (field === "thumbnail") {

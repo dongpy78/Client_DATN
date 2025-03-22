@@ -73,7 +73,7 @@ const BlogCompany = () => {
                       className="card-img rounded-0"
                       src={item.coverimage}
                       alt="blog"
-                      style={{ position: "relative" }}
+                      style={{ position: "relative", height: "280px" }}
                     />
                     <a href="#">
                       <img
@@ -96,6 +96,7 @@ const BlogCompany = () => {
                       <h2>{item.name}</h2>
                     </a>
                     <div
+                      className="description-company"
                       dangerouslySetInnerHTML={{ __html: item.descriptionHTML }}
                     />
                   </div>

@@ -1,4 +1,12 @@
 /* Container của pagination */
+.description-company {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Giới hạn số dòng */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Thêm dấu ... */
+}
+
 .pagination {
   display: flex;
   justify-content: center;
