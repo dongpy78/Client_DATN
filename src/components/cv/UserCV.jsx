@@ -55,7 +55,7 @@ const UserCV = () => {
           <div className="card">
             <div className="card-body">
               <div
-                onClick={() => navigate("/candidate/cv-post")}
+                onClick={() => navigate(-1)}
                 className="mb-2 hover-pointer"
                 style={{ color: "red" }}
               >

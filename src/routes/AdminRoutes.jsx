@@ -23,6 +23,8 @@ import {
   loader as postLoader,
   action as postAction,
 } from "../pages/admin/post";
+import ListCV from "../components/post/ListCV";
+import DetailCVUser from "../pages/detail-cv-user";
 
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("darkTheme") === "true";
@@ -63,6 +65,14 @@ const AdminRoutes = {
       element: <EditPost />,
       loader: editPostLoader,
       action: editPostAction,
+    },
+    {
+      path: "post/cv/:id",
+      element: <ListCV />,
+    },
+    {
+      path: "post/view-cv/:id",
+      element: <DetailCVUser />,
     },
     { path: "list-candidates", element: <Candidate /> },
     { path: "history-post", element: <HistoryPost /> },

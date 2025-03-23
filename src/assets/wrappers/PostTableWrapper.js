@@ -35,6 +35,7 @@ const JobTableWrapper = styled.section`
     white-space: nowrap; /* Ngăn nội dung xuống dòng */
     overflow: hidden; /* Ẩn nội dung tràn */
     text-overflow: ellipsis; /* Hiển thị "..." nếu nội dung quá dài */
+    vertical-align: middle; /* Căn giữa theo chiều dọc */
   }
 
   th {
@@ -97,6 +98,11 @@ const JobTableWrapper = styled.section`
     width: 120px; /* Date of Birth */
   }
 
+  .actions-custom {
+    /* display: flex; */
+    gap: 8px; /* Khoảng cách giữa các nút */
+    align-items: center;
+  }
   .actions {
     display: flex;
     gap: 8px; /* Khoảng cách giữa các nút */
@@ -126,11 +132,52 @@ const JobTableWrapper = styled.section`
     color: #a71d2a;
   }
 
+  .view-btn,
+  .ban-unban-btn,
+  .approve-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+  }
+
+  .view-btn {
+    color: #007bff; /* Màu xanh cho Xem chi tiết */
+  }
+  .view-btn:hover {
+    color: #0056b3;
+  }
+
   .ban-unban-btn {
-    color: #ff9800; /* Màu cam cho Ban/Unban */
+    color: #ff9800; /* Màu vàng cho Ban/Unban */
   }
   .ban-unban-btn:hover {
     color: #e65100;
+  }
+
+  .approve-btn {
+    color: #28a745; /* Màu xanh lá cho Kiểm duyệt */
+  }
+  .approve-btn:hover {
+    color: #218838;
+  }
+
+  .unapprove-btn {
+    background-color: #ffc107; /* Màu vàng */
+    color: white;
+    border: none;
+    width: 24px;
+    height: 24px;
+    padding: 4px 1px 0px 1px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .unapprove-btn:hover {
+    background-color: #e0a800; /* Màu vàng đậm khi hover */
   }
 
   .status-active {
@@ -155,6 +202,89 @@ const JobTableWrapper = styled.section`
     padding: 4px 8px;
     border-radius: 12px;
     display: inline-block;
+  }
+
+  .status-active,
+  .status-rejected,
+  .status-pending,
+  .status-banned,
+  .status-default {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    display: inline-block;
+    text-transform: capitalize;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .status-active {
+    color: #ffffff;
+    background: linear-gradient(135deg, #28a745, #218838);
+    border: 1px solid #218838;
+  }
+
+  .status-rejected {
+    color: #ffffff;
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    border: 1px solid #c82333;
+  }
+
+  .status-pending {
+    color: #ffffff;
+    background: linear-gradient(135deg, #ff9800, #e65100);
+    border: 1px solid #e65100;
+  }
+
+  .status-banned {
+    color: #ffffff;
+    background: linear-gradient(135deg, #6c757d, #5a6268);
+    border: 1px solid #5a6268;
+  }
+
+  .status-default {
+    color: #ffffff;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border: 1px solid #0056b3;
+  }
+
+  /* Hiệu ứng hover */
+  .status-active:hover,
+  .status-rejected:hover,
+  .status-pending:hover,
+  .status-banned:hover,
+  .status-default:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Hiệu ứng active */
+  .status-active:active,
+  .status-rejected:active,
+  .status-pending:active,
+  .status-banned:active,
+  .status-default:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .reject-btn {
+    background-color: #dc3545;
+    color: white;
+    width: 22px;
+    height: 22px;
+    border: none;
+    padding: 1.3px 0px 1px 0px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .reject-btn:hover {
+    background-color: #c82333; /* Màu đỏ đậm khi hover */
   }
 `;
 

@@ -105,7 +105,7 @@ function SendCVModal(props) {
         postId: props.postId,
       });
     }
-  }, [userData, props.postId]);
+  }, [props.postId]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;

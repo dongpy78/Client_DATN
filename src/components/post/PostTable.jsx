@@ -50,8 +50,15 @@ const PostTable = ({ typePost, currentPage = 1, totalCount = 0 }) => {
                 <td>{post.statusPostData?.value || "Không xác định"}</td>
                 <td className="actions">
                   <Link
-                    title="Edit post"
+                    title="Sửa bài đăng"
                     to={`/admin/post/edit/${post.id}`}
+                    className="edit-btn"
+                  >
+                    <FaEdit />
+                  </Link>
+                  <Link
+                    title="Xem CV"
+                    to={`/admin/post/cv/${post.id}`}
                     className="edit-btn"
                   >
                     <FaEdit />
