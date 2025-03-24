@@ -168,6 +168,12 @@ const DetailProfileAdmin = () => {
         avatar: userData.image,
       });
 
+      const updatedUserStorage = {
+        ...userStorage,
+        ...userData,
+      };
+      localStorage.setItem("user", JSON.stringify(updatedUserStorage));
+
       showSuccessToast(
         response.data.message || "Cập nhật thông tin thành công"
       );
