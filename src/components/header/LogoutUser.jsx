@@ -20,29 +20,29 @@ import {
 import { GlobalContext } from "../../contexts/GlobalProviders";
 
 const LogoutUser = () => {
-  const { user, setUser } = useContext(GlobalContext); // Lấy user và setUser từ GlobalContext
+  const { candidate, setCandidate, logoutUser } = useContext(GlobalContext);
+  console.log("candidate", candidate);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Lấy thông tin từ localStorage khi component mount lần đầu
-    const userStorage = getFromLocalStorage("user");
-    if (userStorage && !user) {
-      setUser({
+    const userStorage = getFromLocalStorage("user"); // Lấy thông tin ứng viên từ localStorage
+    if (userStorage && !candidate) {
+      setCandidate({
         ...userStorage,
         name: `${userStorage.firstName} ${userStorage.lastName}`.trim(),
         avatar: userStorage.image,
       });
     }
-  }, [setUser, user]);
+  }, [setCandidate, candidate]);
 
-  const logoutUser = () => {
-    deleteFromLocalStorage("user");
-    deleteFromLocalStorage("accessToken");
-    setUser(null); // Xóa user khỏi GlobalContext
-    showSuccessToast("Logout Success");
-    window.location.href = "/";
-  };
+  // const logoutUser = () => {
+  //   deleteFromLocalStorage("user");
+  //   deleteFromLocalStorage("accessToken");
+  //   setUser(null); // Xóa user khỏi GlobalContext
+  //   showSuccessToast("Logout Success");
+  //   window.location.href = "/";
+  // };
 
   const handleProfile = () => {
     setIsPanelOpen(false);
@@ -62,12 +62,12 @@ const LogoutUser = () => {
   return (
     <div className="logout-container-new">
       <div className="user-info" onClick={() => setIsPanelOpen(!isPanelOpen)}>
-        {user?.avatar ? (
-          <img src={user.avatar} alt="avatar" className="user-avatar" />
+        {candidate?.avatar ? (
+          <img src={candidate.avatar} alt="avatar" className="user-avatar" />
         ) : (
           <FaUserCircle className="user-icon" />
         )}
-        <span className="user-name">{user?.name || "Người dùng"}</span>
+        <span className="user-name">{candidate?.name || "Người dùng"}</span>
         <span className="icon-dropdown-header">
           <RiArrowDropDownLine />
         </span>

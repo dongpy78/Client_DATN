@@ -13,7 +13,7 @@ import { GlobalContext } from "../../contexts/GlobalProviders";
 
 const CandidateInfo = () => {
   const userStorage = getFromLocalStorage("user");
-  const { setUser } = useContext(GlobalContext);
+  const { setUser, setCandidate } = useContext(GlobalContext);
   const [user, setLocalUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [genderOptions, setGenderOptions] = useState([]);
@@ -46,7 +46,7 @@ const CandidateInfo = () => {
         );
         if (response.status === 200) {
           const userData = response.data.data;
-          const savedImageUrl = localStorage.getItem("userImage");
+          const savedImageUrl = localStorage.getItem("candidateImage");
           if (savedImageUrl) {
             userData.image = savedImageUrl;
             userData.imageReview = savedImageUrl;
@@ -127,10 +127,16 @@ const CandidateInfo = () => {
         image: imageUrl,
         imageReview: imageUrl,
       }));
-      localStorage.setItem("userImage", imageUrl);
+      localStorage.setItem("candidateImage", imageUrl);
 
       setUser((prevUser) => ({
         ...prevUser,
+        avatar: imageUrl,
+        name: `${user.userAccountData.firstName} ${user.userAccountData.lastName}`.trim(),
+      }));
+
+      setCandidate((prevCandidate) => ({
+        ...prevCandidate,
         avatar: imageUrl,
         name: `${user.userAccountData.firstName} ${user.userAccountData.lastName}`.trim(),
       }));
@@ -165,6 +171,12 @@ const CandidateInfo = () => {
           },
         }
       );
+
+      // Cập nhật company trong GlobalContext
+      setCandidate({
+        name: `${userData.firstName} ${userData.lastName}`.trim(),
+        avatar: userData.image,
+      });
 
       setUser({
         name: `${userData.firstName} ${userData.lastName}`.trim(),

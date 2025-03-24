@@ -13,7 +13,7 @@ import { GlobalContext } from "../../contexts/GlobalProviders";
 
 const DetailProfileAdmin = () => {
   const userStorage = getFromLocalStorage("user");
-  const { setUser } = useContext(GlobalContext); // Lấy setUser từ GlobalContext
+  const { setUser, company, setCompany } = useContext(GlobalContext);
   const [user, setLocalUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [genderOptions, setGenderOptions] = useState([]);
@@ -44,7 +44,7 @@ const DetailProfileAdmin = () => {
         );
         if (response.status === 200) {
           const userData = response.data.data;
-          const savedImageUrl = localStorage.getItem("userImage");
+          const savedImageUrl = localStorage.getItem("companyImage"); // Lấy ảnh từ localStorage
           if (savedImageUrl) {
             userData.image = savedImageUrl;
             userData.imageReview = savedImageUrl;
@@ -122,11 +122,23 @@ const DetailProfileAdmin = () => {
         image: imageUrl,
         imageReview: imageUrl,
       }));
-      localStorage.setItem("userImage", imageUrl);
+      localStorage.setItem("companyImage", imageUrl);
 
-      // Cập nhật user trong GlobalContext
+      // Đồng bộ với localStorage "user"
+      // const updatedUserStorage = {
+      //   ...userStorage,
+      //   image: imageUrl,
+      // };
+      // localStorage.setItem("user", JSON.stringify(updatedUserStorage));
+
+      // Cập nhật cả user và company trong GlobalContext
       setUser((prevUser) => ({
         ...prevUser,
+        avatar: imageUrl,
+        name: `${user.userAccountData.firstName} ${user.userAccountData.lastName}`.trim(),
+      }));
+      setCompany((prevCompany) => ({
+        ...prevCompany,
         avatar: imageUrl,
         name: `${user.userAccountData.firstName} ${user.userAccountData.lastName}`.trim(),
       }));
@@ -161,6 +173,12 @@ const DetailProfileAdmin = () => {
           },
         }
       );
+
+      // Cập nhật company trong GlobalContext
+      setCompany({
+        name: `${userData.firstName} ${userData.lastName}`.trim(),
+        avatar: userData.image,
+      });
 
       // Cập nhật user trong GlobalContext
       setUser({
@@ -256,7 +274,7 @@ const DetailProfileAdmin = () => {
             style={{ marginTop: "16px" }}
           >
             <label className="form-label">Ảnh đại diện</label>
-            {user.image ? (
+            {user.image ? ( // Sử dụng user.image thay vì company.image
               <img
                 src={user.image}
                 alt="Ảnh đại diện"

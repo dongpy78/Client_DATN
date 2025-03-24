@@ -11,30 +11,29 @@ import {
 import { showSuccessToast } from "../../utils/toastNotifications";
 
 const LogoutContainer = () => {
-  const navigate = useNavigate();
-  const { user, setUser } = useContext(GlobalContext); // Lấy user và setUser từ GlobalContext
+  const { company, setCompany, logoutUser } = useContext(GlobalContext);
   // const { user, logoutUser } = useContext(GlobalContext);
   const [showLogout, setShowLogout] = useState(false);
 
   useEffect(() => {
     // Lấy thông tin từ localStorage khi component mount lần đầu
-    const userStorage = getFromLocalStorage("user");
-    if (userStorage && !user) {
-      setUser({
+    const userStorage = getFromLocalStorage("user"); // Lấy từ "user" thay vì "company"
+    if (userStorage && !company) {
+      setCompany({
         ...userStorage,
         name: `${userStorage.firstName} ${userStorage.lastName}`.trim(),
         avatar: userStorage.image,
       });
     }
-  }, [setUser, user]);
+  }, [setCompany, company]); // Sử dụng setCompany và company
 
-  const logoutUser = () => {
-    deleteFromLocalStorage("user");
-    deleteFromLocalStorage("accessToken");
-    setUser(null); // Xóa user khỏi GlobalContext
-    showSuccessToast("Logout Success");
-    window.location.href = "/";
-  };
+  // const logoutUser = () => {
+  //   deleteFromLocalStorage("user");
+  //   deleteFromLocalStorage("accessToken");
+  //   setUser(null); // Xóa user khỏi GlobalContext
+  //   showSuccessToast("Logout Success");
+  //   window.location.href = "/";
+  // };
 
   return (
     <Wrapper>
@@ -43,9 +42,9 @@ const LogoutContainer = () => {
         className="btn logout-btn"
         onClick={() => setShowLogout(!showLogout)}
       >
-        {user?.avatar ? (
+        {company?.avatar ? (
           <img
-            src={user.avatar}
+            src={company.avatar}
             alt="Avatar"
             className="avatar"
             style={{
@@ -58,7 +57,7 @@ const LogoutContainer = () => {
         ) : (
           <FaUserCircle />
         )}
-        {user?.name}
+        {company?.name}
         <FaCaretDown />
       </button>
       <div className={showLogout ? "dropdown show-dropdown" : "dropdown"}>

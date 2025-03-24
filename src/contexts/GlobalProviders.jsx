@@ -12,19 +12,28 @@ export const GlobalContext = React.createContext();
 
 const GlobalProvider = ({ children }) => {
   const [user, setUser] = useState(null); // Khởi tạo user là null
+  const [candidate, setCandidate] = useState(null); // Thông tin ứng viên
+  const [company, setCompany] = useState(null); // Thông tin công ty
   const [showSidebar, setShowSidebar] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const navigate = useNavigate();
 
-  // Đồng bộ user từ localStorage khi mount
   useEffect(() => {
     const token = getFromLocalStorage(keyLocalStorage.accessToken);
-    const storedUser = getFromLocalStorage("user");
+    const storedUser = getFromLocalStorage("user"); // Lấy thông tin từ "user"
+
     if (token && storedUser) {
-      setUser({
-        name: `${storedUser.firstName} ${storedUser.lastName}`.trim(),
-        avatar: storedUser.image || null,
-      });
+      if (storedUser.roleCode === "CANDIDATE") {
+        setCandidate({
+          name: `${storedUser.firstName} ${storedUser.lastName}`.trim(),
+          avatar: storedUser.image || null,
+        });
+      } else if (storedUser.roleCode === "COMPANY") {
+        setCompany({
+          name: `${storedUser.firstName} ${storedUser.lastName}`.trim(),
+          avatar: storedUser.image || null,
+        });
+      }
     }
   }, []);
 
@@ -43,10 +52,12 @@ const GlobalProvider = ({ children }) => {
     try {
       await customFetch.post("/auth/logout");
       deleteFromLocalStorage(keyLocalStorage.accessToken);
-      deleteFromLocalStorage("user");
-      setUser(""); // Reset user về null
+      deleteFromLocalStorage("candidate"); // Xóa thông tin ứng viên
+      deleteFromLocalStorage("company"); // Xóa thông tin công ty
+      setCandidate(null); // Reset candidate
+      setCompany(null); // Reset company
       showSuccessToast("Logout success!");
-      navigate("/");
+      window.location.href = "/";
     } catch (error) {
       showErrorToast(error?.response?.data?.msg || "Logout failed");
     }
@@ -55,6 +66,10 @@ const GlobalProvider = ({ children }) => {
   const data = {
     user,
     setUser,
+    candidate, // Thêm candidate
+    setCandidate, // Thêm setCandidate
+    company, // Thêm company
+    setCompany, // Thêm setCompany
     showSidebar,
     setShowSidebar,
     isDarkTheme,
