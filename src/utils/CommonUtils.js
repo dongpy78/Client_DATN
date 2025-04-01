@@ -1,4 +1,4 @@
-// import * as XLSX from "xlsx/xlsx.mjs";
+import * as XLSX from "xlsx/xlsx.mjs";
 import moment from "moment";
 
 class CommonUtils {
@@ -26,6 +26,16 @@ class CommonUtils {
     //Difference in number of days
 
     return moment.duration(start.diff(end)).asDays();
+  }
+
+  static exportExcel(data, nameSheet, nameFile) {
+    return new Promise((resolve, reject) => {
+      let wb = XLSX.utils.book_new();
+      let ws = XLSX.utils.json_to_sheet(data);
+      XLSX.utils.book_append_sheet(wb, ws, nameSheet);
+      XLSX.writeFile(wb, `${nameFile}.xlsx`);
+      resolve("oke");
+    });
   }
 }
 

@@ -8,6 +8,7 @@ import { FaHome } from "react-icons/fa";
 import { BsFillFileTextFill } from "react-icons/bs";
 import { BsFillPersonCheckFill } from "react-icons/bs";
 import { GrTransaction } from "react-icons/gr";
+import { FaMoneyCheckAlt } from "react-icons/fa";
 
 const links = [
   {
@@ -33,7 +34,7 @@ const links = [
   {
     text: "History Post",
     path: "history-post",
-    icon: <GrTransaction />,
+    icon: <FaMoneyCheckAlt />,
   },
   {
     text: "profile",

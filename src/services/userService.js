@@ -58,6 +58,12 @@ const paymentOrderSuccessService = (data) => {
   return fetchApi.post(`/payment-success`, data);
 };
 
+const getHistoryTradePost = (data) => {
+  return fetchApi.get(
+    `/get-history-trade-post?limit=${data.limit}&offset=${data.offset}&fromDate=${data.fromDate}&toDate=${data.toDate}&companyId=${data.companyId}`
+  );
+};
+
 export {
   getListPostService,
   getDetailPostByIdService,
@@ -70,4 +76,5 @@ export {
   getPackageByType,
   getPaymentLink,
   paymentOrderSuccessService,
+  getHistoryTradePost,
 };
