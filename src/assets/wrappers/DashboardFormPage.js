@@ -6,6 +6,42 @@ const Wrapper = styled.section`
   background: var(--background-secondary-color);
   padding: 3rem 2rem 4rem;
 
+  .company-quota-info {
+    margin-bottom: 20px;
+    padding: 10px 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #4b49ac;
+  }
+
+  .company-quota-info h5 {
+    margin: 8px 0;
+    display: flex;
+    gap: 1rem;
+    justify-content: start;
+    align-items: center;
+  }
+
+  .quota-label {
+    font-weight: 500;
+    color: #555;
+    font-size: 16px;
+  }
+
+  .quota-value {
+    font-weight: 600;
+    color: #4b49ac;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 16px;
+    background-color: #f0f0f0;
+  }
+
+  .quota-empty {
+    color: #d32f2f;
+    background-color: #ffebee;
+  }
+
   .form-title {
     margin-bottom: 2rem;
     text-transform: capitalize;

@@ -46,6 +46,14 @@ const getDetailCompanyById = (id) => {
   return fetchApi.get(`/companies/by-id?id=${id}`);
 };
 
+//===============ORDER PACKAGE========================//
+const getPackageByType = (isHot) => {
+  return fetchApi.get(`/get-package-by-type?isHot=${isHot}`);
+};
+const getPaymentLink = (id, amount) => {
+  return axios.get(`/get-payment-link?id=${id}&amount=${amount}`);
+};
+
 export {
   getListPostService,
   getDetailPostByIdService,
@@ -55,4 +63,6 @@ export {
   getAllSkillByJobCode,
   getListCompany,
   getDetailCompanyById,
+  getPackageByType,
+  getPaymentLink,
 };

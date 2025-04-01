@@ -54,6 +54,26 @@ export const action = async ({ request }) => {
 };
 
 const AddPost = () => {
+  const [companyData, setCompanyData] = useState(null);
+  const user = getFromLocalStorage("user");
+
+  useEffect(() => {
+    const fetchCompanyData = async () => {
+      try {
+        if (user?.companyId) {
+          const response = await axiosInstance.get(
+            `/companies/by-id?id=${user.companyId}`
+          );
+          setCompanyData(response.data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching company data:", error);
+      }
+    };
+
+    fetchCompanyData();
+  }, [user]);
+
   const [formValues, setFormValues] = useState({
     name: "",
     categoryJobCode: "",
@@ -133,6 +153,30 @@ const AddPost = () => {
     <Wrapper>
       <Form method="post" className="form">
         <h4 className="form-title">Thêm bài đăng</h4>
+        {companyData && (
+          <div className="company-quota-info">
+            <h5 className="form-title">
+              <span className="quota-label">Lượt đăng thường còn:</span>
+              <span
+                className={`quota-value ${
+                  companyData.allowPost <= 0 ? "quota-empty" : ""
+                }`}
+              >
+                {companyData.allowPost}
+              </span>
+            </h5>
+            <h5 className="form-title">
+              <span className="quota-label">Lượt đăng nổi bật còn:</span>
+              <span
+                className={`quota-value ${
+                  companyData.allowHotPost <= 0 ? "quota-empty" : ""
+                }`}
+              >
+                {companyData.allowHotPost}
+              </span>
+            </h5>
+          </div>
+        )}
         <div className="form-center">
           <FormRow
             type="text"
