@@ -51,7 +51,11 @@ const getPackageByType = (isHot) => {
   return fetchApi.get(`/get-package-by-type?isHot=${isHot}`);
 };
 const getPaymentLink = (id, amount) => {
-  return axios.get(`/get-payment-link?id=${id}&amount=${amount}`);
+  return fetchApi.get(`/get-payment-link?id=${id}&amount=${amount}`);
+};
+
+const paymentOrderSuccessService = (data) => {
+  return fetchApi.post(`/payment-success`, data);
 };
 
 export {
@@ -65,4 +69,5 @@ export {
   getDetailCompanyById,
   getPackageByType,
   getPaymentLink,
+  paymentOrderSuccessService,
 };

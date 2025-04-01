@@ -26,6 +26,7 @@ import {
 import ListCV from "../components/post/ListCV";
 import DetailCVUser from "../pages/detail-cv-user";
 import BuyPost from "../components/post/BuyPost";
+import PaymentSuccess from "../components/post/PaymentSuccess";
 
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("darkTheme") === "true";
@@ -59,6 +60,10 @@ const AdminRoutes = {
     {
       path: "post/buy-post",
       element: <BuyPost />,
+    },
+    {
+      path: "payment/success",
+      element: <PaymentSuccess />,
     },
     {
       path: "post/add",
