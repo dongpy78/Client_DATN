@@ -2,22 +2,16 @@ import React from "react";
 import { useEffect, useState } from "react";
 import PostTableWrapper from "../../assets/wrappers/PostTableWrapper";
 import { PAGINATION } from "../../constants/paginationConstant";
-import {
-  FaEye,
-  FaLock,
-  FaUnlock,
-  FaCheckCircle,
-  FaTimesCircle,
-} from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 import { getAllListCvByPostService } from "../../services/cvService";
 import { getDetailPostByIdService } from "../../services/userService";
-import ReactPaginate from "react-paginate";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import PagePagination from "../admin/PagePagination";
 
 const ListCV = () => {
   const [dataCv, setdataCv] = useState([]);
-  const [count, setCount] = useState("");
-  const [numberPage, setnumberPage] = useState("");
+  const [totalCount, setTotalCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0); // Using 0-based index for pagination
   const { id } = useParams();
   const [post, setPost] = useState("");
   const navigate = useNavigate();
@@ -40,8 +34,7 @@ const ListCV = () => {
           });
           if (arrData) {
             setdataCv(arrData.result.data);
-            console.log("dataCV", arrData.result);
-            setCount(Math.ceil(arrData.count / PAGINATION.pagerow));
+            setTotalCount(arrData.result.count); // Use the count from the response
           }
         };
         fetchData();
@@ -50,25 +43,46 @@ const ListCV = () => {
         console.log(error);
       }
     }
-  }, []);
+  }, [id]);
 
-  let handleChangePage = async (number) => {
-    setnumberPage(number.selected);
+  const handlePageChange = async (pageNumber) => {
+    setCurrentPage(pageNumber);
     let arrData = await getAllListCvByPostService({
       limit: PAGINATION.pagerow,
-      offset: number.selected * PAGINATION.pagerow,
+      offset: pageNumber * PAGINATION.pagerow,
       postId: id,
     });
     if (arrData) {
-      setdataCv(arrData.data);
+      setdataCv(arrData.result.data);
     }
+  };
+
+  const getMatchRateClass = (rate) => {
+    const percentage = +rate.split("%")[0];
+
+    if (percentage >= 70) return "match-rate match-rate-high";
+    if (percentage > 30) return "match-rate match-rate-medium";
+    return "match-rate match-rate-low";
+  };
+
+  const getStatusClass = (isChecked) => {
+    return isChecked === 0
+      ? "status-badge status-unseen"
+      : "status-badge status-seen";
+  };
+
+  const getEvaluationClass = (rate) => {
+    const percentage = +rate.split("%")[0];
+
+    if (percentage >= 70) return "status-badge status-active";
+    if (percentage > 30) return "status-badge status-medium";
+    return "status-badge status-banned";
   };
 
   return (
     <PostTableWrapper>
       <h5 className="title-list-job">Danh sách CV</h5>
-      <h5 className="title-amount">Tổng số lượng: {dataCv.length} </h5>
-
+      <h5 className="title-amount">Tổng số lượng: {totalCount} </h5>
       <div className="jobtype-container">
         <table>
           <thead>
@@ -85,30 +99,30 @@ const ListCV = () => {
           <tbody>
             {dataCv.map((item, index) => (
               <tr key={index}>
-                <td>{index + 1 + numberPage * PAGINATION.pagerow}</td>
+                <td>{index + 1 + currentPage * PAGINATION.pagerow}</td>
                 <td>
                   {item.userCvData.firstName + " " + item.userCvData.lastName}
                 </td>
                 <td>{item.userCvData.phonenumber}</td>
-                <td>{item.file}</td>
                 <td>
-                  <span
-                    className={
-                      +item.file.split("%")[0] >= 70
-                        ? "status-active"
-                        : +item.file.split("%")[0] > 30
-                        ? "ban-unban-btn"
-                        : "status-banned"
-                    }
-                  >
+                  <span className={getMatchRateClass(item.file)}>
+                    {item.file}
+                  </span>
+                </td>
+                <td>
+                  <span className={getEvaluationClass(item.file)}>
                     {+item.file.split("%")[0] >= 70
                       ? "Tốt"
-                      : +item.file.split("%")[0]
+                      : +item.file.split("%")[0] > 30
                       ? "Tạm chấp nhận"
                       : "Tệ"}
                   </span>
                 </td>
-                <td>{item.isChecked === 0 ? "Chưa xem" : "Đã xem"}</td>
+                <td>
+                  <span className={getStatusClass(item.isChecked)}>
+                    {item.isChecked === 0 ? "Chưa xem" : "Đã xem"}
+                  </span>
+                </td>
                 <td className="actions">
                   <Link
                     title="Xem CV"
@@ -123,6 +137,79 @@ const ListCV = () => {
           </tbody>
         </table>
       </div>
+      {totalCount > PAGINATION.pagerow && (
+        <PagePagination
+          numOfPages={Math.ceil(totalCount / PAGINATION.pagerow)}
+          currentPage={currentPage + 1} // Adding 1 because PagePagination expects 1-based index
+          handlePageChange={(page) => handlePageChange(page - 1)} // Subtracting 1 to convert back to 0-based index
+        />
+      )}
+      <style jsx>{`
+        /* Style chung cho các badge */
+        .match-rate,
+        .status-badge {
+          padding: 4px 12px;
+          border-radius: 16px;
+          font-size: 12px;
+          font-weight: 500;
+          display: inline-block;
+          min-width: 100px;
+          text-align: center;
+          border: 1px solid transparent;
+        }
+
+        /* Style cho tỉ lệ phù hợp */
+        .match-rate-high {
+          background-color: #e8f5e9;
+          color: #2e7d32;
+          border-color: #2e7d32;
+        }
+
+        .match-rate-medium {
+          background-color: #fff8e1;
+          color: #ff8f00;
+          border-color: #ff8f00;
+        }
+
+        .match-rate-low {
+          background-color: #ffebee;
+          color: #c62828;
+          border-color: #c62828;
+        }
+
+        /* Style cho đánh giá */
+        .status-active {
+          background-color: #e8f5e9;
+          color: #2e7d32;
+          border-color: #2e7d32;
+        }
+
+        .status-medium {
+          background-color: #fff8e1;
+          color: #ff8f00;
+          border-color: #ff8f00;
+        }
+
+        .status-banned {
+          background-color: #ffebee;
+          color: #c62828;
+          border-color: #c62828;
+        }
+
+        /* Style cho trạng thái */
+        .status-seen {
+          background-color: #e3f2fd;
+          color: #1565c0;
+          border-color: #1565c0;
+        }
+
+        .status-unseen {
+          background-color: #f5f5f5;
+          color: #616161;
+          border-color: #616161;
+        }
+      `}</style>
+      ;
     </PostTableWrapper>
   );
 };
