@@ -209,7 +209,6 @@ const ListCV = () => {
           border-color: #616161;
         }
       `}</style>
-      ;
     </PostTableWrapper>
   );
 };
