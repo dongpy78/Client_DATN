@@ -336,7 +336,7 @@ const EditCompany = ({ initialData }) => {
             value={formValues.descriptionMarkdown}
             onChange={handleMarkdownChange}
             height={500}
-            preview="edit"
+            preview="live"
           />
           <input
             type="hidden"
