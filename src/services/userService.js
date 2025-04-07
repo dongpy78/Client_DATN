@@ -64,6 +64,22 @@ const getHistoryTradePost = (data) => {
   );
 };
 
+const getStatisticalTypePost = (limit) => {
+  return fetchApi.get(`/posts/statistics?limit=${limit}`);
+};
+
+const getStatisticalPackagePost = (data) => {
+  return fetchApi.get(
+    `/get-statistical-package?limit=${data.limit}&offset=${data.offset}&fromDate=${data.fromDate}&toDate=${data.toDate}`
+  );
+};
+
+const getStatisticalPackageCv = (data) => {
+  return fetchApi.get(
+    `/get-statistical-cv?limit=${data.limit}&offset=${data.offset}&fromDate=${data.fromDate}&toDate=${data.toDate}`
+  );
+};
+
 export {
   getListPostService,
   getDetailPostByIdService,
@@ -77,4 +93,7 @@ export {
   getPaymentLink,
   paymentOrderSuccessService,
   getHistoryTradePost,
+  getStatisticalTypePost,
+  getStatisticalPackagePost,
+  getStatisticalPackageCv,
 };

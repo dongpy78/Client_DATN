@@ -20,9 +20,16 @@ const getDetailCvService = (id, roleCode) => {
   return fetchApi.get(`/get-detail-cv-by-id?cvId=${id}&roleCode=${roleCode}`);
 };
 
+const getStatisticalCv = (data) => {
+  return fetchApi.get(
+    `/get-statistical-cv?limit=${data.limit}&offset=${data.offset}&fromDate=${data.fromDate}&toDate=${data.toDate}&companyId=${data.companyId}`
+  );
+};
+
 export {
   createNewCv,
   getAllListCvByUserIdService,
   getDetailCvService,
   getAllListCvByPostService,
+  getStatisticalCv,
 };
