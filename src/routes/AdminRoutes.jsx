@@ -5,7 +5,7 @@ import HistoryPost from "../pages/admin/history-post";
 import Home from "../pages/admin/home";
 import Post from "../pages/admin/post";
 import Profile from "../pages/admin/profile";
-import NotFound from "../pages/NotFound";
+import NotFound from "../pages/not-found/NotFound";
 import EditCompany from "../components/company/EditCompany";
 import { loader as companyLoader } from "../pages/admin/company";
 import AddCompany, {

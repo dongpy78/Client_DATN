@@ -5,7 +5,7 @@ import ErrorPage from "../pages/ErrorPage";
 import MainRoutes from "./MainRoutes";
 import AuthRoutes from "./AuthRoutes";
 import AdminRoutes from "./AdminRoutes";
-import NotFound from "../pages/NotFound";
+import NotFound from "../pages/not-found/NotFound";
 
 const routes = [
   {
