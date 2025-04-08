@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import logo from "../../../public/assets/img/logo/logo.png";
+import logo from "/assets/img/logo/logo.png";
+import logo1 from "/assets/img/logo/techworks.png";
 import links from "../../utils/links";
 import MobileMenu from "./MobileMenu";
 import { Link, useNavigate } from "react-router-dom";
@@ -67,7 +68,11 @@ const Header = () => {
                 <div className="col-lg-3 col-md-2">
                   <div className="logo">
                     <Link to="/">
-                      <img src={logo} alt="" />
+                      <img
+                        style={{ width: "170px", height: "53px" }}
+                        src={logo1}
+                        alt=""
+                      />
                     </Link>
                   </div>
                 </div>

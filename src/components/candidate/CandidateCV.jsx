@@ -52,7 +52,7 @@ const CandidateCV = (props) => {
   };
 
   return (
-    <section className="candidate-info-area">
+    <section className="candidate-info-area" style={{ minHeight: "100vh" }}>
       <div className="container">
         <div className="col-12 grid-margin">
           <div className="card">

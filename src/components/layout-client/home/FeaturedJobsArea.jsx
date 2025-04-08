@@ -57,7 +57,7 @@ const FeaturedJobArea = () => {
     <>
       {loading && <div>Loading...</div>}
       {error && <div className="error-message">{error}</div>}
-      <section className="featured-job-area feature-padding">
+      <section className="featured-job-area " style={{ padding: "4rem 0" }}>
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
@@ -77,7 +77,10 @@ const FeaturedJobArea = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <div className="section-tittle text-center">
+              <div
+                className="section-tittle text-center"
+                style={{ marginTop: "1.5rem" }}
+              >
                 <span>CÁC CÔNG VIỆC ĐANG CHỜ BẠN</span>
                 <h2>Công Việc Mới Đăng</h2>
               </div>

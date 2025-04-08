@@ -8,7 +8,10 @@ const JobItem = ({ data }) => {
   };
   return (
     <>
-      <div className="single-job-items mb-30">
+      <div
+        className="single-job-items mb-30"
+        style={{ border: "1px solid #E8E8E8", borderRadius: "5px" }}
+      >
         <div className="job-items">
           <div className="company-img">
             <Link href="job_details.html">

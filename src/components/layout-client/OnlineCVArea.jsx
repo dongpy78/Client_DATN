@@ -1,5 +1,6 @@
 import React from "react";
 const logo = "/assets/img/gallery/cv_bg.jpg";
+const logo1 = "/assets/img/gallery/job-image11.jpg";
 
 const OnlineCVArea = () => {
   return (
@@ -7,7 +8,7 @@ const OnlineCVArea = () => {
       {/* Online CV Area Start */}
       <div
         className="online-cv cv-bg section-overly pt-90 pb-120"
-        style={{ backgroundImage: `url(${logo})` }}
+        style={{ backgroundImage: `url(${logo1})` }}
       >
         <div className="container">
           <div className="row justify-content-center">

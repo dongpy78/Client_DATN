@@ -14,8 +14,8 @@ const ApplyProcess = () => {
           <div className="row">
             <div className="col-lg-12">
               <div className="section-tittle white-text text-center">
-                <span>Apply process</span>
-                <h2> How it works</h2>
+                <span style={{ color: "#fff" }}>QUY TRÌNH TÌM VIỆC</span>
+                <h2>Thực Hiện Như Thế Nào?</h2>
               </div>
             </div>
           </div>
@@ -27,7 +27,7 @@ const ApplyProcess = () => {
                   <span className="flaticon-search" />
                 </div>
                 <div className="process-cap">
-                  <h5>1. Search a job</h5>
+                  <h5>1. Tìm kiếm công việc</h5>
                   <p>
                     Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod
                     tempor incididunt ut laborea.
@@ -41,7 +41,7 @@ const ApplyProcess = () => {
                   <span className="flaticon-curriculum-vitae" />
                 </div>
                 <div className="process-cap">
-                  <h5>2. Apply for job</h5>
+                  <h5>2. Ứng tuyển công việc</h5>
                   <p>
                     Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod
                     tempor incididunt ut laborea.
@@ -55,7 +55,7 @@ const ApplyProcess = () => {
                   <span className="flaticon-tour" />
                 </div>
                 <div className="process-cap">
-                  <h5>3. Get your job</h5>
+                  <h5>3. Nhận công việc</h5>
                   <p>
                     Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod
                     tempor incididunt ut laborea.

@@ -34,14 +34,15 @@ const OurServiceStart = () => {
 
   return (
     <>
-      <div className="our-services section-pad-t30">
+      {/* section-pad-t30 */}
+      <div className="our-services" style={{ padding: "4rem 0" }}>
         <div className="container">
           {/* Section Tittle */}
           <div className="row">
             <div className="col-lg-12">
               <div className="section-tittle text-center">
                 <span>LĨNH VỰC CÔNG VIỆC NỔI BẬT</span>
-                <h2>DANH MỤC NGHỀ NGHIỆP</h2>
+                <h2>Danh Mục Nghề Nghiệp</h2>
               </div>
             </div>
           </div>

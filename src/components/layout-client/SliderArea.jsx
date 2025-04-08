@@ -1,6 +1,7 @@
 import React from "react";
 import "/public/assets/css/nice-select.css";
 const logo = "/assets/img/hero/h1_hero.jpg";
+const logo1 = "/assets/img/hero/bg-form.png";
 
 const SliderArea = () => {
   return (
@@ -10,14 +11,15 @@ const SliderArea = () => {
         {/* Mobile Menu */}
         <div className="slider-active">
           <div
-            className="single-slider slider-height d-flex align-items-center"
-            style={{ backgroundImage: `url(${logo})` }}
+            className="single-slider  d-flex align-items-center"
+            style={{ backgroundImage: `url(${logo1})`, height: "420px " }}
           >
             <div className="container">
               <div className="row">
                 <div className="col-xl-6 col-lg-9 col-md-10">
                   <div className="hero__caption">
-                    <h1>Hãy tìm công việc phù hợp với bạn nào</h1>
+                    <h1></h1>
+                    {/* <h1>Hãy tìm công việc phù hợp với bạn nào</h1> */}
                   </div>
                 </div>
               </div>

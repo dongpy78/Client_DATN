@@ -10,7 +10,8 @@
   align-items: center;
   gap: 10px;
   padding: 6px 15px;
-  background: linear-gradient(45deg, #6b48ff, #00ddeb);
+  /* background: linear-gradient(45deg, #6b48ff, #00ddeb); */
+  background-color: rgb(10, 99, 188);
   border-radius: 25px;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -55,10 +56,10 @@
 .logout-panel {
   position: absolute;
   top: 50px;
-  right: -21px;
+  right: -7px;
   width: 220px;
   background: linear-gradient(135deg, #1e3c72, #2a5298);
-  border-radius: 10px;
+  border-radius: 16px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   transform: translateX(100%);
   opacity: 0;

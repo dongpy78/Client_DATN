@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import FormRow from "../../components/admin/FormRow";
 import FormRowSelect from "../../components/admin/FormRowSelect";
+import FormRowSelectV1 from "../../components/admin/FormRowSelectV1";
 import Wrapper from "../../assets/wrappers/DashboardFormPage";
 import axiosInstance from "../../libs/axiosInterceptor";
 import {
@@ -207,7 +208,10 @@ const CandidateInfo = () => {
   if (!user) return <Wrapper>Không tìm thấy thông tin người dùng.</Wrapper>;
 
   return (
-    <section className="candidate-info-area" style={{ margin: "2rem 0" }}>
+    <section
+      className="candidate-info-area"
+      style={{ margin: "2rem 0", minHeight: "120vh" }}
+    >
       <div
         className="container"
         style={{
@@ -253,7 +257,7 @@ const CandidateInfo = () => {
                 value={user.userAccountData.phonenumber}
                 onChange={handleInputChange}
               />
-              <FormRowSelect
+              {/* <FormRowSelect
                 name="genderCode"
                 labelText="Giới tính"
                 list={genderOptions.map((item) => ({
@@ -261,6 +265,19 @@ const CandidateInfo = () => {
                   label: item.value, // "Nam" hoặc "Nữ"
                 }))}
                 value={user.genderCode} // "M" hoặc "FE"
+                onChange={handleInputChange}
+              /> */}
+              <FormRowSelectV1
+                name="genderCode"
+                labelText="Giới tính"
+                list={[
+                  { value: "", label: "-- Chọn giới tính --" },
+                  ...genderOptions.map((item) => ({
+                    value: item.code,
+                    label: item.value,
+                  })),
+                ]}
+                defaultValue={user.userAccountData?.genderCode || ""} // Truy cập đúng đường dẫn
                 onChange={handleInputChange}
               />
               <FormRow
