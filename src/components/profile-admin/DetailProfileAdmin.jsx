@@ -9,6 +9,7 @@ import {
 } from "../../utils/toastNotifications";
 import { getFromLocalStorage } from "../../utils/localStorage";
 import FormRowSelect from "../admin/FormRowSelect";
+import FormRowSelectV1 from "../../components/admin/FormRowSelectV1";
 import { GlobalContext } from "../../contexts/GlobalProviders";
 
 const DetailProfileAdmin = () => {
@@ -249,14 +250,17 @@ const DetailProfileAdmin = () => {
             value={user.userAccountData.phonenumber}
             onChange={handleInputChange}
           />
-          <FormRowSelect
+          <FormRowSelectV1
             name="genderCode"
             labelText="Giới tính"
-            list={genderOptions.map((item) => ({
-              value: item.code,
-              label: item.value,
-            }))}
-            value={user.genderCode}
+            list={[
+              { value: "", label: "-- Chọn giới tính --" },
+              ...genderOptions.map((item) => ({
+                value: item.code,
+                label: item.value,
+              })),
+            ]}
+            defaultValue={user.userAccountData?.genderCode || ""} // Truy cập đúng đường dẫn
             onChange={handleInputChange}
           />
           <FormRow
