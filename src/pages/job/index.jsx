@@ -8,7 +8,6 @@ const Job = () => {
     <>
       <HeroJob />
       <JobListing />
-      <PaginationJob />
     </>
   );
 };

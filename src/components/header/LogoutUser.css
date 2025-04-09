@@ -56,8 +56,8 @@
 .logout-panel {
   position: absolute;
   top: 50px;
-  right: -7px;
-  width: 220px;
+  right: 0px;
+  width: 238px;
   background: linear-gradient(135deg, #1e3c72, #2a5298);
   border-radius: 16px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);

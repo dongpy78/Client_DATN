@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import LeftPageUser from "./LeftPageUser";
 import RightPageUser from "./RightPageUser";
 import ReactPaginate from "react-paginate";
@@ -12,8 +12,7 @@ const JobPageUser = () => {
   const [countPage, setCountPage] = useState(1);
   const [post, setPost] = useState([]);
   const [count, setCount] = useState(0);
-  const [numberPage, setNumberPage] = useState("");
-  const [offset, setOffset] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0); // Thay numberPage bằng currentPage cho rõ nghĩa
   const [limit, setLimit] = useState(PAGINATION.pagerow);
 
   const [workType, setWorkType] = useState([]);
@@ -24,118 +23,104 @@ const JobPageUser = () => {
   const [jobLocation, setJobLocation] = useState("");
   const [search, setSearch] = useState("");
 
-  let loadPost = async (limit, offset, sortName = "") => {
-    let params = {
-      limit: limit,
-      offset: offset,
-      categoryJobCode: jobType,
-      addressCode: jobLocation,
-      salaryJobCode: salary,
-      categoryJoblevelCode: jobLevel,
-      categoryWorktypeCode: workType,
-      experienceJobCode: exp,
-      sortName: sortName,
-      search: CommonUtils.removeSpace(search),
-    };
+  // Sử dụng useCallback để tránh tạo hàm mới mỗi lần render
+  const loadPost = useCallback(
+    async (page, sortName = "") => {
+      try {
+        const offset = page * limit;
+        let params = {
+          limit: limit,
+          offset: offset,
+          categoryJobCode: jobType,
+          addressCode: jobLocation,
+          salaryJobCode: salary,
+          categoryJoblevelCode: jobLevel,
+          categoryWorktypeCode: workType,
+          experienceJobCode: exp,
+          sortName: sortName,
+          search: CommonUtils.removeSpace(search),
+        };
 
-    let arrData = await getListPostService(params);
+        let arrData = await getListPostService(params);
 
-    if (arrData) {
-      setPost(arrData.data.rows); // Đảm bảo arrData.data.rows là một mảng
-      setCountPage(Math.ceil(arrData.data.count / limit));
-      setCount(arrData.data.count);
-    }
-  };
+        if (arrData && arrData.data) {
+          setPost(arrData.data.rows || []);
+          const totalCount = arrData.data.count || 0;
+          setCount(totalCount);
+          setCountPage(Math.ceil(totalCount / limit));
+        }
+      } catch (error) {
+        console.error("Error loading posts:", error);
+        setPost([]);
+        setCount(0);
+        setCountPage(1);
+      }
+    },
+    [limit, jobType, jobLocation, salary, jobLevel, workType, exp, search]
+  );
 
   const handleSearch = (value) => {
     setSearch(value);
+    setCurrentPage(0); // Reset về trang đầu khi search
   };
+
+  // Các hàm recieve... giữ nguyên
   const recieveWorkType = (data) => {
     setWorkType((prev) => {
-      let isCheck = workType.includes(data);
-      if (isCheck) return workType.filter((item) => item !== data);
+      let isCheck = prev.includes(data);
+      if (isCheck) return prev.filter((item) => item !== data);
       else return [...prev, data];
     });
+    setCurrentPage(0); // Reset về trang đầu khi filter thay đổi
   };
 
   const recieveSalary = (data) => {
     setSalary((prev) => {
-      let isCheck = salary.includes(data);
-      if (isCheck) return salary.filter((item) => item !== data);
+      let isCheck = prev.includes(data);
+      if (isCheck) return prev.filter((item) => item !== data);
       else return [...prev, data];
     });
+    setCurrentPage(0);
   };
 
   const recieveExp = (data) => {
     setExp((prev) => {
-      let isCheck = exp.includes(data);
-      if (isCheck) return exp.filter((item) => item !== data);
+      let isCheck = prev.includes(data);
+      if (isCheck) return prev.filter((item) => item !== data);
       else return [...prev, data];
     });
+    setCurrentPage(0);
   };
 
   const recieveJobType = (data) => {
-    jobType === data ? setJobType("") : setJobType(data);
+    setJobType(data === jobType ? "" : data);
+    setCurrentPage(0);
   };
 
   const recieveJobLevel = (data) => {
     setJobLevel((prev) => {
-      let isCheck = jobLevel.includes(data);
-      if (isCheck) return jobLevel.filter((item) => item !== data);
+      let isCheck = prev.includes(data);
+      if (isCheck) return prev.filter((item) => item !== data);
       else return [...prev, data];
     });
+    setCurrentPage(0);
   };
 
   const recieveLocation = (data) => {
-    jobLocation === data ? setJobLocation("") : setJobLocation(data);
+    setJobLocation(data === jobLocation ? "" : data);
+    setCurrentPage(0);
   };
 
   useEffect(() => {
-    let filterdata = async () => {
-      let params = {
-        limit: limit,
-        offset: offset,
-        categoryJobCode: jobType,
-        addressCode: jobLocation,
-        salaryJobCode: salary,
-        categoryJoblevelCode: jobLevel,
-        categoryWorktypeCode: workType,
-        experienceJobCode: exp,
-        search: CommonUtils.removeSpace(search),
-      };
-      let arrData = await getListPostService(params);
+    loadPost(currentPage);
+  }, [loadPost, currentPage]);
 
-      console.log("API Response:", arrData); // Kiểm tra dữ liệu trả về từ API
-      if (arrData) {
-        setNumberPage(0);
-        setOffset(0);
-        setPost(arrData.data.rows || []); // Đảm bảo arrData.data.rows là một mảng
-        setCountPage(Math.ceil(arrData.data.count / limit));
-        setCount(arrData.data.count);
-      }
-    };
-    filterdata();
-  }, [
-    workType,
-    jobLevel,
-    exp,
-    jobType,
-    jobLocation,
-    salary,
-    search,
-    limit,
-    offset,
-  ]);
-
-  const handleChangePage = (number) => {
-    setNumberPage(number.selected);
-    loadPost(limit, number.selected * limit, ""); // Thêm giá trị sortName
-    setOffset(number.selected * limit);
+  const handleChangePage = (selectedPage) => {
+    setCurrentPage(selectedPage.selected);
   };
 
   return (
     <>
-      {/* Job List Area Start */}
       <div className="job-listing-area pt-120 pb-120">
         <div className="container">
           <div className="row">
@@ -147,37 +132,38 @@ const JobPageUser = () => {
               recieveJobLevel={recieveJobLevel}
               recieveLocation={recieveLocation}
             />
-            {/* Right content */}
             <div className="col-xl-9 col-lg-9 col-md-8">
               <RightPageUser
                 handleSearch={handleSearch}
                 count={count}
                 post={post}
               />
-              <ReactPaginate
-                forcePage={numberPage}
-                previousLabel={"Quay lại"}
-                nextLabel={"Tiếp"}
-                breakLabel={"..."}
-                pageCount={countPage}
-                marginPagesDisplayed={3}
-                containerClassName={"pagination justify-content-center pb-3"}
-                pageClassName={"page-item"}
-                pageLinkClassName={"page-link"}
-                previousLinkClassName={"page-link"}
-                previousClassName={"page-item"}
-                nextClassName={"page-item"}
-                nextLinkClassName={"page-link"}
-                breakLinkClassName={"page-link"}
-                breakClassName={"page-item"}
-                activeClassName={"active"}
-                onPageChange={handleChangePage}
-              />
+              {countPage > 1 && (
+                <ReactPaginate
+                  forcePage={currentPage}
+                  previousLabel={"Quay lại"}
+                  nextLabel={"Tiếp"}
+                  breakLabel={"..."}
+                  pageCount={countPage}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  containerClassName={"pagination justify-content-center pb-3"}
+                  pageClassName={"page-item"}
+                  pageLinkClassName={"page-link"}
+                  previousLinkClassName={"page-link"}
+                  previousClassName={"page-item"}
+                  nextClassName={"page-item"}
+                  nextLinkClassName={"page-link"}
+                  breakLinkClassName={"page-link"}
+                  breakClassName={"page-item"}
+                  activeClassName={"active"}
+                  onPageChange={handleChangePage}
+                />
+              )}
             </div>
           </div>
         </div>
       </div>
-      {/* Job List Area End */}
     </>
   );
 };
