@@ -45,6 +45,9 @@ const Wrapper = styled.section`
   .form-title {
     margin-bottom: 2rem;
     text-transform: capitalize;
+    color: var(--text-color);
+    letter-spacing: var(--letter-spacing);
+    font-size: 22px;
   }
 
   .form {
@@ -79,6 +82,7 @@ const Wrapper = styled.section`
     text-transform: capitalize;
     letter-spacing: var(--letter-spacing);
     line-height: 1.5;
+    color: var(--text-color);
   }
 
   .form-input:focus {
@@ -94,6 +98,8 @@ const Wrapper = styled.section`
     background: var(--background-color);
     border: 1px solid var(--grey-300);
     color: var(--text-color);
+    font-size: var(--small-text);
+    letter-spacing: var(--letter-spacing);
   }
   .form-input,
   .form-select,

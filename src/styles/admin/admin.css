@@ -257,6 +257,7 @@ button:disabled {
   background: var(--background-color);
   border: 1px solid var(--grey-300);
   color: var(--text-color);
+  font-size: var(-small-text);
 }
 .form-input,
 .form-select,

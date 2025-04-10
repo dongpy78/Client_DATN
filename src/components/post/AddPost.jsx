@@ -294,7 +294,7 @@ const AddPost = () => {
             value={formValues.descriptionMarkdown}
             onChange={handleMarkdownChange}
             height={300}
-            preview="edit"
+            preview="live"
           />
           <input
             type="hidden"

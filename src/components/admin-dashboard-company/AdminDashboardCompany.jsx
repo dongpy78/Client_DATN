@@ -164,10 +164,10 @@ const AdminDashboardCompany = () => {
 
   return (
     <WrapperChartsContainer>
-      <h5 style={{ textAlign: "left", fontWeight: "bold" }}>
+      <h4 style={{ textAlign: "left", fontWeight: "bold" }}>
         Xin chào {user.firstName + " " + user.lastName}
-      </h5>
-      <h5 style={{ textAlign: "left" }}>Biểu đồ thống kê top lĩnh vực</h5>
+      </h4>
+      <h4 style={{ textAlign: "left" }}>Biểu đồ thống kê top lĩnh vực</h4>
       {dataStatisticalTypePost.length > 0 ? (
         <WrapperStatsContainer>
           <div>
@@ -184,6 +184,7 @@ const AdminDashboardCompany = () => {
                   }}
                 ></div>
                 <span
+                  className="statis-field"
                   style={{
                     marginTop: "0.5rem",
                     display: "block",
@@ -214,9 +215,12 @@ const AdminDashboardCompany = () => {
       )}
 
       <HistoryTradePostWrapper>
-        <h5 style={{ textAlign: "left" }} className="title-list-job">
+        <h4
+          style={{ textAlign: "left" }}
+          className="title-list-job poppins-regular"
+        >
           Bảng thống kê số lượng CV
-        </h5>
+        </h4>
         <div style={{ marginBottom: "20px", textAlign: "left" }}>
           <RangePicker
             onChange={(values) => onDatePicker(values)}
@@ -243,8 +247,8 @@ const AdminDashboardCompany = () => {
                     <td>{item?.postDetailData?.name || "N/A"}</td>
                     <td>{item.id}</td>
                     <td>
-                      {item?.userPostData?.firstName || ""}
-                      {item?.userPostData?.lastName || ""}
+                      {item?.userPostData?.firstName}{" "}
+                      {item?.userPostData?.lastName}
                     </td>
                     <td>{item.total || 0}</td>
                   </tr>

@@ -5,7 +5,11 @@ const HistoryTradePostWrapper = styled.section`
   width: 100%;
   background: var(--background-secondary-color);
   /* padding: 3rem 2rem 4rem; */
-  padding: 0 2rem 2rem 2rem;
+  padding: 2rem 2rem 2rem 2rem;
+
+  h5 {
+    color: var(--text-color);
+  }
 
   .jobtype-container {
     overflow-x: auto; /* Cho phép cuộn ngang nếu bảng quá rộng */
@@ -74,28 +78,6 @@ const HistoryTradePostWrapper = styled.section`
   .jobtype-container {
     scrollbar-width: thin;
     scrollbar-color: var(--primary-500) var(--grey-100);
-  }
-
-  /* Giới hạn chiều rộng cho các cột cụ thể */
-  th:nth-child(1),
-  td:nth-child(1) {
-    width: 50px; /* ID */
-  }
-  th:nth-child(2),
-  td:nth-child(2) {
-    min-width: 150px; /* Name */
-  }
-  th:nth-child(3),
-  td:nth-child(3) {
-    min-width: 200px; /* Email */
-  }
-  th:nth-child(4),
-  td:nth-child(4) {
-    width: 100px; /* Role */
-  }
-  th:nth-child(5),
-  td:nth-child(5) {
-    width: 120px; /* Date of Birth */
   }
 
   .actions-custom {

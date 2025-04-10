@@ -16,10 +16,14 @@ const JobTableWrapper = styled.section`
   .title-list-job {
     font-size: 23px;
     margin-bottom: 1rem;
+    color: var(--text-color);
+    letter-spacing: var(--letter-spacing);
   }
 
   .title-amount {
     font-size: 16px;
+    color: var(--text-color);
+    letter-spacing: var(--letter-spacing);
   }
 
   table {

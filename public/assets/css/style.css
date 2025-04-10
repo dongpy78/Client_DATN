@@ -5494,7 +5494,13 @@ form.search-box .search-form a {
   -moz-transition: 0.4s;
   -o-transition: 0.4s;
   transition: 0.4s;
+  border: 1px solid #e8e8e8;
 }
+
+.single-job-items:hover {
+  border: 1px solid #0a63bc;
+}
+
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .single-job-items {
     padding: 20px 7px;
