@@ -32,6 +32,27 @@
 .theme-color {
   color: #fb246a;
 }
+
+.btn-all-job {
+  background: #0a63bc;
+  border-radius: 5px;
+  width: 226px;
+  height: 50px;
+  margin: 40px auto;
+  margin-top: 20px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.8rem 1.4rem;
+  transition: ease-in 0.4s;
+}
+
+.btn-all-job:hover {
+  color: #0a63bc;
+  background-color: #fff;
+  border: 1px solid #0062cc;
+}
+
 .boxed-btn {
   background: #fff;
   color: #fb246a !important;
@@ -4669,7 +4690,7 @@ del {
   }
 }
 .header-area .main-menu ul li:hover > a {
-  color: #fb246a;
+  color: #0a63bc;
 }
 .header-area .main-menu ul ul.submenu {
   position: absolute;
@@ -5238,13 +5259,21 @@ form.search-box .search-form a {
   transform: perspective(600px) rotateY(-180deg);
 }
 .our-services .single-services {
-  border: 1px solid #dafcef;
+  border: 1px solid #ececec;
   padding: 44px 0;
   -webkit-transition: 0.4s;
   -moz-transition: 0.4s;
   -o-transition: 0.4s;
   transition: 0.4s;
+  border-radius: 5px;
 }
+
+.our-services .single-services:hover {
+  border: 1px solid #0a63bc;
+  cursor: pointer;
+  transform: translateY(-5px);
+}
+
 .our-services .single-services .services-ion span {
   font-size: 60px;
   margin-bottom: 13px;
@@ -5531,7 +5560,7 @@ form.search-box .search-form a {
   transition: 0.4s;
 }
 .single-job-items .job-tittle a h4:hover {
-  color: #8b92dd;
+  color: #0a63bc;
 }
 .single-job-items .job-tittle ul li {
   display: inline-block;

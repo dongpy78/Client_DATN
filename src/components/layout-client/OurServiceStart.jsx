@@ -5,6 +5,7 @@ import {
   showErrorToast,
   showSuccessToast,
 } from "../../utils/toastNotifications";
+import { Link } from "react-router-dom";
 
 const OurServiceStart = () => {
   const [jobs, setJob] = useState([]);
@@ -35,7 +36,10 @@ const OurServiceStart = () => {
   return (
     <>
       {/* section-pad-t30 */}
-      <div className="our-services" style={{ padding: "4rem 0" }}>
+      <div
+        className="our-services"
+        style={{ padding: "4rem 0", background: "#fafafa" }}
+      >
         <div className="container">
           {/* Section Tittle */}
           <div className="row">
@@ -78,107 +82,15 @@ const OurServiceStart = () => {
             ) : (
               <p>Không có dữ liệu loại công việc.</p>
             )}
-
-            {/* <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-              <div className="single-services text-center mb-30">
-                <div className="services-ion">
-                  <span className="flaticon-cms" />
-                </div>
-                <div className="services-cap">
-                  <h5>
-                    <a href="job_listing.html">Design &amp; Development</a>
-                  </h5>
-                  <span>(658)</span>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-              <div className="single-services text-center mb-30">
-                <div className="services-ion">
-                  <span className="flaticon-report" />
-                </div>
-                <div className="services-cap">
-                  <h5>
-                    <a href="job_listing.html">Sales &amp; Marketing</a>
-                  </h5>
-                  <span>(658)</span>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-              <div className="single-services text-center mb-30">
-                <div className="services-ion">
-                  <span className="flaticon-app" />
-                </div>
-                <div className="services-cap">
-                  <h5>
-                    <a href="job_listing.html">Mobile Application</a>
-                  </h5>
-                  <span>(658)</span>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-              <div className="single-services text-center mb-30">
-                <div className="services-ion">
-                  <span className="flaticon-helmet" />
-                </div>
-                <div className="services-cap">
-                  <h5>
-                    <a href="job_listing.html">Construction</a>
-                  </h5>
-                  <span>(658)</span>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-              <div className="single-services text-center mb-30">
-                <div className="services-ion">
-                  <span className="flaticon-high-tech" />
-                </div>
-                <div className="services-cap">
-                  <h5>
-                    <a href="job_listing.html">Information Technology</a>
-                  </h5>
-                  <span>(658)</span>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-              <div className="single-services text-center mb-30">
-                <div className="services-ion">
-                  <span className="flaticon-real-estate" />
-                </div>
-                <div className="services-cap">
-                  <h5>
-                    <a href="job_listing.html">Real Estate</a>
-                  </h5>
-                  <span>(658)</span>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-              <div className="single-services text-center mb-30">
-                <div className="services-ion">
-                  <span className="flaticon-content" />
-                </div>
-                <div className="services-cap">
-                  <h5>
-                    <a href="job_listing.html">Content Writer</a>
-                  </h5>
-                  <span>(658)</span>
-                </div>
-              </div>
-            </div> */}
           </div>
           {/* More Btn */}
           {/* Section Button */}
           <div className="row">
             <div className="col-lg-12">
               <div className="browse-btn2 text-center mt-50">
-                <a href="job_listing.html" className="border-btn2">
-                  Browse All Sectors
-                </a>
+                <Link to="/job" className=" btn-all-job">
+                  Xem tất cả việc làm
+                </Link>
               </div>
             </div>
           </div>

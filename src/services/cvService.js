@@ -26,10 +26,24 @@ const getStatisticalCv = (data) => {
   );
 };
 
+const getFilterCv = (data) => {
+  return fetchApi.get(
+    `/fillter-cv-by-selection?limit=${data.limit}&offset=${data.offset}&experienceJobCode=${data.experienceJobCode}&categoryJobCode=${data.categoryJobCode}&listSkills=${data.listSkills}&otherSkills=${data.otherSkills}&salaryCode=${data.salaryCode}&provinceCode=${data.provinceCode}`
+  );
+};
+
+const checkSeeCandiate = (data) => {
+  return fetchApi.get(
+    `/check-see-candidate?userId=${data.userId}&companyId=${data.companyId}`
+  );
+};
+
 export {
   createNewCv,
   getAllListCvByUserIdService,
   getDetailCvService,
   getAllListCvByPostService,
   getStatisticalCv,
+  getFilterCv,
+  checkSeeCandiate,
 };

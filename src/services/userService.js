@@ -80,7 +80,14 @@ const getStatisticalPackageCv = (data) => {
   );
 };
 
+const getDetailCompanyByUserId = (userId, companyId) => {
+  return fetchApi.get(
+    `/companies/by-user?userId=${userId}&companyId=${companyId}`
+  );
+};
+
 export {
+  getDetailCompanyByUserId,
   getListPostService,
   getDetailPostByIdService,
   getDetailUserById,

@@ -13,7 +13,5 @@ import router from "./routes";
 // console.log("TEST API: ", response);
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>
+  <RouterProvider router={router} />
 );
