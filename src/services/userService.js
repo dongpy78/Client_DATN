@@ -92,7 +92,22 @@ const getDetailCompanyByUserId = (userId, companyId) => {
   );
 };
 
+const getPaymentLinkCv = (id, amount) => {
+  return fetchApi.get(`/get-payment-cv-link?id=${id}&amount=${amount}`);
+};
+
+const getAllToSelect = () => {
+  return fetchApi.get(`/get-all-package-cv-select`);
+};
+
+const paymentOrderSuccessServiceCv = (data) => {
+  return fetchApi.post(`/payment-cv-success`, data);
+};
+
 export {
+  paymentOrderSuccessServiceCv,
+  getPaymentLinkCv,
+  getAllToSelect,
   getDetailCompanyByUserId,
   getListPostService,
   getDetailPostByIdService,

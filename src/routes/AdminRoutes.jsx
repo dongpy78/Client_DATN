@@ -30,6 +30,7 @@ import PaymentSuccess from "../components/post/PaymentSuccess";
 import DetailFilterUser from "../components/cv/DetailFilterUser";
 import HistoryCv from "../pages/admin/history-cv";
 import BuyCV from "../components/cv/BuyCV";
+import PaymentCvSuccess from "../components/cv/PaymentCvSuccess";
 
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("darkTheme") === "true";
@@ -71,6 +72,10 @@ const AdminRoutes = {
     {
       path: "payment/success",
       element: <PaymentSuccess />,
+    },
+    {
+      path: "paymentCv/success",
+      element: <PaymentCvSuccess />,
     },
     {
       path: "post/add",

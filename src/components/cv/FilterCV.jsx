@@ -42,7 +42,7 @@ const FilterCV = () => {
     if (res) {
       setCompanySeeAllow({
         free: res.data.allowCvFree,
-        notFree: res.data.allowCv,
+        notFree: res.data.allowCV,
       });
     }
   };
