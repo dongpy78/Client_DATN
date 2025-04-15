@@ -86,8 +86,8 @@ const HistoryTradeCV = () => {
       const params = {
         limit: PAGINATION.pagerow,
         offset: (pageNumber - 1) * PAGINATION.pagerow, // Adjust offset calculation
-        fromDate: fromDatePost,
-        toDate: toDatePost,
+        fromDate: fromDateCv,
+        toDate: toDateCv,
         companyId: user?.companyId,
       };
       const arrData = await getHistoryTradeCv(params);
@@ -105,8 +105,8 @@ const HistoryTradeCV = () => {
       const params = {
         limit: "",
         offset: "",
-        fromDate: fromDatePost,
-        toDate: toDatePost,
+        fromDate: fromDateCv,
+        toDate: toDateCv,
         companyId: user?.companyId,
       };
       const res = await getHistoryTradeCv(params);
