@@ -64,6 +64,12 @@ const getHistoryTradePost = (data) => {
   );
 };
 
+const getHistoryTradeCv = (data) => {
+  return fetchApi.get(
+    `/get-history-trade-cv?limit=${data.limit}&offset=${data.offset}&fromDate=${data.fromDate}&toDate=${data.toDate}&companyId=${data.companyId}`
+  );
+};
+
 const getStatisticalTypePost = (limit) => {
   return fetchApi.get(`/posts/statistics?limit=${limit}`);
 };
@@ -103,4 +109,5 @@ export {
   getStatisticalTypePost,
   getStatisticalPackagePost,
   getStatisticalPackageCv,
+  getHistoryTradeCv,
 };
