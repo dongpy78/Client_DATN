@@ -12,10 +12,10 @@ import { useFetchAllcode } from "../../utils/fetchAllCode";
 import { Col, Row, Select, Modal } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Wrapper from "../../assets/wrappers/DashboardFormPage";
-import PostTableWrapper from "../../assets/wrappers/PostTableWrapper";
+import FilterCvWrapper from "../../assets/wrappers/FilterCvWrapper";
 const { confirm } = Modal;
 
 const FilterCV = () => {
@@ -300,7 +300,7 @@ const FilterCV = () => {
         </div>
       </div>
 
-      <PostTableWrapper>
+      <FilterCvWrapper>
         <div className="jobtype-container">
           <table>
             <thead>
@@ -359,6 +359,14 @@ const FilterCV = () => {
             </tbody>
           </table>
         </div>
+
+        <Link
+          style={{ marginLeft: "1rem" }}
+          to="/admin/cv/buy-cv"
+          className="btn add-user-btn"
+        >
+          Mua thêm lượt xem ứng viên
+        </Link>
 
         <style jsx>{`
           /* Style chung cho các badge */
@@ -425,7 +433,7 @@ const FilterCV = () => {
             border-color: #616161;
           }
         `}</style>
-      </PostTableWrapper>
+      </FilterCvWrapper>
     </Wrapper>
   );
 };
