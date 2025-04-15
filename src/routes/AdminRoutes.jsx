@@ -28,6 +28,7 @@ import DetailCVUser from "../pages/detail-cv-user";
 import BuyPost from "../components/post/BuyPost";
 import PaymentSuccess from "../components/post/PaymentSuccess";
 import DetailFilterUser from "../components/cv/DetailFilterUser";
+import HistoryCv from "../pages/admin/history-cv";
 
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("darkTheme") === "true";
@@ -88,6 +89,7 @@ const AdminRoutes = {
     { path: "list-candidates", element: <Candidate /> },
     { path: "candiate/:id", element: <DetailFilterUser /> },
     { path: "history-post", element: <HistoryPost /> },
+    { path: "history-cv", element: <HistoryCv /> },
     { path: "profile", element: <Profile /> },
     { path: "*", element: <NotFound /> },
   ],

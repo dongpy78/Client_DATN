@@ -1,7 +1,12 @@
 import React from "react";
+import HistoryTradeCV from "../../../components/history-trade-cv/HistoryTradeCV";
 
 const HistoryCv = () => {
-  return <div>HistoryCv</div>;
+  return (
+    <>
+      <HistoryTradeCV />
+    </>
+  );
 };
 
 export default HistoryCv;

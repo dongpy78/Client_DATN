@@ -37,6 +37,11 @@ const links = [
     icon: <FaMoneyCheckAlt />,
   },
   {
+    text: "History CV",
+    path: "history-cv",
+    icon: <FaMoneyCheckAlt />,
+  },
+  {
     text: "profile",
     path: "profile",
     icon: <ImProfile />,
