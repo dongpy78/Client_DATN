@@ -6,10 +6,17 @@
   --primary-300: #54d1db;
   --primary-400: #38bec9;
   --primary-500: #2cb1bc;
+  /* --primary-500: #5d87ff; */
   --primary-600: #14919b;
   --primary-700: #0e7c86;
   --primary-800: #0a6c74;
   --primary-900: #044e54;
+
+  --color-text-sidebar: #2a3547;
+  --background-main-custom: #5d87ff;
+  --color-text-sidebar-secondary: #5d87ff;
+  --background-main-secondary: #ecf2ff;
+  --color-active: #49beff;
 
   /* grey */
   --grey-50: #f8fafc;
@@ -52,6 +59,7 @@
   /* DARK MODE */
 
   --dark-mode-bg-color: #333;
+  /* --dark-mode-bg-color: #2a3447; */
   --dark-mode-text-color: #f0f0f0;
   --dark-mode-bg-secondary-color: #3f3f3f;
   --dark-mode-text-secondary-color: var(--grey-300);
@@ -182,7 +190,7 @@
 .btn {
   cursor: pointer;
   color: var(--white);
-  background: var(--primary-500);
+  background: var(--background-main-custom);
   border: transparent;
   border-radius: var(--border-radius);
   letter-spacing: var(--letter-spacing);
@@ -193,7 +201,6 @@
   display: inline-block;
 }
 .btn:hover {
-  background: var(--primary-700);
   box-shadow: var(--shadow-3);
 }
 .btn-hipster {

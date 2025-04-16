@@ -24,7 +24,7 @@ const Wrapper = styled.nav`
     background: transparent;
     border-color: transparent;
     font-size: 1.75rem;
-    color: var(--primary-500);
+    color: var(--background-main-custom);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -36,6 +36,7 @@ const Wrapper = styled.nav`
 
   .logo-text {
     display: none;
+    font-family: "Plus Jakarta Sans", sans-serif;
   }
   @media (min-width: 992px) {
     position: sticky;
@@ -49,8 +50,9 @@ const Wrapper = styled.nav`
       display: none;
     }
     .logo-text {
+      color: var(--color-text-sidebar);
+
       display: block;
-      color: var(--text-color);
     }
   }
 `;

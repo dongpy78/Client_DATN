@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { GlobalContext } from "../../contexts/GlobalProviders";
-import Wrapper from "../../../public/assets/wrappers/LogoutContainer";
+import Wrapper from "/public/assets/wrappers/LogoutContainer";
 import { FaUserCircle, FaCaretDown } from "react-icons/fa";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

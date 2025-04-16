@@ -246,16 +246,23 @@ const EditCompany = ({ initialData }) => {
             placeholder="Nhập link website"
           />
           <div className="form-row form-select-image">
-            <label htmlFor="thumbnail" className="form-label">
-              Thumbnail (max 2MB)
-            </label>
-            {thumbnailPreview && (
-              <img
-                src={thumbnailPreview}
-                alt="Thumbnail Preview"
-                style={{ maxWidth: "100px", marginBottom: "10px" }}
-              />
-            )}
+            <div>
+              <label htmlFor="thumbnail" className="form-label">
+                Thumbnail (max 2MB)
+              </label>
+              {thumbnailPreview && (
+                <img
+                  src={thumbnailPreview}
+                  alt="Thumbnail Preview"
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    marginBottom: "10px",
+                  }}
+                />
+              )}
+            </div>
+
             <input
               type="file"
               id="thumbnail"
@@ -271,16 +278,23 @@ const EditCompany = ({ initialData }) => {
             />
           </div>
           <div className="form-row form-select-image">
-            <label htmlFor="coverImage" className="form-label">
-              Cover Image (max 2MB)
-            </label>
-            {coverImagePreview && (
-              <img
-                src={coverImagePreview}
-                alt="Cover Image Preview"
-                style={{ maxWidth: "100px", marginBottom: "10px" }}
-              />
-            )}
+            <div>
+              <label htmlFor="coverImage" className="form-label">
+                Cover Image (max 2MB)
+              </label>
+              {coverImagePreview && (
+                <img
+                  src={coverImagePreview}
+                  alt="Cover Image Preview"
+                  style={{
+                    width: "200px",
+                    height: "100px",
+                    marginBottom: "10px",
+                  }}
+                />
+              )}
+            </div>
+
             <input
               type="file"
               id="coverImage"
@@ -344,6 +358,7 @@ const EditCompany = ({ initialData }) => {
             value={formValues.descriptionMarkdown}
           />
           <input
+            className="form-input-deschtml"
             type="hidden"
             name="descriptionHTML"
             value={formValues.descriptionHTML}

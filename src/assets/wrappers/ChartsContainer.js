@@ -5,6 +5,7 @@ const Wrapper = styled.section`
   text-align: center;
   background-color: var(--background-secondary-color);
   padding: 2rem;
+  font-family: "Plus Jakarta Sans", sans-serif;
 
   button {
     background: transparent;
@@ -22,6 +23,7 @@ const Wrapper = styled.section`
     margin-bottom: 0.75rem;
     color: var(--text-color);
     letter-spacing: var(--letter-spacing);
+    font-family: "Plus Jakarta Sans", sans-serif;
   }
 `;
 

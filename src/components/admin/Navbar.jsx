@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import Wrapper from "../../../public/assets/wrappers/Navbar";
+import Wrapper from "/public/assets/wrappers/Navbar";
 import Logo from "./Logo";
 import { GlobalContext } from "../../contexts/GlobalProviders";
 import { FaAlignLeft } from "react-icons/fa";

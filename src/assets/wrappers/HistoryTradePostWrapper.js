@@ -8,18 +8,22 @@ const HistoryTradePostWrapper = styled.section`
   padding: 2rem 2rem 2rem 2rem;
 
   h5 {
-    color: var(--text-color);
+    color: var(--color-text-sidebar);
+    font-family: "Plus Jakarta Sans", sans-serif;
   }
 
   .jobtype-container {
     overflow-x: auto; /* Cho phép cuộn ngang nếu bảng quá rộng */
     max-width: 100%;
     margin: 1rem 0 1rem 0;
+    border: 1px solid #e5eaef;
+    border-radius: 8px;
   }
 
   .title-list-job {
     font-size: 23px;
     margin-bottom: 1rem;
+    font-family: "Plus Jakarta Sans", sans-serif;
   }
 
   .title-amount {
@@ -30,6 +34,9 @@ const HistoryTradePostWrapper = styled.section`
     width: 100%;
     border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
     table-layout: auto; /* Tự động điều chỉnh chiều rộng cột */
+    border: 1px solid red;
+    border-radius: 8px; /* Thêm border-radius */
+    overflow: hidden; /* Quan trọng: Ẩn phần thừa của border-radius */
   }
 
   th,
@@ -40,17 +47,19 @@ const HistoryTradePostWrapper = styled.section`
     overflow: hidden; /* Ẩn nội dung tràn */
     text-overflow: ellipsis; /* Hiển thị "..." nếu nội dung quá dài */
     vertical-align: middle; /* Căn giữa theo chiều dọc */
+    font-family: "Plus Jakarta Sans", sans-serif;
+    border: none;
   }
 
   th {
-    background-color: var(--primary-500); /* Màu nền cho header */
+    background-color: var(--background-main-custom); /* Màu nền cho header */
     color: #fff;
     font-weight: normal;
   }
 
   td {
-    background: #f8f9fa;
-    color: #000;
+    background: #fff;
+    color: var(--color-text-sidebar);
     border-bottom: 1px solid #ddd; /* Đường viền dưới mỗi hàng */
   }
 

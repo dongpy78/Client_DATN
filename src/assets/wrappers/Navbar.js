@@ -36,6 +36,7 @@ const Wrapper = styled.nav`
 
   .logo-text {
     display: none;
+    font-family: "Plus Jakarta Sans", sans-serif;
   }
   @media (min-width: 992px) {
     position: sticky;
@@ -49,7 +50,7 @@ const Wrapper = styled.nav`
     }
     .logo-text {
       display: block;
-      color: var(--text-color);
+      color: var(--color-text-sidebar);
     }
   }
 `;

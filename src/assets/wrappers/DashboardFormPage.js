@@ -45,8 +45,9 @@ const Wrapper = styled.section`
   .form-title {
     margin-bottom: 2rem;
     text-transform: capitalize;
-    color: var(--text-color);
+    color: var(--color-text-sidebar);
     letter-spacing: var(--letter-spacing);
+    font-family: "Plus Jakarta Sans", sans-serif;
     font-size: 22px;
   }
 
@@ -75,6 +76,19 @@ const Wrapper = styled.section`
     place-items: center;
   }
 
+  .form-input-descmarkdown,
+  .form-input-deschtml {
+  }
+
+  .form-select-image .form-input {
+    display: block; /* Đảm bảo input chiếm full width */
+    padding: 3px 12px; /* Điều chỉnh padding cho đẹp */
+    border: 1px solid #ccc; /* Thêm border nếu cần */
+    border-radius: 4px; /* Bo góc */
+    background: #f9f9f9; /* Màu nền */
+    cursor: pointer; /* Hiệu ứng hover */
+  }
+
   .form-label {
     display: block;
     font-size: var(--small-text);
@@ -82,11 +96,12 @@ const Wrapper = styled.section`
     text-transform: capitalize;
     letter-spacing: var(--letter-spacing);
     line-height: 1.5;
-    color: var(--text-color);
+    color: var(--color-text-sidebar);
+    font-family: "Plus Jakarta Sans", sans-serif;
   }
 
   .form-input:focus {
-    border: 1px solid var(--primary-500);
+    border: 1px solid var(--background-main-custom);
   }
 
   .form-input,
@@ -97,9 +112,10 @@ const Wrapper = styled.section`
     border-radius: var(--border-radius);
     background: var(--background-color);
     border: 1px solid var(--grey-300);
-    color: var(--text-color);
+    color: var(--color-text-sidebar);
     font-size: var(--small-text);
     letter-spacing: var(--letter-spacing);
+    font-family: "Plus Jakarta Sans", sans-serif;
   }
   .form-input,
   .form-select,

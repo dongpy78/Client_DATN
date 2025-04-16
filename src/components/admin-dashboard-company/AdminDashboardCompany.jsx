@@ -215,10 +215,7 @@ const AdminDashboardCompany = () => {
       )}
 
       <HistoryTradePostWrapper>
-        <h4
-          style={{ textAlign: "left" }}
-          className="title-list-job poppins-regular"
-        >
+        <h4 style={{ textAlign: "left" }} className="title-list-job">
           Bảng thống kê số lượng CV
         </h4>
         <div style={{ marginBottom: "20px", textAlign: "left" }}>
