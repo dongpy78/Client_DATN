@@ -3,7 +3,8 @@ import styled from "styled-components";
 const HistoryTradePostWrapper = styled.section`
   border-radius: var(--border-radius);
   width: 100%;
-  background: var(--background-secondary-color);
+  background-color: var(--background-third-color);
+
   /* padding: 3rem 2rem 4rem; */
   padding: 2rem 2rem 2rem 2rem;
 
@@ -57,7 +58,7 @@ const HistoryTradePostWrapper = styled.section`
 
   th {
     background-color: var(--background-color); /* Màu nền cho header */
-    color: var(--text-secondary-color);
+    color: #fff;
 
     font-weight: normal;
     border-bottom: 1px solid #ddd;

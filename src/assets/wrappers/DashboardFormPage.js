@@ -3,7 +3,8 @@ import styled from "styled-components";
 const Wrapper = styled.section`
   border-radius: var(--border-radius);
   width: 100%;
-  background: var(--background-secondary-color);
+  background-color: var(--background-third-color);
+
   padding: 3rem 2rem 4rem;
 
   .company-quota-info {

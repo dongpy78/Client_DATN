@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Wrapper = styled.section`
   /* margin-top: 4rem; */
   text-align: center;
-  background-color: var(--background-secondary-color);
+  background-color: var(--background-third-color);
   padding: 2rem;
   font-family: "Plus Jakarta Sans", sans-serif;
 

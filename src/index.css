@@ -67,6 +67,7 @@
   --dark-mode-bg-color: #2a3447;
   --dark-mode-text-color: #7c8fac;
   --dark-mode-bg-secondary-color: #2a3447;
+  --dark-mode-bg-third-color: #343e50;
   --dark-mode-text-secondary-color: #eaeff4;
 
   /* --dark-mode-bg-color: #2a3447; */
@@ -78,8 +79,9 @@
 
   --background-color: var(--background-main-custom);
   --text-color: var(--color-text-sidebar);
-  --background-secondary-color: var(--white);
-  --text-secondary-color: var(--white);
+  --background-secondary-color: var(--dark-mode-text-secondary-color);
+  --text-secondary-color: var(--dark-mode-bg-third-color);
+  --background-third-color: #f1f3f5;
 }
 
 .poppins-thin {
@@ -195,6 +197,7 @@
   --background-color: var(--dark-mode-bg-color) !important;
   --text-secondary-color: var(--dark-mode-text-secondary-color) !important;
   --background-secondary-color: var(--dark-mode-bg-secondary-color) !important;
+  --background-third-color: var(--dark-mode-bg-third-color);
 }
 
 /* buttons */

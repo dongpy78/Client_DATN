@@ -3,7 +3,8 @@ import styled from "styled-components";
 const JobTableWrapper = styled.section`
   border-radius: var(--border-radius);
   width: 100%;
-  background: var(--background-secondary-color);
+  background-color: var(--background-third-color);
+
   /* padding: 3rem 2rem 4rem; */
   padding: 0 2rem 2rem 2rem;
 
