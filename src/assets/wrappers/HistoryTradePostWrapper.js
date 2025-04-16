@@ -8,7 +8,7 @@ const HistoryTradePostWrapper = styled.section`
   padding: 2rem 2rem 2rem 2rem;
 
   h5 {
-    color: var(--color-text-sidebar);
+    color: var(--text-color);
     font-family: "Plus Jakarta Sans", sans-serif;
   }
 
@@ -23,18 +23,22 @@ const HistoryTradePostWrapper = styled.section`
   .title-list-job {
     font-size: 23px;
     margin-bottom: 1rem;
+    color: var(--text-color);
+    letter-spacing: var(--letter-spacing);
     font-family: "Plus Jakarta Sans", sans-serif;
   }
 
   .title-amount {
     font-size: 16px;
+    color: var(--text-color);
+    letter-spacing: var(--letter-spacing);
+    font-family: "Plus Jakarta Sans", sans-serif;
   }
 
   table {
     width: 100%;
     border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
     table-layout: auto; /* Tự động điều chỉnh chiều rộng cột */
-    border: 1px solid red;
     border-radius: 8px; /* Thêm border-radius */
     overflow: hidden; /* Quan trọng: Ẩn phần thừa của border-radius */
   }
@@ -52,14 +56,16 @@ const HistoryTradePostWrapper = styled.section`
   }
 
   th {
-    background-color: var(--background-main-custom); /* Màu nền cho header */
-    color: #fff;
+    background-color: var(--background-color); /* Màu nền cho header */
+    color: var(--text-secondary-color);
+
     font-weight: normal;
+    border-bottom: 1px solid #ddd;
   }
 
   td {
-    background: #fff;
-    color: var(--color-text-sidebar);
+    background: var(--background-secondary-color);
+    color: var(--text-color);
     border-bottom: 1px solid #ddd; /* Đường viền dưới mỗi hàng */
   }
 

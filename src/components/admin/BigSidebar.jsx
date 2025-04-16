@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { GlobalContext } from "../../contexts/GlobalProviders";
-import Wrapper from "../../../public/assets/wrappers/BigSidebar";
+import Wrapper from "/public/assets/wrappers/BigSidebar";
 import NavLinks from "./NavLinks";
 import Logo from "./Logo";
 

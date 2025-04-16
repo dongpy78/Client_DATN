@@ -205,8 +205,14 @@ const FilterCV = () => {
     <Wrapper>
       <h4 className="form-title">Danh sách ứng viên</h4>
       <div>
-        <p>{`Số lượt xem miễn phí: ${companySeeAllow.free}`}</p>
-        <p>{`Số lượt xem: ${companySeeAllow.notFree}`}</p>
+        <h4
+          style={{ fontSize: "14px" }}
+          className="form-title"
+        >{`Số lượt xem miễn phí: ${companySeeAllow.free}`}</h4>
+        <h4
+          style={{ fontSize: "14px" }}
+          className="form-title"
+        >{`Số lượt xem: ${companySeeAllow.notFree}`}</h4>
       </div>
       <div className="form-center">
         <div className="form-row">
@@ -348,7 +354,7 @@ const FilterCV = () => {
 
                   <td>
                     <span
-                      style={{ color: "#4B49AC", cursor: "pointer" }}
+                      style={{ color: "#5d87ff", cursor: "pointer" }}
                       onClick={() => confirmSeeCandiate(item.userId)}
                     >
                       Xem chi tiết ứng viên
@@ -360,11 +366,7 @@ const FilterCV = () => {
           </table>
         </div>
 
-        <Link
-          style={{ marginLeft: "1rem" }}
-          to="/admin/cv/buy-cv"
-          className="btn add-user-btn"
-        >
+        <Link to="/admin/cv/buy-cv" className="btn add-user-btn">
           Mua thêm lượt xem ứng viên
         </Link>
 

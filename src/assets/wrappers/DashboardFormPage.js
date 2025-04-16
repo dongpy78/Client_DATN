@@ -30,7 +30,7 @@ const Wrapper = styled.section`
 
   .quota-value {
     font-weight: 600;
-    color: #4b49ac;
+    color: var(--text-color);
     padding: 4px 10px;
     border-radius: 12px;
     font-size: 16px;
@@ -45,7 +45,7 @@ const Wrapper = styled.section`
   .form-title {
     margin-bottom: 2rem;
     text-transform: capitalize;
-    color: var(--color-text-sidebar);
+    color: var(--text-color);
     letter-spacing: var(--letter-spacing);
     font-family: "Plus Jakarta Sans", sans-serif;
     font-size: 22px;
@@ -85,7 +85,7 @@ const Wrapper = styled.section`
     padding: 3px 12px; /* Điều chỉnh padding cho đẹp */
     border: 1px solid #ccc; /* Thêm border nếu cần */
     border-radius: 4px; /* Bo góc */
-    background: #f9f9f9; /* Màu nền */
+
     cursor: pointer; /* Hiệu ứng hover */
   }
 
@@ -96,7 +96,7 @@ const Wrapper = styled.section`
     text-transform: capitalize;
     letter-spacing: var(--letter-spacing);
     line-height: 1.5;
-    color: var(--color-text-sidebar);
+    color: var(--text-color);
     font-family: "Plus Jakarta Sans", sans-serif;
   }
 
@@ -110,9 +110,9 @@ const Wrapper = styled.section`
     width: 100%;
     padding: 0.375rem 0.75rem;
     border-radius: var(--border-radius);
-    background: var(--background-color);
+    background: var(--background-secondary-color);
     border: 1px solid var(--grey-300);
-    color: var(--color-text-sidebar);
+    color: var(--text-color);
     font-size: var(--small-text);
     letter-spacing: var(--letter-spacing);
     font-family: "Plus Jakarta Sans", sans-serif;

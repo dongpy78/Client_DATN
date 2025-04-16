@@ -35,7 +35,7 @@ const PaymentCvSuccess = () => {
     if (res) {
       showSuccessToast(res.errMessage);
       localStorage.removeItem("orderCvData");
-      setMessage("húc mừng bạn đã mua lượt tìm ứng viên thành công");
+      setMessage("Chúc mừng bạn đã mua lượt tìm ứng viên thành công");
     } else {
       showErrorToast(res?.errMessage || "Có lỗi xảy ra");
     }

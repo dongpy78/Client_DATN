@@ -42,7 +42,7 @@ const Wrapper = styled.aside`
     .nav-link {
       display: flex;
       align-items: center;
-      color: var(--color-text-sidebar);
+      color: var(--text-color);
       /* background-color: var(--primary-500); */
       padding: 0.8rem 0;
       padding-left: 2.5rem;

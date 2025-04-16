@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Wrapper = styled.section`
   .wrapper-test {
-    background-color: var(--background-color);
+    background-color: var(--background-secondary-color);
 
     border: 1px solid rgba(0, 0, 0, 0.1);
     /* box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.1); */

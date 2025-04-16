@@ -34,7 +34,6 @@ const JobTableWrapper = styled.section`
     width: 100%;
     border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
     table-layout: auto; /* Tự động điều chỉnh chiều rộng cột */
-    border: 1px solid red;
     border-radius: 8px; /* Thêm border-radius */
     overflow: hidden; /* Quan trọng: Ẩn phần thừa của border-radius */
   }
@@ -52,14 +51,15 @@ const JobTableWrapper = styled.section`
   }
 
   th {
-    background-color: var(--background-main-custom); /* Màu nền cho header */
+    background-color: var(--background-color); /* Màu nền cho header */
     color: #fff;
     font-weight: normal;
+    border-bottom: 1px solid #ddd;
   }
 
   td {
-    background: #f8f9fa;
-    color: #000;
+    background: var(--background-secondary-color);
+    color: var(--text-color);
     border-bottom: 1px solid #ddd; /* Đường viền dưới mỗi hàng */
   }
 
