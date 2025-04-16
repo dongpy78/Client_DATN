@@ -55,5 +55,11 @@ const Wrapper = styled.nav`
       display: block;
     }
   }
+
+  @media (max-width: 768px) {
+    .logo {
+      display: none; /* Ẩn logo trên điện thoại */
+    }
+  }
 `;
 export default Wrapper;

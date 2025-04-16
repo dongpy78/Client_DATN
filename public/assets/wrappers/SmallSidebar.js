@@ -51,13 +51,22 @@ const Wrapper = styled.aside`
   .nav-link {
     display: flex;
     align-items: center;
-    color: var(--text-secondary-color);
+    color: var(--text-color);
+
     padding: 1rem 0;
     text-transform: capitalize;
     transition: var(--transition);
   }
+
+  .nav-link:not(:first-child) {
+    margin-top: 0.2rem;
+  }
+
   .nav-link:hover {
-    color: var(--primary-500);
+    padding-left: 1.1rem;
+    color: var(--color-text-sidebar-secondary);
+    /* background-color: var(--background-main-secondary); */
+    transition: var(--transition);
   }
 
   .icon {
@@ -67,7 +76,7 @@ const Wrapper = styled.aside`
     place-items: center;
   }
   .active {
-    color: var(--primary-500);
+    color: var(--background-main-custom);
   }
 `;
 export default Wrapper;

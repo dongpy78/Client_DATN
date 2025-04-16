@@ -12,37 +12,37 @@ import { FaMoneyCheckAlt } from "react-icons/fa";
 
 const links = [
   {
-    text: "Home page",
+    text: "Trang chủ",
     path: ".",
     icon: <FaHome />,
   },
   {
-    text: "Manage Company",
+    text: "Quản lý công ty",
     path: "company",
     icon: <BsBuildingCheck />,
   },
   {
-    text: "Manage Posts",
+    text: "Quản lý bài đăng",
     path: "post",
     icon: <BsFillFileTextFill />,
   },
   {
-    text: "Manage Candidate",
+    text: "Tìm kiếm ứng viên",
     path: "list-candidates",
     icon: <BsFillPersonCheckFill />,
   },
   {
-    text: "History Post",
+    text: "Lịch sử giao dịch bài đăng",
     path: "history-post",
     icon: <FaMoneyCheckAlt />,
   },
   {
-    text: "History CV",
+    text: "Lịch sử giao dịch CV",
     path: "history-cv",
     icon: <FaMoneyCheckAlt />,
   },
   {
-    text: "profile",
+    text: "Hồ sơ cá nhân",
     path: "profile",
     icon: <ImProfile />,
   },
