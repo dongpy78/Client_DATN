@@ -4,7 +4,7 @@ const HistoryTradePostWrapper = styled.section`
   border-radius: var(--border-radius);
   width: 100%;
   background-color: var(--background-third-color);
-
+  min-height: 100vh;
   /* padding: 3rem 2rem 4rem; */
   padding: 2rem 2rem 2rem 2rem;
 
@@ -54,6 +54,7 @@ const HistoryTradePostWrapper = styled.section`
     vertical-align: middle; /* Căn giữa theo chiều dọc */
     font-family: "Plus Jakarta Sans", sans-serif;
     border: none;
+    font-size: 14px;
   }
 
   th {
@@ -82,7 +83,7 @@ const HistoryTradePostWrapper = styled.section`
   }
 
   .jobtype-container::-webkit-scrollbar-thumb {
-    background: var(--primary-500);
+    background: var(--background-color);
     border-radius: 6px;
     border: 2px solid var(--grey-100);
   }
@@ -93,7 +94,7 @@ const HistoryTradePostWrapper = styled.section`
 
   .jobtype-container {
     scrollbar-width: thin;
-    scrollbar-color: var(--primary-500) var(--grey-100);
+    scrollbar-color: var(--background-color) var(--grey-100);
   }
 
   .actions-custom {
@@ -134,6 +135,33 @@ const HistoryTradePostWrapper = styled.section`
   .cv-btn:hover {
     color: #1b5e20;
     transform: scale(1.1);
+  }
+
+  /* PC */
+
+  @media (min-width: 1024px) {
+    .button-export-post {
+      margin-left: 1rem;
+    }
+  }
+
+  /* Tablet */
+  @media (min-width: 740px) and (max-width: 1023px) {
+    .button-export-post {
+      margin-left: 1rem;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 740px) {
+    padding: 2rem 0;
+
+    .export-excel-post {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-left: 0;
+    }
   }
 `;
 

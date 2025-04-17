@@ -92,7 +92,7 @@ const Wrapper = styled.section`
 
   .form-label {
     display: block;
-    font-size: var(--small-text);
+    font-size: 14px;
     margin-bottom: 0.75rem;
     text-transform: capitalize;
     letter-spacing: var(--letter-spacing);
@@ -114,9 +114,11 @@ const Wrapper = styled.section`
     background: var(--background-secondary-color);
     border: 1px solid var(--grey-300);
     color: var(--text-color);
-    font-size: var(--small-text);
+    font-size: 14px;
     letter-spacing: var(--letter-spacing);
     font-family: "Plus Jakarta Sans", sans-serif;
+    overflow: visible;
+    display: block;
   }
   .form-input,
   .form-select,
@@ -156,6 +158,27 @@ const Wrapper = styled.section`
   @media (min-width: 1120px) {
     .form-center {
       grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .button-export-post {
+      margin-left: 1rem;
+    }
+  }
+
+  /* Tablet */
+  @media (min-width: 740px) and (max-width: 1023px) {
+    .form-center {
+      padding: 0 3rem;
+    }
+  }
+
+  @media (max-width: 740px) {
+    padding: 2rem 0;
+
+    .form-center {
+      padding: 0 2rem;
     }
   }
 `;

@@ -366,7 +366,11 @@ const FilterCV = () => {
           </table>
         </div>
 
-        <Link to="/admin/cv/buy-cv" className="btn add-user-btn">
+        <Link
+          style={{ fontSize: "14px" }}
+          to="/admin/cv/buy-cv"
+          className="btn add-user-btn"
+        >
           Mua thêm lượt xem ứng viên
         </Link>
 

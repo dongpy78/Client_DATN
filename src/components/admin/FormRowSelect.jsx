@@ -8,12 +8,17 @@ const FormRowSelect = ({ name, labelText, list, value, onChange }) => {
         name={name}
         id={name}
         className="form-select"
-        value={value} // Sử dụng value thay vì defaultValue để đồng bộ với state
+        value={value}
         onChange={onChange}
       >
         {list.map((item) => {
           const value = typeof item === "string" ? item : item.value;
-          const label = typeof item === "string" ? item : item.label;
+          const label =
+            typeof item === "string"
+              ? item
+              : item.label.length > 30
+              ? `${item.label.substring(0, 27)}...` // Cắt ngắn label nếu quá dài
+              : item.label;
           return (
             <option key={value} value={value}>
               {label}

@@ -49,6 +49,7 @@ const JobTableWrapper = styled.section`
     vertical-align: middle; /* Căn giữa theo chiều dọc */
     font-family: "Plus Jakarta Sans", sans-serif;
     border: none;
+    font-size: 14px;
   }
 
   th {
@@ -76,7 +77,7 @@ const JobTableWrapper = styled.section`
   }
 
   .jobtype-container::-webkit-scrollbar-thumb {
-    background: var(--primary-500);
+    background: var(--background-color);
     border-radius: 6px;
     border: 2px solid var(--grey-100);
   }
@@ -87,7 +88,7 @@ const JobTableWrapper = styled.section`
 
   .jobtype-container {
     scrollbar-width: thin;
-    scrollbar-color: var(--primary-500) var(--grey-100);
+    scrollbar-color: var(--background-color) var(--grey-100);
   }
 
   /* Giới hạn chiều rộng cho các cột cụ thể */
@@ -113,6 +114,7 @@ const JobTableWrapper = styled.section`
   }
 
   .add-user-btn {
+    font-size: 14px;
     font-family: "Plus Jakarta Sans", sans-serif;
   }
 
@@ -154,6 +156,19 @@ const JobTableWrapper = styled.section`
   .cv-btn:hover {
     color: #1b5e20;
     transform: scale(1.1);
+  }
+
+  @media (max-width: 740px) {
+    margin-top: 2rem;
+    padding: 0;
+
+    .add-post-buy-container {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      margin-top: 2rem;
+      gap: 10px;
+    }
   }
 `;
 

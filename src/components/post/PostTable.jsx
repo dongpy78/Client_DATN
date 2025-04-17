@@ -97,16 +97,15 @@ const PostTable = ({ typePost, currentPage = 1, totalCount = 0 }) => {
           </tbody>
         </table>
       </div>
-      <Link to="/admin/post/add" className="btn add-user-btn">
-        Thêm bài đăng
-      </Link>
-      <Link
-        style={{ marginLeft: "1rem" }}
-        to="/admin/post/buy-post"
-        className="btn add-user-btn"
-      >
-        Mua thêm lượt đăng bài
-      </Link>
+      <div className="add-post-buy-container">
+        <Link to="/admin/post/add" className="btn add-user-btn">
+          Thêm bài đăng
+        </Link>
+        <Link to="/admin/post/buy-post" className="btn add-user-btn">
+          Mua thêm lượt đăng bài
+        </Link>
+      </div>
+
       {/* CSS cho các trạng thái */}
       <style jsx>{`
         .status-badge {

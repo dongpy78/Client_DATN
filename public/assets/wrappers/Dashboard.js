@@ -24,5 +24,15 @@ const Wrapper = styled.section`
       width: 90%;
     }
   }
+
+  @media (max-width: 740px) {
+    .wrapper-test {
+      background-color: var(--background-third-color);
+    }
+
+    .dashboard-page {
+      padding: 0;
+    }
+  }
 `;
 export default Wrapper;

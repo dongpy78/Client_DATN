@@ -25,6 +25,10 @@ const Wrapper = styled.section`
     letter-spacing: var(--letter-spacing);
     font-family: "Plus Jakarta Sans", sans-serif;
   }
+
+  @media (max-width: 740px) {
+    padding: 0;
+  }
 `;
 
 export default Wrapper;

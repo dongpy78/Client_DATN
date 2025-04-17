@@ -48,6 +48,19 @@ const Wrapper = styled.section`
       grid-template-columns: 1fr 1fr 1fr;
     }
   }
+
+  @media (max-width: 740px) {
+    margin-top: 2rem;
+    padding: 0;
+
+    /* .add-post-buy-container {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      margin-top: 2rem;
+      gap: 10px;
+    } */
+  }
 `;
 
 export default Wrapper;

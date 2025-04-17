@@ -3,9 +3,10 @@ import styled from "styled-components";
 const JobTableWrapper = styled.section`
   border-radius: var(--border-radius);
   width: 100%;
-  background: var(--background-secondary-color);
+  background-color: var(--background-third-color);
+
   /* padding: 3rem 2rem 4rem; */
-  /* padding: 0 2rem 2rem 2rem; */
+  padding: 0 2rem 2rem 2rem;
 
   .jobtype-container {
     overflow-x: auto; /* Cho phép cuộn ngang nếu bảng quá rộng */
@@ -48,6 +49,7 @@ const JobTableWrapper = styled.section`
     vertical-align: middle; /* Căn giữa theo chiều dọc */
     font-family: "Plus Jakarta Sans", sans-serif;
     border: none;
+    font-size: 14px;
   }
 
   th {
@@ -80,7 +82,7 @@ const JobTableWrapper = styled.section`
   }
 
   .jobtype-container::-webkit-scrollbar-thumb {
-    background: var(--primary-500);
+    background: var(--background-color);
     border-radius: 6px;
     border: 2px solid var(--grey-100);
   }
@@ -91,7 +93,7 @@ const JobTableWrapper = styled.section`
 
   .jobtype-container {
     scrollbar-width: thin;
-    scrollbar-color: var(--primary-500) var(--grey-100);
+    scrollbar-color: var(--background-color) var(--grey-100);
   }
 
   /* Giới hạn chiều rộng cho các cột cụ thể */
@@ -154,6 +156,19 @@ const JobTableWrapper = styled.section`
   .cv-btn:hover {
     color: #1b5e20;
     transform: scale(1.1);
+  }
+
+  @media (max-width: 740px) {
+    margin-top: 2rem;
+    padding: 0;
+
+    /* .add-post-buy-container {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      margin-top: 2rem;
+      gap: 10px;
+    } */
   }
 `;
 

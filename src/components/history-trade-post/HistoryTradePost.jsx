@@ -140,12 +140,12 @@ const HistoryTradePost = () => {
     <HistoryTradePostWrapper>
       <h5 className="title-list-job">Lịch sử thanh toán các gói bài đăng</h5>
 
-      <div style={{ marginBottom: "20px" }}>
+      <div className="export-excel-post" style={{ marginBottom: "20px" }}>
         <RangePicker onChange={onDatePicker} />
         <button
+          className="button-export-post"
           onClick={handleOnClickExport}
           style={{
-            marginLeft: "10px",
             padding: "5px 15px",
             backgroundColor: "#4B49AC",
             color: "white",

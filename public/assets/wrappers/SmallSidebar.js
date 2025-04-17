@@ -52,7 +52,8 @@ const Wrapper = styled.aside`
     display: flex;
     align-items: center;
     color: var(--text-color);
-
+    font-family: "Plus Jakarta Sans", sans-serif;
+    letter-spacing: 0.1px;
     padding: 1rem 0;
     text-transform: capitalize;
     transition: var(--transition);

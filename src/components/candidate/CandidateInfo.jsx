@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import FormRow from "../../components/admin/FormRow";
-import FormRowSelect from "../../components/admin/FormRowSelect";
 import FormRowSelectV1 from "../../components/admin/FormRowSelectV1";
 import Wrapper from "../../assets/wrappers/DashboardFormPage";
 import axiosInstance from "../../libs/axiosInterceptor";
