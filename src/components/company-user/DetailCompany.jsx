@@ -23,6 +23,9 @@ const Container = styled.div`
 
 const CompanyCover = styled.div`
   margin-bottom: 16px;
+
+  @media (max-width: 740px) {
+  }
 `;
 
 const CoverWrapper = styled.div`
@@ -40,8 +43,12 @@ const CompanyDetailOverview = styled.div`
   display: flex;
   align-items: center;
   background: #fff;
-  padding: 0 24px;
+  padding: 10px 24px;
   position: relative;
+
+  @media (max-width: 740px) {
+    flex-wrap: wrap;
+  }
 `;
 
 const CompanyLogo = styled.div`
@@ -75,6 +82,15 @@ const CompanyInfo = styled.div`
   flex: 1;
   padding-top: 5px;
   word-break: break-word;
+
+  @media (max-width: 740px) {
+    display: flex;
+    flex-direction: column;
+
+    .website-and-amount {
+      flex-direction: column;
+    }
+  }
 `;
 
 const CompanyDetailName = styled.h1`
@@ -301,7 +317,7 @@ const DetailCompany = () => {
             </CompanyLogo>
             <CompanyInfo>
               <CompanyDetailName>{dataCompany.name}</CompanyDetailName>
-              <div className="d-flex">
+              <div className="d-flex website-and-amount">
                 <Website>
                   <i className="fas fa-globe-americas"></i>
                   <a

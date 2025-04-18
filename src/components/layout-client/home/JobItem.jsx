@@ -22,7 +22,7 @@ const JobItem = ({ data }) => {
             <Link href="job_details.html">
               <h4>{data.postDetailData.name}</h4>
             </Link>
-            <ul>
+            <ul className="job-list-single">
               <li>{data.postDetailData.jobLevelPostData.value}</li>
               <li>
                 <i className="fas fa-map-marker-alt" />
@@ -36,7 +36,9 @@ const JobItem = ({ data }) => {
           <Link href="job_details.html">
             {data.postDetailData.workTypePostData.value}
           </Link>
-          <span>{handleSplitTime(data.timePost)}</span>
+          <span className="time-post-ago">
+            {handleSplitTime(data.timePost)}
+          </span>
         </div>
       </div>
     </>

@@ -11,8 +11,16 @@ const SliderArea = () => {
         {/* Mobile Menu */}
         <div className="slider-active">
           <div
-            className="single-slider  d-flex align-items-center"
-            style={{ backgroundImage: `url(${logo1})`, height: "420px " }}
+            className="single-slider d-flex align-items-center"
+            style={{
+              backgroundImage: `url(${logo1})`,
+              maxWidth: "100%",
+              height: "50vh", // hoặc giá trị cụ thể
+              backgroundSize: "cover", // hoặc "contain"
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              verticalAlign: "middle",
+            }}
           >
             <div className="container">
               <div className="row">

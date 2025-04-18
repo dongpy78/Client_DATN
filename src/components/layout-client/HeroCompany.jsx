@@ -8,8 +8,16 @@ const HeroCompany = () => {
       {/* Hero Area Start*/}
       <div className="slider-area ">
         <div
-          className="single-slider  slider-height2 d-flex align-items-center"
-          style={{ backgroundImage: `url(${logo1})` }}
+          className="single-slider d-flex align-items-center"
+          style={{
+            backgroundImage: `url(${logo1})`,
+            maxWidth: "100%",
+            height: "50vh", // hoặc giá trị cụ thể
+            backgroundSize: "cover", // hoặc "contain"
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            verticalAlign: "middle",
+          }}
         >
           <div className="container">
             <div className="row">

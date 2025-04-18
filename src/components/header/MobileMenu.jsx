@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import links from "../../utils/links";
-import logo from "../../../public/assets/img/logo/logo.png";
+// import logo from "../../../public/assets/img/logo/logo.png";
+import logo1 from "/public/assets/img/logo/techworks.png";
 
 import { FaBars, FaTimes } from "react-icons/fa"; // Import icon menu
 import { Link } from "react-router-dom"; // Nếu dùng React Router
@@ -17,9 +18,9 @@ const MobileMenu = () => {
         onClick={() => setMenuOpen(!menuOpen)}
       >
         {menuOpen ? (
-          <FaTimes style={{ color: "red", fontSize: "28px" }} />
+          <FaTimes style={{ color: "#0a63bc", fontSize: "28px" }} />
         ) : (
-          <FaBars style={{ color: "red", fontSize: "28px" }} />
+          <FaBars style={{ color: "#0a63bc", fontSize: "28px" }} />
         )}
       </button>
 
@@ -27,7 +28,7 @@ const MobileMenu = () => {
       <nav className={`mobile-menu ${menuOpen ? "open" : ""}`}>
         <div className="logo">
           <Link to="/" onClick={() => setMenuOpen(false)}>
-            <img src={logo} alt="" />
+            <img src={logo1} alt="" />
           </Link>
         </div>
         <ul style={{ marginTop: "24px" }}>
