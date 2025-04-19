@@ -6,7 +6,7 @@ const ApplyProcess = () => {
     <>
       {/* How  Apply Process Start*/}
       <div
-        className="apply-process-area apply-bg pt-150 pb-150"
+        className="section-overly apply-process-area apply-bg pt-150 pb-150"
         style={{ backgroundImage: `url(${logo})` }}
       >
         <div className="container">
@@ -29,8 +29,9 @@ const ApplyProcess = () => {
                 <div className="process-cap">
                   <h5>1. Tìm kiếm công việc</h5>
                   <p>
-                    Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod
-                    tempor incididunt ut laborea.
+                    Dễ dàng tìm kiếm các công việc phù hợp với kỹ năng và kinh
+                    nghiệm của bạn thông qua hệ thống tìm kiếm thông minh với
+                    nhiều bộ lọc chuyên nghiệp.
                   </p>
                 </div>
               </div>
@@ -43,8 +44,9 @@ const ApplyProcess = () => {
                 <div className="process-cap">
                   <h5>2. Ứng tuyển công việc</h5>
                   <p>
-                    Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod
-                    tempor incididunt ut laborea.
+                    Nộp hồ sơ ứng tuyển nhanh chóng chỉ với vài thao tác, hệ
+                    thống sẽ tự động gửi CV của bạn đến nhà tuyển dụng và thông
+                    báo kết quả sớm nhất.
                   </p>
                 </div>
               </div>
@@ -57,8 +59,9 @@ const ApplyProcess = () => {
                 <div className="process-cap">
                   <h5>3. Nhận công việc</h5>
                   <p>
-                    Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod
-                    tempor incididunt ut laborea.
+                    Sau khi được chấp nhận, bạn sẽ nhận được thông báo chi tiết
+                    về công việc, mức lương và các chế độ đãi ngộ đi kèm để bắt
+                    đầu làm việc.
                   </p>
                 </div>
               </div>
