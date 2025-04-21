@@ -6,6 +6,7 @@ import LayoutAuth from "../layouts/LayoutAuth";
 import { action as registerAction } from "../pages/auth/register";
 import { action as loginAction } from "../pages/auth/login";
 import { action as forgotPasswordAction } from "../pages/auth/forgot-password";
+import OtpEmail from "../pages/auth/otp-email";
 const authRoutes = {
   path: "auth",
   element: <LayoutAuth />,
@@ -24,6 +25,10 @@ const authRoutes = {
       path: "forgot-password",
       element: <ForgotPassword />,
       action: forgotPasswordAction,
+    },
+    {
+      path: "verify-otp",
+      element: <OtpEmail />,
     },
   ],
 };
