@@ -5285,6 +5285,7 @@ form.search-box .search-form a {
   border: 1px solid #0a63bc;
   cursor: pointer;
   transform: translateY(-5px);
+  color: #5d87ff;
 }
 
 .our-services .single-services .services-ion span {
@@ -5317,7 +5318,7 @@ form.search-box .search-form a {
   color: #fb246a;
 }
 .our-services .single-services:hover .services-cap h5 a {
-  color: #fb246a;
+  color: #5d87ff;
 }
 @media (max-width: 767px) {
   .online-cv {

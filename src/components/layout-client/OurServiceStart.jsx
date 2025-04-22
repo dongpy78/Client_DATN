@@ -71,7 +71,7 @@ const OurServiceStart = () => {
                       </div>
                       <div className="services-cap">
                         <h5>
-                          <a href="job_listing.html">{jobType.value}</a>
+                          <a>{jobType.value}</a>
                         </h5>
                         <span>({job.amount})</span>
                       </div>
