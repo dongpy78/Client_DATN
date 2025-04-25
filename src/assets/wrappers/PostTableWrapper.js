@@ -4,9 +4,10 @@ const JobTableWrapper = styled.section`
   border-radius: var(--border-radius);
   width: 100%;
   background-color: var(--background-third-color);
+  min-height: 80vh;
 
   /* padding: 3rem 2rem 4rem; */
-  padding: 0 2rem 2rem 2rem;
+  padding: 3rem 2rem 2rem 2rem;
 
   .jobtype-container {
     overflow-x: auto; /* Cho phép cuộn ngang nếu bảng quá rộng */

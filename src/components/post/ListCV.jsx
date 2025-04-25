@@ -7,6 +7,7 @@ import { getAllListCvByPostService } from "../../services/cvService";
 import { getDetailPostByIdService } from "../../services/userService";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import PagePagination from "../admin/PagePagination";
+import LoadingPage from "../../pages/loading-page/LoadingPage";
 
 const ListCV = () => {
   const [dataCv, setdataCv] = useState([]);
@@ -14,6 +15,7 @@ const ListCV = () => {
   const [currentPage, setCurrentPage] = useState(0); // Using 0-based index for pagination
   const { id } = useParams();
   const [post, setPost] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   let fetchPost = async (id) => {
@@ -25,6 +27,7 @@ const ListCV = () => {
 
   useEffect(() => {
     if (id) {
+      setIsLoading(true); // Bắt đầu loading
       try {
         let fetchData = async () => {
           let arrData = await getAllListCvByPostService({
@@ -36,11 +39,13 @@ const ListCV = () => {
             setdataCv(arrData.result.data);
             setTotalCount(arrData.result.count); // Use the count from the response
           }
+          setIsLoading(false);
         };
         fetchData();
         fetchPost(id);
       } catch (error) {
         console.log(error);
+        setIsLoading(false); // Kết thúc loading nếu có lỗi
       }
     }
   }, [id]);
@@ -55,6 +60,7 @@ const ListCV = () => {
     if (arrData) {
       setdataCv(arrData.result.data);
     }
+    setIsLoading(false);
   };
 
   const getMatchRateClass = (rate) => {
@@ -81,68 +87,93 @@ const ListCV = () => {
 
   return (
     <PostTableWrapper>
-      <h5 className="title-list-job">Danh sách CV</h5>
-      <h5 className="title-amount">Tổng số lượng: {totalCount} </h5>
-      <div className="jobtype-container">
-        <table>
-          <thead>
-            <tr>
-              <th>STT</th>
-              <th>Tên người nộp</th>
-              <th>Số điện thoại</th>
-              <th>Tỉ lệ phù hợp</th>
-              <th>Đánh giá</th>
-              <th>Trạng thái</th>
-              <th>Thao tác</th>
-            </tr>
-          </thead>
-          <tbody>
-            {dataCv.map((item, index) => (
-              <tr key={index}>
-                <td>{index + 1 + currentPage * PAGINATION.pagerow}</td>
-                <td>
-                  {item.userCvData.firstName + " " + item.userCvData.lastName}
-                </td>
-                <td>{item.userCvData.phonenumber}</td>
-                <td>
-                  <span className={getMatchRateClass(item.file)}>
-                    {item.file}
-                  </span>
-                </td>
-                <td>
-                  <span className={getEvaluationClass(item.file)}>
-                    {+item.file.split("%")[0] >= 70
-                      ? "Tốt"
-                      : +item.file.split("%")[0] > 30
-                      ? "Tạm chấp nhận"
-                      : "Tệ"}
-                  </span>
-                </td>
-                <td>
-                  <span className={getStatusClass(item.isChecked)}>
-                    {item.isChecked === 0 ? "Chưa xem" : "Đã xem"}
-                  </span>
-                </td>
-                <td className="actions">
-                  <Link
-                    title="Xem CV"
-                    to={`/admin/post/view-cv/${item.id}`}
-                    className="edit-btn"
-                  >
-                    <FaEye />
-                  </Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {totalCount > PAGINATION.pagerow && (
-        <PagePagination
-          numOfPages={Math.ceil(totalCount / PAGINATION.pagerow)}
-          currentPage={currentPage + 1} // Adding 1 because PagePagination expects 1-based index
-          handlePageChange={(page) => handlePageChange(page - 1)} // Subtracting 1 to convert back to 0-based index
-        />
+      {isLoading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "300px",
+          }}
+        >
+          <LoadingPage />
+        </div>
+      ) : (
+        <>
+          <h5 className="title-list-job">Danh sách CV</h5>
+          <h5 className="title-amount">Tổng số lượng: {totalCount} </h5>
+
+          {dataCv.length > 0 ? (
+            <div className="jobtype-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th>Tên người nộp</th>
+                    <th>Số điện thoại</th>
+                    <th>Tỉ lệ phù hợp</th>
+                    <th>Đánh giá</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dataCv.map((item, index) => (
+                    <tr key={index}>
+                      <td>{index + 1 + currentPage * PAGINATION.pagerow}</td>
+                      <td>
+                        {item.userCvData.firstName +
+                          " " +
+                          item.userCvData.lastName}
+                      </td>
+                      <td>{item.userCvData.phonenumber}</td>
+                      <td>
+                        <span className={getMatchRateClass(item.file)}>
+                          {item.file}
+                        </span>
+                      </td>
+                      <td>
+                        <span className={getEvaluationClass(item.file)}>
+                          {+item.file.split("%")[0] >= 70
+                            ? "Tốt"
+                            : +item.file.split("%")[0] > 30
+                            ? "Tạm chấp nhận"
+                            : "Tệ"}
+                        </span>
+                      </td>
+                      <td>
+                        <span className={getStatusClass(item.isChecked)}>
+                          {item.isChecked === 0 ? "Chưa xem" : "Đã xem"}
+                        </span>
+                      </td>
+                      <td className="actions">
+                        <Link
+                          title="Xem CV"
+                          to={`/admin/post/view-cv/${item.id}`}
+                          className="edit-btn"
+                        >
+                          <FaEye />
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="no-data-message">
+              <p>Chưa có CV nào được nộp cho bài đăng này</p>
+            </div>
+          )}
+
+          {totalCount > PAGINATION.pagerow && (
+            <PagePagination
+              numOfPages={Math.ceil(totalCount / PAGINATION.pagerow)}
+              currentPage={currentPage + 1}
+              handlePageChange={(page) => handlePageChange(page - 1)}
+            />
+          )}
+        </>
       )}
       <style jsx>{`
         /* Style chung cho các badge */
@@ -207,6 +238,16 @@ const ListCV = () => {
           background-color: #f5f5f5;
           color: #616161;
           border-color: #616161;
+        }
+
+        .no-data-message {
+          text-align: center;
+          padding: 40px;
+          font-size: 16px;
+          color: #666;
+          background-color: #f9f9f9;
+          border-radius: 8px;
+          margin-top: 20px;
         }
       `}</style>
     </PostTableWrapper>
