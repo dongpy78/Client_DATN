@@ -18,6 +18,21 @@ import LogoutUser from "./LogoutUser";
 // import "./Header.css";
 
 const Header = () => {
+  useEffect(() => {
+    const header = document.querySelector(".header-sticky");
+    const handleScroll = () => {
+      const scrollY = window.scrollY || window.pageYOffset;
+      if (scrollY > 245) {
+        header.classList.add("sticky-bar", "sticky");
+      } else {
+        header.classList.remove("sticky-bar", "sticky");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
