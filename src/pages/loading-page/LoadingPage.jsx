@@ -2,30 +2,16 @@ import "./loadingpage.css";
 
 const LoadingPage = () => {
   return (
-    <>
-      <div className="loading-page-container">
-        <div className="scene">
-          <div className="shadow" />
-          <div className="jumper">
-            <div className="spinner">
-              <div className="scaler">
-                <div className="loader">
-                  <div className="cuboid">
-                    <div className="cuboid__side" />
-                    <div className="cuboid__side" />
-                    <div className="cuboid__side" />
-                    <div className="cuboid__side" />
-                    <div className="cuboid__side" />
-                    <div className="cuboid__side" />
-                  </div>
-                </div>
-                <h1 style={{ color: "#1098ad" }}>Loading...</h1>
-              </div>
-            </div>
+    <div className="loading-container">
+      <div className="rocket-loader">
+        <div className="rocket">
+          <div className="rocket-extras"></div>
+          <div className="jet">
+            <span></span>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

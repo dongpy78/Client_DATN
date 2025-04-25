@@ -1,7 +1,7 @@
-// FeaturedJobArea.jsx
 import React, { useEffect, useState } from "react";
 import { getListPostService } from "../../../services/userService";
 import JobsList from "./JobsList";
+import LoadingPage from "../../../pages/loading-page/LoadingPage";
 
 const FeaturedJobArea = () => {
   const [dataFeature, setDataFeature] = useState([]);
@@ -13,33 +13,33 @@ const FeaturedJobArea = () => {
     setLoading(true);
     setError(null);
     try {
-      const arrData = await getListPostService({
-        limit,
-        offset,
-        categoryJobCode: "",
-        addressCode: "",
-        salaryJobCode: "",
-        categoryJoblevelCode: "",
-        categoryWorktypeCode: "",
-        experienceJobCode: "",
-        sortName: false,
-      });
-      const arrData2 = await getListPostService({
-        limit,
-        offset,
-        categoryJobCode: "",
-        addressCode: "",
-        salaryJobCode: "",
-        categoryJoblevelCode: "",
-        categoryWorktypeCode: "",
-        experienceJobCode: "",
-        sortName: false,
-        isHot: 1,
-      });
+      const [arrData, arrData2] = await Promise.all([
+        getListPostService({
+          limit,
+          offset,
+          categoryJobCode: "",
+          addressCode: "",
+          salaryJobCode: "",
+          categoryJoblevelCode: "",
+          categoryWorktypeCode: "",
+          experienceJobCode: "",
+          sortName: false,
+        }),
+        getListPostService({
+          limit,
+          offset,
+          categoryJobCode: "",
+          addressCode: "",
+          salaryJobCode: "",
+          categoryJoblevelCode: "",
+          categoryWorktypeCode: "",
+          experienceJobCode: "",
+          sortName: false,
+          isHot: 1,
+        }),
+      ]);
 
-      // Lấy dữ liệu từ data.rows
       setDataFeature(arrData.data.rows);
-      console.log(dataFeature);
       setDataHot(arrData2.data.rows);
     } catch (error) {
       console.error("Error in loadPost:", error);
@@ -55,9 +55,31 @@ const FeaturedJobArea = () => {
 
   return (
     <>
-      {loading && <div>Loading...</div>}
-      {error && <div className="error-message">{error}</div>}
-      <section className="featured-job-area " style={{ padding: "4rem 0" }}>
+      <section
+        className="featured-job-area"
+        style={{ padding: "4rem 0", position: "relative" }}
+      >
+        {loading && (
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: "rgba(255, 255, 255, 0.8)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              zIndex: 1000,
+            }}
+          >
+            <LoadingPage />
+          </div>
+        )}
+
+        {error && <div className="error-message">{error}</div>}
+
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
@@ -69,7 +91,7 @@ const FeaturedJobArea = () => {
           </div>
           <div className="row justify-content-center">
             <div className="col-xl-10">
-              <JobsList dataFeature={dataHot} />
+              <JobsList dataFeature={dataHot} loading={loading} />
             </div>
           </div>
         </div>
@@ -88,7 +110,7 @@ const FeaturedJobArea = () => {
           </div>
           <div className="row justify-content-center">
             <div className="col-xl-10">
-              <JobsList dataFeature={dataFeature} />
+              <JobsList dataFeature={dataFeature} loading={loading} />
             </div>
           </div>
         </div>

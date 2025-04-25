@@ -6,6 +6,7 @@ import {
   showSuccessToast,
 } from "../../utils/toastNotifications";
 import { Link } from "react-router-dom";
+import LoadingPage from "../../pages/loading-page/LoadingPage";
 
 const OurServiceStart = () => {
   const [jobs, setJob] = useState([]);
@@ -52,7 +53,7 @@ const OurServiceStart = () => {
           </div>
           <div className="row d-flex justify-contnet-center">
             {loading ? (
-              <p>Đang tải...</p>
+              <LoadingPage />
             ) : jobs && jobs.length > 0 ? (
               jobs.map((job) => {
                 const jobType = job.postDetailData.jobTypePostData;

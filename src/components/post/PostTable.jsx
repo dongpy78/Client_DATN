@@ -3,12 +3,13 @@ import PostTableWrapper from "../../assets/wrappers/PostTableWrapper";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { FaEdit, FaFileAlt } from "react-icons/fa";
+import LoadingPage from "../../pages/loading-page/LoadingPage";
 
 const PostTable = ({ typePost, currentPage = 1, totalCount = 0 }) => {
   if (!typePost || typePost.length === 0) {
     return (
       <PostTableWrapper>
-        <h5>Không có bài đăng nào để hiển thị...</h5>
+        <LoadingPage />
         <Link to="/admin/post/add" className="btn add-user-btn">
           Thêm bài đăng
         </Link>

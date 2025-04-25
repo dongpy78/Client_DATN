@@ -118,6 +118,10 @@ const JobTableWrapper = styled.section`
     font-family: "Plus Jakarta Sans", sans-serif;
   }
 
+  .add-post-buy-container {
+    display: flex;
+    gap: 1rem;
+  }
   .actions-custom {
     /* display: flex; */
     gap: 8px; /* Khoảng cách giữa các nút */

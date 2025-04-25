@@ -10,6 +10,7 @@ import {
 import { getFromLocalStorage } from "../../utils/localStorage";
 import { Form } from "reactstrap";
 import { GlobalContext } from "../../contexts/GlobalProviders";
+import LoadingPage from "../../pages/loading-page/LoadingPage";
 
 const CandidateInfo = () => {
   const userStorage = getFromLocalStorage("user");
@@ -203,7 +204,12 @@ const CandidateInfo = () => {
     }
   };
 
-  if (loading) return <Wrapper>Đang tải...</Wrapper>;
+  if (loading)
+    return (
+      <Wrapper style={{ minHeight: "80vh" }}>
+        <LoadingPage />
+      </Wrapper>
+    );
   if (!user) return <Wrapper>Không tìm thấy thông tin người dùng.</Wrapper>;
 
   return (

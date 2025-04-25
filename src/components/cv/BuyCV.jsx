@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect, useState } from "react";
-
 import { getPaymentLinkCv, getAllToSelect } from "../../services/userService";
 import {
   showSuccessToast,
@@ -9,6 +8,7 @@ import {
 import Wrapper from "../../assets/wrappers/DashboardFormPage";
 import FormRow from "../admin/FormRow";
 import { Form, useNavigate } from "react-router-dom";
+import LoadingPage from "../../pages/loading-page/LoadingPage";
 
 const BuyCV = () => {
   const navigate = useNavigate();
@@ -20,10 +20,10 @@ const BuyCV = () => {
   const [dataPackage, setDataPackage] = useState([]);
   const [price, setPrice] = useState(0);
   const [total, setTotal] = useState(0);
+  const [showLoading, setShowLoading] = useState(false); // State for LoadingPage
 
   const handleOnChangePackage = (event) => {
     const { value } = event.target;
-    // Ensure we compare the same types (convert value to number if package ids are numbers)
     const item = dataPackage.find(
       (item) => item.id.toString() === value.toString()
     );
@@ -42,7 +42,7 @@ const BuyCV = () => {
   };
 
   const handleOnChangeAmount = (event) => {
-    const value = Math.max(1, parseInt(event.target.value) || 1); // Ensure minimum 1
+    const value = Math.max(1, parseInt(event.target.value) || 1);
     setInputValues({
       ...inputValues,
       amount: value,
@@ -57,6 +57,7 @@ const BuyCV = () => {
     }
 
     setIsLoading(true);
+    setShowLoading(true); // Show loading overlay
     try {
       const res = await getPaymentLinkCv(
         inputValues.packageCvId,
@@ -75,8 +76,10 @@ const BuyCV = () => {
       }
     } catch (error) {
       showErrorToast("An error occurred while processing your request");
+      console.error("Payment error:", error);
     } finally {
       setIsLoading(false);
+      setShowLoading(false); // Hide loading overlay if there's an error
     }
   };
 
@@ -103,6 +106,26 @@ const BuyCV = () => {
 
   return (
     <Wrapper>
+      {/* Loading Overlay */}
+      {showLoading && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1000,
+          }}
+        >
+          <LoadingPage />
+        </div>
+      )}
+
       <Form className="form">
         <h4 className="form-title">Mua lượt tìm ứng viên</h4>
         <div className="form-center">

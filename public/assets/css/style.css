@@ -6454,8 +6454,8 @@ form.search-box .search-form a {
 
 /* Nút active */
 .page-item.active .page-link {
-  background-color: #fb246a;
-  border-color: #fb246a;
+  background-color: #5d87ff !important;
+  border-color: #5d87ff !important;
   color: #fff;
 }
 

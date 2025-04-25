@@ -16,6 +16,8 @@ function useQuery() {
 const PaymentCvSuccess = () => {
   let query = useQuery();
   const [message, setMessage] = useState("Đang xử lý...");
+  const [isSuccess, setIsSuccess] = useState(false); // Thêm state để theo dõi trạng thái thành công
+  const navigate = useNavigate();
 
   useEffect(() => {
     let orderData = JSON.parse(localStorage.getItem("orderCvData"));
@@ -26,22 +28,28 @@ const PaymentCvSuccess = () => {
       createNewOrder(orderData);
     } else {
       setMessage("Thông tin đơn hàng không hợp lệ");
+      setIsSuccess(false);
     }
   }, []);
 
   let createNewOrder = async (data) => {
-    let res = await paymentOrderSuccessServiceCv(data);
-    console.log("Created order", res);
-    if (res) {
-      showSuccessToast(res.errMessage);
-      localStorage.removeItem("orderCvData");
-      setMessage("Chúc mừng bạn đã mua lượt tìm ứng viên thành công");
-    } else {
-      showErrorToast(res?.errMessage || "Có lỗi xảy ra");
+    try {
+      let res = await paymentOrderSuccessServiceCv(data);
+      console.log("Created order", res);
+      if (res && res.errCode === 0) {
+        showSuccessToast(res.errMessage);
+        localStorage.removeItem("orderCvData");
+        setMessage("Chúc mừng bạn đã mua lượt tìm ứng viên thành công");
+        setIsSuccess(true);
+      } else {
+        showErrorToast(res?.errMessage || "Có lỗi xảy ra");
+        setIsSuccess(false);
+      }
+    } catch (error) {
+      showErrorToast("Có lỗi xảy ra khi xử lý đơn hàng");
+      setIsSuccess(false);
     }
   };
-
-  const navigate = useNavigate();
 
   return (
     <Wrapper>
@@ -65,19 +73,17 @@ const PaymentCvSuccess = () => {
           style={{
             fontSize: "1.5rem",
             fontWeight: "600",
-            color: message.includes("Chúc mừng") ? "#2e7d32" : "#333",
+            color: isSuccess ? "#2e7d32" : "#333",
             marginBottom: "1.5rem",
             padding: "1rem",
-            borderBottom: message.includes("Chúc mừng")
-              ? "2px solid #2e7d32"
-              : "2px solid #4B49AC",
+            borderBottom: isSuccess ? "2px solid #2e7d32" : "2px solid #4B49AC",
             width: "100%",
           }}
         >
           {message}
         </div>
 
-        {message === "Chúc mừng bạn đã mua lượt xem ứng viên thành công" && (
+        {isSuccess ? (
           <button
             onClick={() => navigate("/admin/list-candidates")}
             style={{
@@ -101,11 +107,9 @@ const PaymentCvSuccess = () => {
           >
             Đăng bài ngay
           </button>
-        )}
-
-        {message === "Thông tin đơn hàng không hợp lệ" && (
+        ) : message === "Thông tin đơn hàng không hợp lệ" ? (
           <button
-            onClick={() => navigate("/admin/cv/buy-cv")}
+            onClick={() => navigate("/admin/list-candidates")}
             style={{
               backgroundColor: "#d32f2f",
               color: "white",
@@ -125,9 +129,9 @@ const PaymentCvSuccess = () => {
               },
             }}
           >
-            Quay lại trang mua lượt đăng bài
+            Quay lại
           </button>
-        )}
+        ) : null}
       </div>
     </Wrapper>
   );

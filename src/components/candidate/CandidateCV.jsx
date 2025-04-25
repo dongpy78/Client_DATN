@@ -62,49 +62,53 @@ const CandidateCV = (props) => {
                 <table className="table table-bordered">
                   <thead>
                     <tr>
-                      <th>STT</th>
-                      <th>Tên công việc</th>
-                      <th>Ngành</th>
-                      <th>Chức vụ</th>
-                      <th>Địa chỉ</th>
-                      <th>Thời gian nộp</th>
-                      <th>Trạng thái</th>
-                      <th>Thao tác</th>
+                      <th style={{ fontSize: "14px" }}>STT</th>
+                      <th style={{ fontSize: "14px" }}>Tên công việc</th>
+                      <th style={{ fontSize: "14px" }}>Ngành</th>
+                      <th style={{ fontSize: "14px" }}>Chức vụ</th>
+                      <th style={{ fontSize: "14px" }}>Địa chỉ</th>
+                      <th style={{ fontSize: "14px" }}>Thời gian nộp</th>
+                      <th style={{ fontSize: "14px" }}>Trạng thái</th>
+                      <th style={{ fontSize: "14px" }}>Thao tác</th>
                     </tr>
                   </thead>
                   <tbody>
                     {dataCv && dataCv.length > 0 ? (
                       dataCv.map((item, index) => (
                         <tr key={index}>
-                          <td>{index + 1 + numberPage * PAGINATION.pagerow}</td>
-                          <td>{item.postCvData.postDetailData.name}</td>
-                          <td>
+                          <td style={{ fontSize: "14px" }}>
+                            {index + 1 + numberPage * PAGINATION.pagerow}
+                          </td>
+                          <td style={{ fontSize: "14px" }}>
+                            {item.postCvData.postDetailData.name}
+                          </td>
+                          <td style={{ fontSize: "14px" }}>
                             {
                               item.postCvData.postDetailData.jobTypePostData
                                 .value
                             }
                           </td>
-                          <td>
+                          <td style={{ fontSize: "14px" }}>
                             {
                               item.postCvData.postDetailData.jobLevelPostData
                                 .value
                             }
                           </td>
-                          <td>
+                          <td style={{ fontSize: "14px" }}>
                             {
                               item.postCvData.postDetailData.provincePostData
                                 .value
                             }
                           </td>
-                          <td>
+                          <td style={{ fontSize: "14px" }}>
                             {moment(item.createdAt).format(
                               "DD-MM-YYYY HH:mm:ss"
                             )}
                           </td>
-                          <td>
+                          <td style={{ fontSize: "14px" }}>
                             {item.isChecked === 0 ? "Chưa xem" : "Đã xem"}
                           </td>
-                          <td>
+                          <td style={{ fontSize: "14px" }}>
                             <Link
                               style={{ color: "#000" }}
                               to={`/detail-job/${item.postCvData.id}/`}
@@ -123,7 +127,9 @@ const CandidateCV = (props) => {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="8">Không có dữ liệu</td>
+                        <td style={{ fontSize: "14px" }} colSpan="8">
+                          Không có dữ liệu
+                        </td>
                       </tr>
                     )}
                   </tbody>

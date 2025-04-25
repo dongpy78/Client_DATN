@@ -74,9 +74,9 @@ const Login = () => {
                 required={true}
               />
               <div className="options">
-                <label>
+                {/* <label>
                   <input type="checkbox" /> Remember me
-                </label>
+                </label> */}
                 <Link to="/auth/forgot-password" className="forgot-password">
                   Forgot Password?
                 </Link>
@@ -85,7 +85,7 @@ const Login = () => {
                 Login
               </button>
             </Form>
-            <div className="social-login">
+            {/* <div className="social-login">
               <p>Or login with</p>
               <div className="social-icons">
                 <button className="google-btn">
@@ -95,7 +95,7 @@ const Login = () => {
                   <i className="fab fa-facebook-f" /> Facebook
                 </button>
               </div>
-            </div>
+            </div> */}
             <p className="login-text">
               Don't have an account?{" "}
               <Link to="/auth/register">Register now</Link>

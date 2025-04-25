@@ -5,6 +5,7 @@ import {
   FaCog,
   FaSignOutAlt,
   FaFileUpload,
+  FaHome,
 } from "react-icons/fa";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
@@ -13,36 +14,28 @@ import {
   getFromLocalStorage,
   deleteFromLocalStorage,
 } from "../../utils/localStorage";
-import {
-  showSuccessToast,
-  showErrorToast,
-} from "../../utils/toastNotifications";
 import { GlobalContext } from "../../contexts/GlobalProviders";
 
 const LogoutUser = () => {
   const { candidate, setCandidate, logoutUser } = useContext(GlobalContext);
-  console.log("candidate", candidate);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
+  const [userRole, setUserRole] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userStorage = getFromLocalStorage("user"); // Lấy thông tin ứng viên từ localStorage
-    if (userStorage && !candidate) {
-      setCandidate({
-        ...userStorage,
-        name: `${userStorage.firstName} ${userStorage.lastName}`.trim(),
-        avatar: userStorage.image,
-      });
+    const userStorage = getFromLocalStorage("user");
+    if (userStorage) {
+      setUserRole(userStorage.roleCode);
+
+      if (!candidate) {
+        setCandidate({
+          ...userStorage,
+          name: `${userStorage.firstName} ${userStorage.lastName}`.trim(),
+          avatar: userStorage.image,
+        });
+      }
     }
   }, [setCandidate, candidate]);
-
-  // const logoutUser = () => {
-  //   deleteFromLocalStorage("user");
-  //   deleteFromLocalStorage("accessToken");
-  //   setUser(null); // Xóa user khỏi GlobalContext
-  //   showSuccessToast("Logout Success");
-  //   window.location.href = "/";
-  // };
 
   const handleProfile = () => {
     setIsPanelOpen(false);
@@ -57,6 +50,11 @@ const LogoutUser = () => {
   const handleJobUpload = () => {
     setIsPanelOpen(false);
     navigate("/candidate/cv-post");
+  };
+
+  const handleAdminDashboard = () => {
+    setIsPanelOpen(false);
+    navigate("/admin");
   };
 
   return (
@@ -74,18 +72,35 @@ const LogoutUser = () => {
       </div>
       <div className={`logout-panel ${isPanelOpen ? "open" : ""}`}>
         <div className="panel-content">
-          <div className="panel-item" onClick={handleProfile}>
-            <FaInfoCircle className="panel-icon" />
-            <span>Xem thông tin</span>
-          </div>
-          <div className="panel-item" onClick={handleSettings}>
-            <FaCog className="panel-icon" />
-            <span>Cài đặt</span>
-          </div>
-          <div className="panel-item" onClick={handleJobUpload}>
-            <FaFileUpload className="panel-icon" />
-            <span>Công việc đã nộp</span>
-          </div>
+          {/* Menu chỉ dành cho CANDIDATE */}
+          {userRole === "CANDIDATE" && (
+            <>
+              <div className="panel-item" onClick={handleProfile}>
+                <FaInfoCircle className="panel-icon" />
+                <span>Xem thông tin</span>
+              </div>
+              <div className="panel-item" onClick={handleSettings}>
+                <FaCog className="panel-icon" />
+                <span>Cài đặt</span>
+              </div>
+              <div className="panel-item" onClick={handleJobUpload}>
+                <FaFileUpload className="panel-icon" />
+                <span>Công việc đã nộp</span>
+              </div>
+            </>
+          )}
+
+          {/* Menu chỉ dành cho COMPANY */}
+          {userRole === "COMPANY" && (
+            <>
+              <div className="panel-item" onClick={handleAdminDashboard}>
+                <FaHome className="panel-icon" />
+                <span>Quay lại trang admin</span>
+              </div>
+            </>
+          )}
+
+          {/* Menu chung cho cả 2 role */}
           <div className="panel-item" onClick={logoutUser}>
             <FaSignOutAlt className="panel-icon" />
             <span>Đăng xuất</span>

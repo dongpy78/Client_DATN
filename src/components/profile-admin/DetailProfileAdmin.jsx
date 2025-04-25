@@ -11,6 +11,7 @@ import { getFromLocalStorage } from "../../utils/localStorage";
 import FormRowSelect from "../admin/FormRowSelect";
 import FormRowSelectV1 from "../../components/admin/FormRowSelectV1";
 import { GlobalContext } from "../../contexts/GlobalProviders";
+import LoadingPage from "../../pages/loading-page/LoadingPage";
 
 const DetailProfileAdmin = () => {
   const userStorage = getFromLocalStorage("user");
@@ -207,7 +208,12 @@ const DetailProfileAdmin = () => {
     }
   };
 
-  if (loading) return <Wrapper>Đang tải...</Wrapper>;
+  if (loading)
+    return (
+      <Wrapper>
+        <LoadingPage />
+      </Wrapper>
+    );
   if (!user) return <Wrapper>Không tìm thấy thông tin người dùng.</Wrapper>;
 
   return (
