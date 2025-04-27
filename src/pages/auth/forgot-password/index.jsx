@@ -22,7 +22,7 @@ export const action = async ({ request }) => {
       return redirect("/auth/login");
     }
   } catch (error) {
-    showErrorToast(error?.response?.data?.message);
+    showErrorToast(error?.response?.data?.message || "Send email failed");
     return error;
   }
 };

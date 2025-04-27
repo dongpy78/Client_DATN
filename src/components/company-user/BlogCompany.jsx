@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Input } from "antd";
+
 import ReactPaginate from "react-paginate";
 import { getListCompany } from "../../services/userService";
 import CommonUtils from "../../utils/CommonUtils";
@@ -75,57 +76,71 @@ const BlogCompany = () => {
       className="candidate-info-area section-padding"
       style={{ position: "relative" }}
     >
-      {loading && (
-        <div>
-          <LoadingPage />
-        </div>
-      )}
-
       <div className="container">
-        <div className="row">
-          {dataCompany.map((item, index) => (
-            <div className="col-lg-6 mb-5" key={index}>
-              <Link
-                className="no-hover-effect"
-                to={`/detail-company/${item.id}`}
-              >
-                <article className="blog_item">
-                  <div className="blog_item_img">
-                    <img
-                      className="card-img rounded-0"
-                      src={item.coverimage}
-                      alt="blog"
-                      style={{ position: "relative", height: "280px" }}
-                    />
-                    <a href="#">
+        <div className="section-tittle text-center">
+          <span>Danh sách các công ty</span>
+        </div>
+
+        <div className="search-company">
+          <Input.Search
+            onSearch={handleSearch}
+            className="mt-2"
+            placeholder="Nhập tên các công ty"
+            allowClear
+            enterButton="Tìm kiếm"
+          ></Input.Search>
+        </div>
+
+        <div className="row mt-5">
+          {loading ? (
+            <LoadingPage /> // Hiển thị component LoadingPage khi loading là true
+          ) : (
+            dataCompany.map((item, index) => (
+              <div className="col-lg-6 mb-5" key={index}>
+                <Link
+                  className="no-hover-effect"
+                  to={`/detail-company/${item.id}`}
+                >
+                  <article className="blog_item">
+                    <div className="blog_item_img">
                       <img
                         className="card-img rounded-0"
-                        src={item.thumbnail}
+                        src={item.coverimage}
                         alt="blog"
-                        style={{
-                          width: "100px",
-                          height: "100px",
-                          position: "absolute",
-                          bottom: "0",
-                          left: "0",
-                          transform: "translate(40%, 50%)",
+                        style={{ position: "relative", height: "280px" }}
+                      />
+                      <a href="#">
+                        <img
+                          className="card-img rounded-0"
+                          src={item.thumbnail}
+                          alt="blog"
+                          style={{
+                            width: "100px",
+                            height: "100px",
+                            position: "absolute",
+                            bottom: "0",
+                            left: "0",
+                            transform: "translate(40%, 50%)",
+                          }}
+                        />
+                      </a>
+                    </div>
+                    <div className="blog_details" style={{ height: "249px" }}>
+                      <a className="d-inline-block" href="#">
+                        <h2>{item.name}</h2>
+                      </a>
+                      <div
+                        className="description-company"
+                        dangerouslySetInnerHTML={{
+                          __html: item.descriptionHTML,
                         }}
                       />
-                    </a>
-                  </div>
-                  <div className="blog_details" style={{ height: "249px" }}>
-                    <a className="d-inline-block" href="#">
-                      <h2>{item.name}</h2>
-                    </a>
-                    <div
-                      className="description-company"
-                      dangerouslySetInnerHTML={{ __html: item.descriptionHTML }}
-                    />
-                  </div>
-                </article>
-              </Link>
-            </div>
-          ))}
+                    </div>
+                  </article>
+                </Link>
+              </div>
+            ))
+          )}
         </div>
 
         {!loading && dataCompany.length > 0 && (
