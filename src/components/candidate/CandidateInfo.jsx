@@ -69,7 +69,9 @@ const CandidateInfo = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     console.log(`Input changed: ${name} = ${value}`);
-    if (["firstName", "lastName", "address", "phonenumber"].includes(name)) {
+    if (
+      ["firstName", "lastName", "address", "phonenumber", "dob"].includes(name)
+    ) {
       setLocalUser((prevUser) => ({
         ...prevUser,
         userAccountData: {
@@ -157,7 +159,7 @@ const CandidateInfo = () => {
         phonenumber: user.userAccountData.phonenumber || "",
         email: user.email || "",
         genderCode: user.genderCode || "", // "M" hoặc "FE"
-        dob: user.dob || "",
+        dob: user.userAccountData.dob || "",
         image: user.image || "",
       };
 
@@ -289,7 +291,7 @@ const CandidateInfo = () => {
                 type="date"
                 name="dob"
                 labelText="Ngày sinh"
-                value={user.dob || ""}
+                value={user.userAccountData.dob || ""}
                 onChange={handleInputChange}
               />
             </div>
