@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import logo from "/assets/img/logo/logo.png";
-import logo1 from "/assets/img/logo/techworks.png";
+import logo from "/logo-main.svg";
+import logo1 from "/logo-main.svg";
 import links from "../../utils/links";
 import MobileMenu from "./MobileMenu";
 import { Link, useNavigate } from "react-router-dom";
