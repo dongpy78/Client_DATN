@@ -1,0 +1,27 @@
+.inner-page-detail {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 20px;
+  background: #fff;
+}
+
+.inner-page-detail .heading-title {
+  font-size: 18px;
+  font-weight: 700;
+  border-bottom: 2px solid #f7f7f7;
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.inner-page-detail .heading-title:before {
+  background: #f7941d;
+  content: "";
+  height: 2px;
+  left: 0;
+  position: absolute;
+  top: 31px;
+  width: 100px;
+}
