@@ -57,21 +57,25 @@ const DetailJob = () => {
   return (
     <>
       <div className="slider-area">
-        <div
-          className="single-slider section-overly slider-height2 d-flex align-items-center"
-          style={{
-            backgroundImage: `url(${dataPost.companyData.coverimage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            height: "450px",
-          }}
-        >
-          <div className="container">
-            <div className="row">
-              <div className="col-xl-12">
-                <div className="hero-cap text-center">
-                  <h2></h2>
+        <div className="container">
+          <div
+            className="single-slider d-flex align-items-center"
+            style={{
+              backgroundImage: `url(${dataPost.companyData.coverimage})`,
+              maxWidth: "100%",
+              height: "50vh", // hoặc giá trị cụ thể
+              backgroundSize: "contain", // hoặc "contain"
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              verticalAlign: "middle",
+            }}
+          >
+            <div className="container">
+              <div className="row">
+                <div className="col-xl-12">
+                  <div className="hero-cap text-center">
+                    <h2></h2>
+                  </div>
                 </div>
               </div>
             </div>
