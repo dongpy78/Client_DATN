@@ -65,7 +65,9 @@ const DetailProfileAdmin = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (["firstName", "lastName", "address", "phonenumber"].includes(name)) {
+    if (
+      ["firstName", "lastName", "address", "phonenumber", "dob"].includes(name)
+    ) {
       setLocalUser((prevUser) => ({
         ...prevUser,
         userAccountData: {
@@ -160,7 +162,7 @@ const DetailProfileAdmin = () => {
         phonenumber: user.userAccountData.phonenumber || "",
         email: user.email || "",
         genderCode: user.genderCode || "",
-        dob: user.dob || "",
+        dob: user.userAccountData.dob || "",
         image: user.image || "",
       };
 
@@ -273,7 +275,7 @@ const DetailProfileAdmin = () => {
             type="date"
             name="dob"
             labelText="Ngày sinh"
-            value={user.dob || ""}
+            value={user.userAccountData.dob || ""}
             onChange={handleInputChange}
           />
         </div>
