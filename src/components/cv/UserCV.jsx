@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getDetailCvService } from "../../services/cvService";
 import { getFromLocalStorage } from "../../utils/localStorage";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 const UserCV = () => {
   const navigate = useNavigate();
@@ -57,9 +58,12 @@ const UserCV = () => {
               <div
                 onClick={() => navigate(-1)}
                 className="mb-2 hover-pointer"
-                style={{ color: "red" }}
+                style={{ color: "red", cursor: "pointer" }}
               >
-                <i className="fa-solid fa-arrow-left mr-2"></i>Quay lại
+                <FaArrowLeftLong
+                  style={{ position: "relative", top: "-1px" }}
+                />{" "}
+                Quay lại
               </div>
               <h4 className="card-title">Giới thiệu bản thân</h4>
               <blockquote className="blockquote blockquote-primary">
