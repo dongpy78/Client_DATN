@@ -64,13 +64,13 @@ const Register = () => {
       <div className="wrapper-register">
         <div className="register-container">
           <div className="register-box">
-            <h2>Create an Account</h2>
+            <h2>Đăng ký tài khoản</h2>
             <Form method="POST">
               <FormInput
                 type="text"
                 name="firstName"
                 id="firstName"
-                placeholder="Enter your first name"
+                placeholder="Họ"
                 icon="fas fa-user"
                 required={true}
               />
@@ -78,7 +78,7 @@ const Register = () => {
                 type="text"
                 name="lastName"
                 id="lastName"
-                placeholder="Enter your last name"
+                placeholder="Tên"
                 icon="fas fa-user"
                 required={true}
               />
@@ -87,7 +87,7 @@ const Register = () => {
                 type="tel"
                 name="phone"
                 id="phone"
-                placeholder="Enter your phone number"
+                placeholder="Số điện thoại"
                 icon="fas fa-phone"
                 required={true}
               />
@@ -95,7 +95,7 @@ const Register = () => {
                 type="email"
                 name="email"
                 id="email"
-                placeholder="Enter your email"
+                placeholder="Email"
                 icon="fas fa-envelope"
                 required={true}
               />
@@ -103,7 +103,7 @@ const Register = () => {
                 type="password"
                 name="password"
                 id="password"
-                placeholder="Create a password"
+                placeholder="Mật khẩu"
                 icon="fas fa-lock"
                 required={true}
               />
@@ -111,7 +111,7 @@ const Register = () => {
                 type="password"
                 name="confirm-password"
                 id="confirm-password"
-                placeholder="Confirm your password"
+                placeholder="Xác nhận mật khẩu"
                 icon="fas fa-lock"
                 required={true}
               />
@@ -128,11 +128,11 @@ const Register = () => {
                 defaultValue="Nam"
               />
               <button type="submit" className="register-btn">
-                Sign Up
+                Đăng ký
               </button>
             </Form>
             <p className="alternate-option">
-              Already have an account? <Link to="/auth/login">Login here</Link>
+              Bạn đã có tài khoản? <Link to="/auth/login">Đăng nhập ngay</Link>
             </p>
           </div>
         </div>

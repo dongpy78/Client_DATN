@@ -59,7 +59,7 @@ form {
 .form-group input {
   width: 100%;
   padding: 12px 12px 12px 40px;
-  font-size: 16px;
+  font-size: 14px;
   border: 1px solid #ddd;
   border-radius: 8px;
   outline: none;
@@ -133,7 +133,7 @@ form {
 .register-form-select select {
   width: 100%;
   padding: 12px; /* Bỏ padding trái vì không có icon */
-  font-size: 16px;
+  font-size: 14px;
   border: 1px solid #ddd;
   border-radius: 8px;
   outline: none;

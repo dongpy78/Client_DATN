@@ -33,8 +33,8 @@ const ForgotPassword = () => {
       <div className="wrapper-forget">
         <div className="auth-container">
           <div className="auth-box">
-            <h2>Forgot Password</h2>
-            <p>Enter your email to receive a new password</p>
+            <h2>Lấy lại mật khẩu</h2>
+            <p>Nhập vào email để nhận password mới</p>
             <Form method="POST">
               <FormInput
                 type="email"
@@ -45,12 +45,12 @@ const ForgotPassword = () => {
                 required={true}
               />
               <button type="submit" className="auth-btn">
-                <i className="fas fa-paper-plane" /> Send New Password
+                <i className="fas fa-paper-plane" /> Gửi
               </button>
               <div className="forget-text">
                 <p>
-                  <i className="fas fa-arrow-left"></i> Back to{" "}
-                  <Link to="/auth/login">Login</Link>
+                  <i className="fas fa-arrow-left"></i> Trở lại trang{" "}
+                  <Link to="/auth/login">Đăng nhập</Link>
                 </p>
               </div>
             </Form>

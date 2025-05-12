@@ -54,14 +54,14 @@ const Login = () => {
       <div className="wrapper-login">
         <div className="login-container">
           <div className="login-box">
-            <h2>Welcome Back</h2>
-            <p>Login to your account</p>
+            <h2>Đăng nhập</h2>
+            <p>Đăng nhập vào tài khoản của bạn</p>
             <Form method="POST">
               <FormInput
                 type="email"
                 name="email"
                 id="email"
-                placeholder="Enter your email"
+                placeholder="Email"
                 icon="fa fa-envelope"
                 required={true}
               />
@@ -69,7 +69,7 @@ const Login = () => {
                 type="password"
                 name="password"
                 id="password"
-                placeholder="Enter your password"
+                placeholder="Mật khẩu"
                 icon="fa fa-lock"
                 required={true}
               />
@@ -78,11 +78,11 @@ const Login = () => {
                   <input type="checkbox" /> Remember me
                 </label> */}
                 <Link to="/auth/forgot-password" className="forgot-password">
-                  Forgot Password?
+                  Quên mật khẩu?
                 </Link>
               </div>
               <button type="submit" className="login-btn">
-                Login
+                Đăng nhập
               </button>
             </Form>
             {/* <div className="social-login">
@@ -97,8 +97,8 @@ const Login = () => {
               </div>
             </div> */}
             <p className="login-text">
-              Don't have an account?{" "}
-              <Link to="/auth/register">Register now</Link>
+              Bạn chưa có tài khoản?{" "}
+              <Link to="/auth/register">Đăng ký ngay</Link>
             </p>
           </div>
         </div>
