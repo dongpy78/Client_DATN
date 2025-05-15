@@ -37,21 +37,21 @@ const OurServiceStart = () => {
   return (
     <>
       {/* section-pad-t30 */}
-      <div
-        className="our-services"
-        style={{ padding: "4rem 0", background: "#fafafa" }}
-      >
-        <div className="container">
+      <div className="our-services" style={{ padding: "4rem 0" }}>
+        <div style={{ border: "1px solid #ccc" }} className="container">
           {/* Section Tittle */}
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="section-tittle text-center">
-                <span>LĨNH VỰC CÔNG VIỆC NỔI BẬT</span>
-                <h2>Danh Mục Nghề Nghiệp</h2>
+          <div style={{ background: "#f5f5f5" }} className="row">
+            <div style={{ height: "66px" }} className="col-lg-12">
+              <div className="section-tittle text-left">
+                {/* <span>Lĩnh vực công việc nổi bật</span> */}
+                <h2 style={{ lineHeight: "66px" }}>DANH MỤC NGHỀ NGHIỆP</h2>
               </div>
             </div>
           </div>
-          <div className="row d-flex justify-contnet-center">
+          <div
+            style={{ marginTop: "1rem" }}
+            className="row d-flex justify-contnet-center"
+          >
             {loading ? (
               <LoadingPage />
             ) : jobs && jobs.length > 0 ? (
@@ -67,10 +67,13 @@ const OurServiceStart = () => {
                         <img
                           src={jobType.image}
                           alt={jobType.value}
-                          style={{ width: "62px", height: "62px" }}
+                          style={{ width: "120px", height: "120px" }}
                         />
                       </div>
-                      <div className="services-cap">
+                      <div
+                        style={{ marginTop: "6px" }}
+                        className="services-cap"
+                      >
                         <h5>
                           <a>{jobType.value}</a>
                         </h5>
@@ -86,13 +89,13 @@ const OurServiceStart = () => {
           </div>
           {/* More Btn */}
           {/* Section Button */}
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="browse-btn2 text-center mt-50">
-                <Link to="/job" className=" btn-all-job">
-                  Xem tất cả việc làm
-                </Link>
-              </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="browse-btn2 text-center mt-50">
+              <Link to="/job" className=" btn-all-job">
+                Xem tất cả việc làm
+              </Link>
             </div>
           </div>
         </div>

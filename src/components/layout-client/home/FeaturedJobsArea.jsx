@@ -80,36 +80,36 @@ const FeaturedJobArea = () => {
 
         {error && <div className="error-message">{error}</div>}
 
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="section-tittle text-center">
-                <span>CÁC CÔNG VIỆC ĐANG CHỜ BẠN</span>
-                <h2>Công Việc Nổi Bật</h2>
+        <div style={{ border: "1px solid #ccc" }} className="container">
+          <div style={{ background: "#f5f5f5" }} className="row">
+            <div style={{ height: "66px" }} className="col-lg-12">
+              <div className="section-tittle text-left">
+                {/* <span>CÁC CÔNG VIỆC ĐANG CHỜ BẠN</span> */}
+                <h2 style={{ lineHeight: "66px" }}>CÔNG VIỆC NỔI BẬT</h2>
               </div>
             </div>
           </div>
           <div className="row justify-content-center">
-            <div className="col-xl-10">
+            <div className="col-xl-12" style={{ marginTop: "1rem" }}>
               <JobsList dataFeature={dataHot} loading={loading} />
             </div>
           </div>
         </div>
 
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div
-                className="section-tittle text-center"
-                style={{ marginTop: "1.5rem" }}
-              >
-                <span>CÁC CÔNG VIỆC ĐANG CHỜ BẠN</span>
-                <h2>Công Việc Mới Đăng</h2>
+        <div
+          style={{ border: "1px solid #ccc", marginTop: "3rem" }}
+          className="container"
+        >
+          <div style={{ background: "#f5f5f5" }} className="row">
+            <div style={{ height: "66px" }} className="col-lg-12">
+              <div className="section-tittle text-left">
+                {/* <span>CÁC CÔNG VIỆC ĐANG CHỜ BẠN</span> */}
+                <h2 style={{ lineHeight: "66px" }}>CÔNG VIỆC MỚI ĐĂNG</h2>
               </div>
             </div>
           </div>
           <div className="row justify-content-center">
-            <div className="col-xl-10">
+            <div style={{ marginTop: "1rem" }} className="col-xl-12">
               <JobsList dataFeature={dataFeature} loading={loading} />
             </div>
           </div>

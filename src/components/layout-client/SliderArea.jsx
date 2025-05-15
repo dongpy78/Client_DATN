@@ -2,64 +2,51 @@ import React from "react";
 import "/public/assets/css/nice-select.css";
 const logo = "/assets/img/hero/h1_hero.jpg";
 const logo1 = "/assets/img/hero/bg-form.png";
+import "../../styles/main.css";
 
 const SliderArea = () => {
   return (
     <>
-      {/* slider Area Start*/}
-      <div className="slider-area ">
-        {/* Mobile Menu */}
-        <div className="slider-active">
-          <div
-            className="single-slider d-flex align-items-center"
-            style={{
-              backgroundImage: `url(${logo1})`,
-              maxWidth: "100%",
-              height: "50vh", // hoặc giá trị cụ thể
-              backgroundSize: "cover", // hoặc "contain"
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              verticalAlign: "middle",
-            }}
-          >
-            <div className="container">
-              <div className="row">
-                <div className="col-xl-6 col-lg-9 col-md-10">
-                  <div className="hero__caption">
-                    <h1></h1>
-                    {/* <h1>Hãy tìm công việc phù hợp với bạn nào</h1> */}
-                  </div>
-                </div>
+      <div id="hero" className="hero section-123 dark-background">
+        <div className="container">
+          <div className="row gy-4">
+            <div
+              className="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center"
+              data-aos="zoom-out"
+            >
+              <h1 className="hero-heading">
+                Kết Nối Cơ Hội Việc Làm IT Tốt Nhất
+              </h1>
+              <p className="hero-description">
+                Tìm kiếm công việc IT mơ ước hoặc tuyển dụng nhân tài xuất sắc
+                với hệ thống website của chúng tôi minh của chúng tôi.
+              </p>
+              <div className="d-flex">
+                <a href="#about" className="btn-get-started">
+                  Bắt Đầu Ngay
+                </a>
+                <a
+                  href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
+                  className="glightbox btn-watch-video d-flex align-items-center"
+                >
+                  <i className="bi bi-play-circle" />
+                </a>
               </div>
-              {/* Search Box */}
-              <div className="row">
-                <div className="col-xl-8">
-                  {/* form */}
-                  {/* <form action="#" className="search-box">
-                    <div className="input-form">
-                      <input type="text" placeholder="Job Tittle or keyword" />
-                    </div>
-                    <div className="select-form">
-                      <div className="select-itms">
-                        <select name="select" id="select1">
-                          <option value="">Location BD</option>
-                          <option value="">Location PK</option>
-                          <option value="">Location US</option>
-                          <option value="">Location UK</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="search-form">
-                      <a href="#">Find job</a>
-                    </div>
-                  </form> */}
-                </div>
-              </div>
+            </div>
+            <div
+              className="col-lg-6 order-1 order-lg-2 hero-img"
+              data-aos="zoom-out"
+              data-aos-delay={200}
+            >
+              <img
+                src="/hero-img.png"
+                className="img-fluid animated"
+                alt="Tìm việc IT"
+              />
             </div>
           </div>
         </div>
       </div>
-      {/* slider Area End*/}
     </>
   );
 };

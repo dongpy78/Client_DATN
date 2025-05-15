@@ -9,13 +9,25 @@ const JobsList = ({ dataFeature }) => {
   }
 
   return (
-    <>
-      {dataFeature.map((data) => (
-        <Link to={`/detail-job/${data.id}`}>
-          <JobItem key={data.id} data={data} />
-        </Link>
-      ))}
-    </>
+    <div className="row">
+      {/* Cột 1 - chứa nửa đầu danh sách */}
+      <div className="col-md-6">
+        {dataFeature.slice(0, Math.ceil(dataFeature.length / 2)).map((data) => (
+          <Link key={data.id} to={`/detail-job/${data.id}`}>
+            <JobItem data={data} />
+          </Link>
+        ))}
+      </div>
+
+      {/* Cột 2 - chứa nửa sau danh sách */}
+      <div className="col-md-6">
+        {dataFeature.slice(Math.ceil(dataFeature.length / 2)).map((data) => (
+          <Link key={data.id} to={`/detail-job/${data.id}`}>
+            <JobItem data={data} />
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 };
 

@@ -61,8 +61,8 @@ export const action = async ({ request }) => {
 const Register = () => {
   return (
     <>
-      <div className="wrapper-register">
-        <div className="register-container">
+      <div className="container-res-login">
+        <div className="forms-container">
           <div className="register-box">
             <h2>Đăng ký tài khoản</h2>
             <Form method="POST">

@@ -32,7 +32,7 @@ const JobItem = ({ data }) => {
             </ul>
           </div>
         </div>
-        <div className="items-link f-right">
+        <div className="items-link items-link-test f-right">
           <Link href="job_details.html">
             {data.postDetailData.workTypePostData.value}
           </Link>
