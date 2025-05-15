@@ -7,6 +7,7 @@ import { action as registerAction } from "../pages/auth/register";
 import { action as loginAction } from "../pages/auth/login";
 import { action as forgotPasswordAction } from "../pages/auth/forgot-password";
 import OtpEmail from "../pages/auth/otp-email";
+import VerifyEmail from "../pages/auth/verify-email";
 const authRoutes = {
   path: "auth",
   element: <LayoutAuth />,
@@ -29,6 +30,10 @@ const authRoutes = {
     {
       path: "verify-otp",
       element: <OtpEmail />,
+    },
+    {
+      path: "verify-email",
+      element: <VerifyEmail />,
     },
   ],
 };

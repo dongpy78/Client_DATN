@@ -46,15 +46,17 @@ export const action = async ({ request }) => {
 
     // Kiểm tra status code
     if (response.status === 201) {
-      showSuccessToast("Register success! Please login to continue.");
-      return redirect("/auth/login");
+      showSuccessToast(
+        "Đăng ký thành công! Vui lòng kiểm tra email để xác thực tài khoản."
+      );
+      return redirect("/auth/verify-email");
     } else {
-      showErrorToast("Registration failed");
+      showErrorToast("Đăng ký thất bại");
       return null;
     }
   } catch (error) {
     console.error("Error:", error.response?.data);
-    showErrorToast(error?.response?.data?.message || "Registration failed");
+    // showErrorToast(error?.response?.data?.message || "Registration failed");
     return error;
   }
 };
