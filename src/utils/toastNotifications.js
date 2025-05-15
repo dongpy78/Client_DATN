@@ -12,6 +12,8 @@ const toastOptions = {
   pauseOnHover: true,
   theme: "light",
   transition: Bounce,
+  style: { zIndex: 9999 }, // Thêm dòng này
+  toastStyle: { zIndex: 9999 }, // Và dòng này
 };
 
 export const showSuccessToast = (message) => {

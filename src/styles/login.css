@@ -1,24 +1,8 @@
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Arial", sans-serif;
-}
-
-body {
-  background: linear-gradient(135deg, #6e8efb, #a777e3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-} */
-
 .wrapper-login {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  height: 90vh;
 }
 
 .login-container {

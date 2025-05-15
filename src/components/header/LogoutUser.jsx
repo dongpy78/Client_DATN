@@ -77,7 +77,7 @@ const LogoutUser = () => {
             <>
               <div className="panel-item" onClick={handleProfile}>
                 <FaInfoCircle className="panel-icon" />
-                <span>Xem thông tin</span>
+                <span className="testr">Xem thông tin</span>
               </div>
               <div className="panel-item" onClick={handleSettings}>
                 <FaCog className="panel-icon" />
