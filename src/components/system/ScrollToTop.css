@@ -5,7 +5,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #5d87ff;
+  background: #47b2e4;
   color: white;
   display: flex;
   align-items: center;
@@ -24,7 +24,7 @@
 }
 
 .scroll-up:hover {
-  background: #5d87ff;
+  background: #47b2e4;
   transform: translateY(-3px);
 }
 

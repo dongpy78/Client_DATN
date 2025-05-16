@@ -11,7 +11,7 @@
   gap: 10px;
   padding: 6px 15px;
   /* background: linear-gradient(45deg, #6b48ff, #00ddeb); */
-  background-color: #5d87ff;
+  background-color: #47b2e4;
   border-radius: 25px;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -59,7 +59,7 @@
   right: 0px;
   width: 238px;
   /* background: linear-gradient(135deg, #1e3c72, #2a5298); */
-  background-color: #5d87ff;
+  background-color: #47b2e4;
   border-radius: 16px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   transform: translateX(100%);

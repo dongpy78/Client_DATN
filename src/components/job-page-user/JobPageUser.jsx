@@ -138,7 +138,7 @@ const JobPageUser = () => {
                 count={count}
                 post={post}
               />
-              {countPage > 1 && (
+              {countPage > 0 && (
                 <ReactPaginate
                   forcePage={currentPage}
                   previousLabel={"Quay lại"}

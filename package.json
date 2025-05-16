@@ -16,6 +16,7 @@
     "axios": "^1.8.1",
     "bootstrap": "^5.3.3",
     "framer-motion": "^12.11.3",
+    "html-truncate": "^1.2.2",
     "jquery": "^3.7.1",
     "marked": "^15.0.7",
     "moment": "^2.30.1",

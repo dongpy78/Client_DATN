@@ -15,7 +15,7 @@ const OnlineCVArea = () => {
             <div className="col-xl-10">
               <div className="cv-caption text-center">
                 <p className="pera1">NHIỀU CÔNG VIỆC ĐANG CHỜ BẠN</p>
-                <p className="pera2"> Bạn Đã Hứng Thú Để Tìm Việc Chưa!</p>
+                <p className="pera2">BẠN ĐÃ HỨNG THÚ ĐỂ TÌM VIỆC LÀM CHƯA</p>
                 <a href="#" className="border-btn2 border-btn4">
                   Tìm Việc Ngay Hôm Nay
                 </a>

@@ -42,22 +42,29 @@ export const action = async ({ request }) => {
   try {
     // Gọi API đăng ký
     const response = await axiosInstance.post("/auth/register", mappedData);
-    // console.log("Response data:", response.data);
 
     // Kiểm tra status code
     if (response.status === 201) {
       showSuccessToast(
         "Đăng ký thành công! Vui lòng kiểm tra email để xác thực tài khoản."
       );
-      return redirect("/auth/verify-email");
+      return { success: true, email: data.email }; // Trả về dữ liệu để Register.js xử lý
+    } else if (response.status === 400) {
+      // Lấy thông điệp lỗi từ response.data
+      showErrorToast(response.data.message);
+      return { error: response.data.message };
     } else {
-      showErrorToast("Đăng ký thất bại");
-      return null;
+      showErrorToast(response.data.message);
     }
   } catch (error) {
-    console.error("Error:", error.response?.data);
-    // showErrorToast(error?.response?.data?.message || "Registration failed");
-    return error;
+    // Xử lý lỗi mạng, lỗi server (500), hoặc lỗi không có response
+    const errorMessage =
+      error.response?.data?.message ||
+      error.message ||
+      "Không thể kết nối đến server";
+    console.error("Error:", error.response?.data || error);
+    showErrorToast(errorMessage);
+    return { error: errorMessage };
   }
 };
 

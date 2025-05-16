@@ -6,16 +6,24 @@ const ApplyProcess = () => {
     <>
       {/* How  Apply Process Start*/}
       <div
-        className="section-overly apply-process-area apply-bg pt-150 pb-150"
-        style={{ backgroundImage: `url(${logo})` }}
+        className="section-overly2 apply-process-area apply-bg"
+        style={{ paddingTop: "60px", padding: "60px" }}
       >
         <div className="container">
           {/* Section Tittle */}
           <div className="row">
             <div className="col-lg-12">
-              <div className="section-tittle white-text text-center">
-                <span style={{ color: "#fff" }}>QUY TRÌNH TÌM VIỆC</span>
-                <h2>Thực Hiện Như Thế Nào?</h2>
+              <div className="section-titttle white-text text-center">
+                <span style={{ color: "#47b2e4" }}>QUY TRÌNH TÌM VIỆC</span>
+                <h2
+                  style={{
+                    color: "#37517e",
+                    fontWeight: "700",
+                    fontSize: "24px",
+                  }}
+                >
+                  THỰC HIỆN NHƯ THẾ NÀO?
+                </h2>
               </div>
             </div>
           </div>
