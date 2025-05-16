@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../../styles/register.css";
 import "../../../styles/register2.css";
 import { Form, Link, redirect } from "react-router-dom";
@@ -14,61 +14,140 @@ import {
   showErrorToast,
 } from "../../../utils/toastNotifications";
 
-export const action = async ({ request }) => {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
+// export const action = async ({ request }) => {
+//   const formData = await request.formData();
+//   const data = Object.fromEntries(formData);
 
-  // Kiểm tra password và confirm-password
-  if (data.password !== data["confirm-password"]) {
-    showErrorToast("Passwords do not match");
-    return null;
-  }
+//   // Kiểm tra password và confirm-password
+//   if (data.password !== data["confirm-password"]) {
+//     showErrorToast("Passwords do not match");
+//     return null;
+//   }
 
-  // Mapping dữ liệu sang định dạng API yêu cầu
-  const mappedData = {
-    firstName: data.firstName,
-    lastName: data.lastName,
-    phonenumber: data.phone,
-    email: data.email,
-    password: data.password,
-    roleCode: data.role === "Công ty" ? "COMPANY" : "CANDIDATE",
-    genderCode: data.gender === "Nam" ? "M" : "FE",
-    statusCode: "S1",
-    image: "avatar.jpg",
-  };
+//   // Mapping dữ liệu sang định dạng API yêu cầu
+//   const mappedData = {
+//     firstName: data.firstName,
+//     lastName: data.lastName,
+//     phonenumber: data.phone,
+//     email: data.email,
+//     password: data.password,
+//     roleCode: data.role === "Công ty" ? "COMPANY" : "CANDIDATE",
+//     genderCode: data.gender === "Nam" ? "M" : "FE",
+//     statusCode: "S1",
+//     image: "avatar.jpg",
+//   };
 
-  // console.log("Request payload:", mappedData);
+//   // console.log("Request payload:", mappedData);
 
-  try {
-    // Gọi API đăng ký
-    const response = await axiosInstance.post("/auth/register", mappedData);
+//   try {
+//     // Gọi API đăng ký
+//     const response = await axiosInstance.post("/auth/register", mappedData);
 
-    // Kiểm tra status code
-    if (response.status === 201) {
-      showSuccessToast(
-        "Đăng ký thành công! Vui lòng kiểm tra email để xác thực tài khoản."
-      );
-      return { success: true, email: data.email }; // Trả về dữ liệu để Register.js xử lý
-    } else if (response.status === 400) {
-      // Lấy thông điệp lỗi từ response.data
-      showErrorToast(response.data.message);
-      return { error: response.data.message };
-    } else {
-      showErrorToast(response.data.message);
-    }
-  } catch (error) {
-    // Xử lý lỗi mạng, lỗi server (500), hoặc lỗi không có response
-    const errorMessage =
-      error.response?.data?.message ||
-      error.message ||
-      "Không thể kết nối đến server";
-    console.error("Error:", error.response?.data || error);
-    showErrorToast(errorMessage);
-    return { error: errorMessage };
-  }
-};
+//     // Kiểm tra status code
+//     if (response.status === 201) {
+//       showSuccessToast(
+//         "Đăng ký thành công! Vui lòng kiểm tra email để xác thực tài khoản."
+//       );
+//       return { success: true, email: data.email }; // Trả về dữ liệu để Register.js xử lý
+//     } else if (response.status === 400) {
+//       // Lấy thông điệp lỗi từ response.data
+//       // showErrorToast(response.data.message);
+//       return { error: response.data.message };
+//     } else {
+//       // showErrorToast(response.data.message);
+//       return { error: response.data.message };
+//     }
+//   } catch (error) {
+//     // Xử lý lỗi mạng, lỗi server (500), hoặc lỗi không có response
+//     const errorMessage =
+//       error.response?.data?.message ||
+//       error.message ||
+//       "Không thể kết nối đến server";
+//     console.error("Error:", error.response?.data || error);
+//     // showErrorToast(errorMessage);
+//     return { error: errorMessage };
+//   }
+// };
 
 const Register = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formValid, setFormValid] = useState(false);
+  const [submitted, setSubmitted] = useState(false); // Thêm state submitted
+  const [validations, setValidations] = useState({
+    firstName: false,
+    lastName: false,
+    phone: false,
+    email: false,
+    password: false,
+    "confirm-password": false,
+  });
+
+  const handleValidationChange = (fieldName, isValid) => {
+    setValidations((prev) => ({
+      ...prev,
+      [fieldName]: isValid,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitted(true);
+
+    const isFormValid = Object.values(validations).every((valid) => valid);
+    setFormValid(isFormValid);
+
+    // if (!isFormValid) {
+    //   showErrorToast("Vui lòng điền đầy đủ thông tin hợp lệ");
+    //   return;
+    // }
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+    // Kiểm tra password match
+    if (data.password !== data["confirm-password"]) {
+      showErrorToast("Mật khẩu xác nhận không khớp");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const mappedData = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        phonenumber: data.phone,
+        email: data.email,
+        password: data.password,
+        roleCode: data.role === "Công ty" ? "COMPANY" : "CANDIDATE",
+        genderCode: data.gender === "Nam" ? "M" : "FE",
+        statusCode: "S1",
+        image: "avatar.jpg",
+      };
+
+      const response = await axiosInstance.post("/auth/register", mappedData);
+
+      if (response.status === 201) {
+        showSuccessToast(
+          "Đăng ký thành công! Vui lòng kiểm tra email để xác thực tài khoản."
+        );
+        // Có thể redirect hoặc làm gì đó sau khi đăng ký thành công
+      }
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Không thể kết nối đến server";
+      // showErrorToast(errorMessage);
+    } finally {
+      setIsSubmitting(false); // Kết thúc loading dù thành công hay thất bại
+    }
+  };
+
+  useEffect(() => {
+    const isFormValid = Object.values(validations).every((valid) => valid);
+    setFormValid(isFormValid);
+  }, [validations]);
   return (
     <>
       <div className="login-root">
@@ -176,7 +255,7 @@ const Register = () => {
                   <h2 style={{ color: "#5469d4" }} className="title-res-log">
                     Đăng ký tài khoản
                   </h2>
-                  <Form method="POST">
+                  <Form method="POST" onSubmit={handleSubmit} noValidate>
                     <FormInput
                       type="text"
                       name="firstName"
@@ -184,6 +263,10 @@ const Register = () => {
                       placeholder="Họ"
                       icon="fas fa-user"
                       required={true}
+                      pattern="^[a-zA-ZÀ-ỹ\s]+$"
+                      errorMessage="Họ chỉ được chứa chữ cái và khoảng trắng"
+                      onValidationChange={handleValidationChange}
+                      submitted={submitted}
                     />
                     <FormInput
                       type="text"
@@ -192,6 +275,10 @@ const Register = () => {
                       placeholder="Tên"
                       icon="fas fa-user"
                       required={true}
+                      pattern="^[a-zA-ZÀ-ỹ\s]+$"
+                      errorMessage="Tên chỉ được chứa chữ cái và khoảng trắng"
+                      onValidationChange={handleValidationChange}
+                      submitted={submitted}
                     />
 
                     <FormInput
@@ -201,6 +288,11 @@ const Register = () => {
                       placeholder="Số điện thoại"
                       icon="fas fa-phone"
                       required={true}
+                      pattern="^[0-9]{10}$"
+                      errorMessage="Số điện thoại chỉ được chứa số và từ 10 ký tự"
+                      onValidationChange={handleValidationChange}
+                      submitted={submitted}
+                      maxLength={10}
                     />
                     <FormInput
                       type="email"
@@ -209,6 +301,10 @@ const Register = () => {
                       placeholder="Email"
                       icon="fas fa-envelope"
                       required={true}
+                      pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                      errorMessage="Vui lòng nhập đúng định dạng email"
+                      onValidationChange={handleValidationChange}
+                      submitted={submitted}
                     />
                     <FormInput
                       type="password"
@@ -217,6 +313,10 @@ const Register = () => {
                       placeholder="Mật khẩu"
                       icon="fas fa-lock"
                       required={true}
+                      pattern="^.{6,}$"
+                      errorMessage="Mật khẩu phải có ít nhất 6 ký tự"
+                      onValidationChange={handleValidationChange}
+                      submitted={submitted}
                     />
                     <FormInput
                       type="password"
@@ -225,6 +325,7 @@ const Register = () => {
                       placeholder="Xác nhận mật khẩu"
                       icon="fas fa-lock"
                       required={true}
+                      submitted={submitted}
                     />
                     <FormSelect
                       label=""
@@ -238,8 +339,19 @@ const Register = () => {
                       list={["Nam", "Nữ"]}
                       defaultValue="Nam"
                     />
-                    <button type="submit" className="register-btn">
-                      Đăng ký
+                    <button
+                      type="submit"
+                      className="register-btn"
+                      formNoValidate
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <span className="loading loading-spinner"></span>
+                          Đang đăng ký...
+                        </>
+                      ) : (
+                        "Đăng ký"
+                      )}
                     </button>
                   </Form>
                   <p className="alternate-option">

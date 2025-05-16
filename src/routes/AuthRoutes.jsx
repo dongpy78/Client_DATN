@@ -3,7 +3,7 @@ import Register from "../pages/auth/register";
 import ForgotPassword from "../pages/auth/forgot-password";
 import LayoutAuth from "../layouts/LayoutAuth";
 
-import { action as registerAction } from "../pages/auth/register";
+// import { action as registerAction } from "../pages/auth/register";
 import { action as loginAction } from "../pages/auth/login";
 import { action as forgotPasswordAction } from "../pages/auth/forgot-password";
 import OtpEmail from "../pages/auth/otp-email";
@@ -20,7 +20,7 @@ const authRoutes = {
     {
       path: "register",
       element: <Register />,
-      action: registerAction,
+      // action: registerAction,
     },
     {
       path: "forgot-password",

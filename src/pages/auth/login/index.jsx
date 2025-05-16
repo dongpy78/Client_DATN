@@ -1,7 +1,7 @@
-import React from "react";
-import { Form, Link, redirect } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Form, Link, redirect, useActionData } from "react-router-dom";
 import "../../../styles/login.css";
-import "../../../styles/register2.css";
+import "../../../styles/login2.css";
 
 import FormInput from "../../../components/layout-client/FormInput"; // Import FormInput
 import {
@@ -17,40 +17,68 @@ export const action = async ({ request }) => {
   const data = Object.fromEntries(formData);
 
   try {
-    // Gọi API đăng nhập
     const response = await axiosInstance.post("/auth/login", {
       email: data.email,
       password: data.password,
     });
 
-    // console.log("Response data:", response.data);
-
-    // Kiểm tra trạng thái thành công (thường là 200 hoặc 201)
     if (response.status === 200 || response.status === 201) {
-      const { accessToken, user } = response.data; // Giả định API trả về accessToken và user
-
-      // Lưu token và user info vào localStorage
+      const { accessToken, user } = response.data;
       saveToLocalStorage(keyLocalStorage.accessToken, accessToken);
       saveToLocalStorage("user", user);
 
-      showSuccessToast("Đăng nhập thành công");
-
-      // Redirect dựa trên roleCode
       if (user.roleCode === "COMPANY") {
-        window.location.href = "/admin";
-      } else {
-        window.location.href = "/";
+        return redirect("/admin");
       }
+      return redirect("/");
     }
 
-    // Nếu response không phải 200/201, ném lỗi
-    throw new Error("Unexpected response status");
+    // Chỉ trả về lỗi khi status là 403
+    if (response.status === 403) {
+      return {
+        error: "Tài khoản của bạn đã bị khóa, không thể đăng nhập vào hệ thống",
+        status: 403,
+      };
+    }
+
+    // Các trường hợp lỗi khác không trả về gì
+    return null;
   } catch (error) {
-    showErrorToast(error?.response?.data?.message);
-    return error;
+    // Chỉ xử lý lỗi 403
+    if (error?.response?.status === 403) {
+      return {
+        error: "Tài khoản của bạn đã bị khóa, không thể đăng nhập vào hệ thống",
+        status: 403,
+      };
+    }
+    return null;
   }
 };
 const Login = () => {
+  const actionData = useActionData(); // Lấy dữ liệu từ action
+
+  useEffect(() => {
+    if (actionData?.error) {
+      showErrorToast(actionData.error);
+    }
+  }, [actionData]);
+
+  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [validations, setValidations] = useState({
+    email: false,
+    password: false,
+  });
+
+  const handleValidationChange = (fieldName, isValid) => {
+    setValidations((prev) => ({
+      ...prev,
+      [fieldName]: isValid,
+    }));
+  };
+
+  const isFormValid = Object.values(validations).every((valid) => valid);
+
   return (
     <>
       <div className="login-root">
@@ -164,6 +192,10 @@ const Login = () => {
                       placeholder="Email"
                       icon="fa fa-envelope"
                       required={true}
+                      pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                      errorMessage="Vui lòng nhập đúng định dạng email"
+                      onValidationChange={handleValidationChange}
+                      submitted={submitted}
                     />
                     <FormInput
                       type="password"
@@ -172,6 +204,10 @@ const Login = () => {
                       placeholder="Mật khẩu"
                       icon="fa fa-lock"
                       required={true}
+                      pattern="^.{6,}$"
+                      errorMessage="Mật khẩu phải có ít nhất 6 ký tự"
+                      onValidationChange={handleValidationChange}
+                      submitted={submitted}
                     />
                     <div className="options">
                       <Link
@@ -181,8 +217,21 @@ const Login = () => {
                         Quên mật khẩu?
                       </Link>
                     </div>
-                    <button type="submit" className="login-btn">
-                      Đăng nhập
+                    <button
+                      type="submit"
+                      className="login-btn"
+                      onClick={() => setSubmitted(true)}
+                      // disabled={isSubmitting || !isFormValid}
+                      formNoValidate
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <span className="loading loading-spinner"></span>
+                          Đang đăng nhập...
+                        </>
+                      ) : (
+                        "Đăng nhập"
+                      )}
                     </button>
                   </Form>
 

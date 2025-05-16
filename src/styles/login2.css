@@ -204,8 +204,8 @@ a.ssolink {
 .error-message {
   bottom: -20px; /* Điều chỉnh vị trí theo nhu cầu */
   left: 0;
-  color: #ff3860;
-  font-size: 0.8rem;
+  color: #ff3860 !important;
+  font-size: 0.8rem !important;
   width: 100%;
 }
 
