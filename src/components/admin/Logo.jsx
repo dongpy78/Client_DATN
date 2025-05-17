@@ -1,6 +1,6 @@
 // import logo from "/public/assestsAdmin/images/logo.svg";
 import { Link } from "react-router-dom";
-import logo from "/logo-main.svg";
+import logo from "/logo-main2.svg";
 
 const Logo = () => {
   return (

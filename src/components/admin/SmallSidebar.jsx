@@ -14,7 +14,7 @@ const SmallSidebar = () => {
           showSidebar ? "sidebar-container show-sidebar" : "sidebar-container"
         }
       >
-        <div className="content">
+        <div className="content-company">
           <button type="button" className="close-btn" onClick={toggleSidebar}>
             <FaTimes />
           </button>

@@ -43,7 +43,7 @@ export const action = async ({ request }) => {
   try {
     const response = await axiosInstance.post("/create-new-post", data);
     if (response.status === 201 || response.status === 200) {
-      showSuccessToast("Post created successfully!");
+      showSuccessToast("Tạo mới bài đăng thành công");
       return redirect("/admin/post");
     }
   } catch (error) {
@@ -64,7 +64,13 @@ const AddPost = () => {
           const response = await axiosInstance.get(
             `/companies/by-id?id=${user.companyId}`
           );
+          console.log("Full company response:", response); // Debug full response
+          console.log("Company data fields:", {
+            allowPost: response.data.data?.allowPost,
+            allowHotPost: response.data.data?.allowHotPost,
+          });
           setCompanyData(response.data.data);
+          console.log("company data: ", response.data.data);
         }
       } catch (error) {
         console.error("Error fetching company data:", error);

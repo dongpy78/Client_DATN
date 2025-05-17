@@ -5759,6 +5759,7 @@ form.search-box .search-form a {
 .single-job-items .job-items {
   display: flex;
   flex-wrap: wrap;
+  margin-right: 1rem;
 }
 @media only screen and (min-width: 576px) and (max-width: 767px) {
   .items-link {

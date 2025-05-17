@@ -92,7 +92,7 @@ const AdminDashboardCompany = () => {
     console.log("Statistical", res);
     let other = res.data.totalPost;
     let otherPercent = 100;
-    let color = ["#5d87ff", "#ffae1f", "#49beff", "#ecf2ff", "#9966FF"];
+    let color = ["#5d87ff", "#ffae1f", "#49beff", "#ff8787", "#9966FF"];
     if (res) {
       let newdata = res.data.map((item, index) => {
         other -= item.amount;

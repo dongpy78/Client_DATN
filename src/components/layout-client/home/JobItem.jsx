@@ -1,10 +1,13 @@
 import React from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
-
+import "moment/locale/vi"; // Luôn import trước
+moment.locale("vi");
 const JobItem = ({ data }) => {
   const handleSplitTime = (time) => {
-    return moment(new Date(+time)).fromNow();
+    console.log("TimePost value:", time); // Kiểm tra giá trị
+    if (!time) return "Vừa xong"; // Fallback nếu time không hợp lệ
+    return moment(new Date(+time)).fromNow(); // Đã set locale ở trên
   };
   return (
     <>

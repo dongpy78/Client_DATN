@@ -35,7 +35,7 @@ export const action = async ({ request }) => {
     });
     console.log("API Response:", response.data);
     if (response.status === 200) {
-      showSuccessToast("Company updated successfully!");
+      showSuccessToast("Cập nhật công ty thành công");
       return redirect("/admin/company");
     }
   } catch (error) {
@@ -248,7 +248,7 @@ const EditCompany = ({ initialData }) => {
           <div className="form-row form-select-image">
             <div>
               <label htmlFor="thumbnail" className="form-label">
-                Thumbnail (max 2MB)
+                Ảnh đại diện
               </label>
               {thumbnailPreview && (
                 <img
@@ -280,7 +280,7 @@ const EditCompany = ({ initialData }) => {
           <div className="form-row form-select-image">
             <div>
               <label htmlFor="coverImage" className="form-label">
-                Cover Image (max 2MB)
+                Ảnh bìa
               </label>
               {coverImagePreview && (
                 <img

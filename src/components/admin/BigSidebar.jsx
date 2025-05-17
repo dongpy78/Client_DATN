@@ -14,7 +14,7 @@ const BigSidebar = () => {
           showSidebar ? "sidebar-container " : "sidebar-container show-sidebar"
         }
       >
-        <div className="content">
+        <div className="content-company">
           <header>
             <Logo />
           </header>

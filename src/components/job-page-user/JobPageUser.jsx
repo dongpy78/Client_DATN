@@ -121,7 +121,10 @@ const JobPageUser = () => {
 
   return (
     <>
-      <div className="job-listing-area pt-120 pb-120">
+      <div
+        style={{ background: "#f5f6f8" }}
+        className="job-listing-area pt-120 pb-120"
+      >
         <div className="container">
           <div className="row">
             <LeftPageUser
