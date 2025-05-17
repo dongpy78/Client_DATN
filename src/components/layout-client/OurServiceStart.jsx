@@ -37,7 +37,11 @@ const OurServiceStart = () => {
   return (
     <>
       {/* section-pad-t30 */}
-      <div className="our-services" style={{ padding: "4rem 0" }}>
+      <div
+        id="danh-muc-nghe-nghiep"
+        className="our-services"
+        style={{ padding: "4rem 0" }}
+      >
         <div style={{ border: "1px solid #ccc" }} className="container">
           {/* Section Tittle */}
           <div style={{ background: "#f5f5f5" }} className="row">

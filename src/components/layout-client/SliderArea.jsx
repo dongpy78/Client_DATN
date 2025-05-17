@@ -1,4 +1,5 @@
 import React from "react";
+import { Link as ScrollLink } from "react-scroll";
 import "/public/assets/css/nice-select.css";
 const logo = "/assets/img/hero/h1_hero.jpg";
 const logo1 = "/assets/img/hero/bg-form.png";
@@ -22,9 +23,16 @@ const SliderArea = () => {
                 với hệ thống website của chúng tôi minh của chúng tôi.
               </p>
               <div className="d-flex">
-                <a href="#about" className="btn-get-started">
+                <ScrollLink
+                  style={{ cursor: "pointer" }}
+                  to="danh-muc-nghe-nghiep"
+                  smooth={true}
+                  duration={500}
+                  offset={-90} // Cuộn lên trên 70px so với vị trí thực
+                  className="btn-get-started"
+                >
                   Bắt Đầu Ngay
-                </a>
+                </ScrollLink>
                 <a
                   href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
                   className="glightbox btn-watch-video d-flex align-items-center"
