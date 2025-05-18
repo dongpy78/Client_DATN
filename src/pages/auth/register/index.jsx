@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../../styles/register.css";
 import "../../../styles/register2.css";
-import { Form, Link, redirect } from "react-router-dom";
+import { Form, Link, redirect, useNavigate } from "react-router-dom";
 import FormInput from "../../../components/layout-client/FormInput";
 import FormSelect from "../../../components/layout-client/FormSelect";
 import axiosInstance from "../../../libs/axiosInterceptor";
@@ -89,6 +89,8 @@ const Register = () => {
     }));
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
@@ -132,6 +134,9 @@ const Register = () => {
           "Đăng ký thành công! Vui lòng kiểm tra email để xác thực tài khoản."
         );
         // Có thể redirect hoặc làm gì đó sau khi đăng ký thành công
+        setTimeout(() => {
+          navigate("/auth/login");
+        }, 3000);
       }
     } catch (error) {
       const errorMessage =

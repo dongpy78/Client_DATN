@@ -33,9 +33,21 @@ export const action = async ({ request }) => {
       headers: { "Content-Type": "multipart/form-data" },
       timeout: 30000,
     });
+
+    console.log("Full API Response:", response); // Log toàn bộ response
+    console.log("Response Data Structure:", response.data.data); // Log cấu trúc data
+    console.log("Company ID from response:", response.data.data.id); // Log cụ thể companyId
+
     console.log("API Response:", response.data);
     if (response.status === 200) {
-      // Status 200 từ backend
+      const companyId = response.data.data.id;
+      const user = getFromLocalStorage("user");
+      console.log("Current user before update:", user); // Log user hiện tại
+
+      const updatedUser = { ...user, companyId };
+      console.log("Updated user:", updatedUser); // Log user sau khi cập nhật
+
+      localStorage.setItem("user", JSON.stringify(updatedUser));
       showSuccessToast("Company created successfully!");
       return redirect("/admin/company");
     }

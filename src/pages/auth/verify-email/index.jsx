@@ -74,9 +74,9 @@ const VerifyEmail = () => {
         });
 
         setStatus("success");
-        setTimeout(() => {
-          navigate("/auth/login");
-        }, 3000);
+        // setTimeout(() => {
+        //   navigate("/auth/login");
+        // }, 3000);
       } catch (error) {
         setStatus("error");
         setErrorMessage(
