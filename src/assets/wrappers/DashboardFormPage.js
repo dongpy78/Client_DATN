@@ -12,13 +12,13 @@ const Wrapper = styled.section`
     padding: 10px 10px;
     background-color: #f8f9fa;
     border-radius: 8px;
-    border-left: 4px solid #4b49ac;
+    border-left: 4px solid #5d87ff;
   }
 
   .company-quota-info h5 {
     margin: 8px 0;
     display: flex;
-    gap: 1rem;
+    gap: 0.4rem;
     justify-content: start;
     align-items: center;
   }
@@ -26,15 +26,15 @@ const Wrapper = styled.section`
   .quota-label {
     font-weight: 500;
     color: #555;
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .quota-value {
     font-weight: 600;
     color: var(--text-color);
-    padding: 4px 10px;
+    padding: 4px 8px;
     border-radius: 12px;
-    font-size: 16px;
+    font-size: 13px;
     background-color: #f0f0f0;
   }
 

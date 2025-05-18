@@ -119,7 +119,7 @@ const Register = () => {
         phonenumber: data.phone,
         email: data.email,
         password: data.password,
-        roleCode: data.role === "Công ty" ? "COMPANY" : "CANDIDATE",
+        roleCode: data.role === "Nhà tuyển dụng" ? "COMPANY" : "CANDIDATE",
         genderCode: data.gender === "Nam" ? "M" : "FE",
         statusCode: "S1",
         image: "avatar.jpg",
@@ -330,7 +330,7 @@ const Register = () => {
                     <FormSelect
                       label=""
                       name="role"
-                      list={["Ứng viên", "Công ty"]}
+                      list={["Ứng viên", "Nhà tuyển dụng"]}
                       defaultValue="Ứng viên"
                     />
                     <FormSelect

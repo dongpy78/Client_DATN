@@ -367,7 +367,7 @@ const FilterCV = () => {
         </div>
 
         <Link
-          style={{ fontSize: "14px" }}
+          style={{ fontSize: "14px", marginTop: "1rem" }}
           to="/admin/cv/buy-cv"
           className="btn add-user-btn"
         >

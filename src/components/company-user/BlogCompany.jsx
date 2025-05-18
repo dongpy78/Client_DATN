@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import truncate from "html-truncate";
 import { Input } from "antd";
-
 import ReactPaginate from "react-paginate";
 import { getListCompany } from "../../services/userService";
 import CommonUtils from "../../utils/CommonUtils";
@@ -13,10 +12,11 @@ import LoadingPage from "../../pages/loading-page/LoadingPage";
 
 const BlogCompany = () => {
   const [dataCompany, setDataCompany] = useState([]);
+  const [filteredCompany, setFilteredCompany] = useState([]); // Thêm state mới cho danh sách đã lọc
   const [count, setCount] = useState("");
   const [countData, setCountData] = useState(0);
   const [numberPage, setnumberPage] = useState("");
-  const [loading, setLoading] = useState(false); // Thêm state loading
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState("");
 
@@ -26,7 +26,7 @@ const BlogCompany = () => {
   };
 
   let fetchData = async () => {
-    setLoading(true); // Bật trạng thái loading
+    setLoading(true);
     try {
       let arrData = await getListCompany({
         limit: 6,
@@ -34,15 +34,21 @@ const BlogCompany = () => {
         search: CommonUtils.removeSpace(search),
       });
       if (arrData) {
-        setDataCompany(arrData.data.rows);
-        setCount(Math.ceil(arrData.data.count / 6));
-        setCountData(arrData.data.count);
+        // Lọc chỉ các công ty có censorCode = "CS1"
+        const approvedCompanies = arrData.data.rows.filter(
+          (company) => company.censorCode === "CS1"
+        );
+
+        setDataCompany(approvedCompanies);
+        setFilteredCompany(approvedCompanies); // Cập nhật danh sách đã lọc
+        setCount(Math.ceil(approvedCompanies.length / 6));
+        setCountData(approvedCompanies.length);
       }
     } catch (error) {
       console.log(error);
       showErrorToast("Không thể tải danh sách công ty");
     } finally {
-      setLoading(false); // Tắt trạng thái loading
+      setLoading(false);
     }
   };
 
@@ -52,7 +58,7 @@ const BlogCompany = () => {
   }, [search]);
 
   let handleChangePage = async (number) => {
-    setLoading(true); // Bật loading khi chuyển trang
+    setLoading(true);
     try {
       setnumberPage(number.selected);
       let arrData = await getListCompany({
@@ -61,14 +67,20 @@ const BlogCompany = () => {
         search: CommonUtils.removeSpace(search),
       });
       if (arrData && arrData.errCode === 0) {
-        setDataCompany(arrData.data);
-        setCountData(arrData.count);
+        // Lọc chỉ các công ty có censorCode = "CS1"
+        const approvedCompanies = arrData.data.filter(
+          (company) => company.censorCode === "CS1"
+        );
+
+        setDataCompany(approvedCompanies);
+        setFilteredCompany(approvedCompanies); // Cập nhật danh sách đã lọc
+        setCountData(approvedCompanies.length);
       }
     } catch (error) {
       console.log(error);
       showErrorToast("Không thể tải dữ liệu trang mới");
     } finally {
-      setLoading(false); // Tắt loading sau khi tải xong
+      setLoading(false);
     }
   };
 
@@ -113,13 +125,13 @@ const BlogCompany = () => {
 
                 <div className="row mt-5">
                   {loading ? (
-                    <LoadingPage /> // Hiển thị component LoadingPage khi loading là true
-                  ) : (
-                    dataCompany.map((item, index) => {
+                    <LoadingPage />
+                  ) : filteredCompany.length > 0 ? (
+                    filteredCompany.map((item, index) => {
                       const shortDescription = truncate(
                         item.descriptionHTML,
                         100
-                      ); // ✨ thêm ở đây
+                      );
                       return (
                         <div className="col-lg-4 col-md-6 mb-5" key={index}>
                           <Link
@@ -142,7 +154,7 @@ const BlogCompany = () => {
                               <div
                                 className="content contet-post"
                                 dangerouslySetInnerHTML={{
-                                  __html: shortDescription, // ✨ dùng đoạn HTML đã cắt ngắn
+                                  __html: shortDescription,
                                 }}
                               />
 
@@ -160,10 +172,14 @@ const BlogCompany = () => {
                         </div>
                       );
                     })
+                  ) : (
+                    <div className="text-center py-5">
+                      <h4>Không tìm thấy công ty phù hợp</h4>
+                    </div>
                   )}
                 </div>
 
-                {!loading && dataCompany.length > 0 && (
+                {!loading && filteredCompany.length > 0 && (
                   <nav className="blog-pagination justify-content-center d-flex">
                     <ReactPaginate
                       forcePage={numberPage}
@@ -187,12 +203,6 @@ const BlogCompany = () => {
                       onPageChange={handleChangePage}
                     />
                   </nav>
-                )}
-
-                {!loading && dataCompany.length === 0 && (
-                  <div className="text-center py-5">
-                    <h4>Không tìm thấy công ty phù hợp</h4>
-                  </div>
                 )}
               </div>
             </section>

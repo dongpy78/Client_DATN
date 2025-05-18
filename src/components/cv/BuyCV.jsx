@@ -20,16 +20,16 @@ const BuyCV = () => {
   const [dataPackage, setDataPackage] = useState([]);
   const [price, setPrice] = useState(0);
   const [total, setTotal] = useState(0);
-  const [showLoading, setShowLoading] = useState(false); // State for LoadingPage
+  const [showLoading, setShowLoading] = useState(false);
 
   const handleOnChangePackage = (event) => {
     const { value } = event.target;
     const item = dataPackage.find(
-      (item) => item.id.toString() === value.toString()
+      (item) => item.id.toString() === value.toString() && item.isActive === 1
     );
 
     if (!item) {
-      showErrorToast("Selected package not found");
+      showErrorToast("Selected package not found or is inactive");
       return;
     }
 
@@ -57,7 +57,7 @@ const BuyCV = () => {
     }
 
     setIsLoading(true);
-    setShowLoading(true); // Show loading overlay
+    setShowLoading(true);
     try {
       const res = await getPaymentLinkCv(
         inputValues.packageCvId,
@@ -79,7 +79,7 @@ const BuyCV = () => {
       console.error("Payment error:", error);
     } finally {
       setIsLoading(false);
-      setShowLoading(false); // Hide loading overlay if there's an error
+      setShowLoading(false);
     }
   };
 
@@ -87,13 +87,20 @@ const BuyCV = () => {
     try {
       const res = await getAllToSelect();
       if (res?.data?.length > 0) {
-        setDataPackage(res.data);
-        setInputValues({
-          ...inputValues,
-          packageCvId: res.data[0].id,
-        });
-        setPrice(res.data[0].price);
-        setTotal(res.data[0].price * inputValues.amount);
+        // Lọc chỉ các gói có isActive = 1
+        const activePackages = res.data.filter((pkg) => pkg.isActive === 1);
+
+        if (activePackages.length > 0) {
+          setDataPackage(activePackages);
+          setInputValues({
+            ...inputValues,
+            packageCvId: activePackages[0].id,
+          });
+          setPrice(activePackages[0].price);
+          setTotal(activePackages[0].price * inputValues.amount);
+        } else {
+          showErrorToast("No active packages available");
+        }
       }
     } catch (error) {
       showErrorToast("Failed to load packages");
@@ -106,7 +113,6 @@ const BuyCV = () => {
 
   return (
     <Wrapper>
-      {/* Loading Overlay */}
       {showLoading && (
         <div
           style={{

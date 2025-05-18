@@ -15,16 +15,25 @@ const BuyPost = () => {
   const [inputValues, setInputValues] = useState({
     amount: 1,
     packageId: "",
+    isHot: 0,
   });
   const [isLoading, setIsLoading] = useState(false);
   const [dataPackage, setDataPackage] = useState([]);
   const [price, setPrice] = useState(0);
   const [total, setTotal] = useState(0);
-  const [showLoading, setShowLoading] = useState(false); // Thêm state cho loading
+  const [showLoading, setShowLoading] = useState(false);
 
   const handleOnChangePackage = (event) => {
     const { value } = event.target;
-    let item = dataPackage.find((item) => item.id === value);
+    const item = dataPackage.find(
+      (item) => item.id.toString() === value.toString() && item.isActive === 1
+    );
+
+    if (!item) {
+      showErrorToast("Selected package not found or is inactive");
+      return;
+    }
+
     setPrice(item.price);
     setTotal(item.price * inputValues.amount);
     setInputValues({
@@ -34,7 +43,7 @@ const BuyPost = () => {
   };
 
   const handleOnChangeAmount = (event) => {
-    const { value } = event.target;
+    const value = Math.max(1, parseInt(event.target.value) || 1);
     setInputValues({
       ...inputValues,
       amount: value,
@@ -48,12 +57,20 @@ const BuyPost = () => {
   };
 
   const handleBuy = async () => {
-    setShowLoading(true); // Hiển thị loading khi bắt đầu
+    if (!inputValues.packageId) {
+      showErrorToast("Please select a package");
+      return;
+    }
+
+    setShowLoading(true);
     setIsLoading(true);
     try {
-      let res = await getPaymentLink(inputValues.packageId, inputValues.amount);
+      const res = await getPaymentLink(
+        inputValues.packageId,
+        inputValues.amount
+      );
       if (res.errCode == 0) {
-        let data = {
+        const data = {
           packageId: inputValues.packageId,
           amount: inputValues.amount,
           userId: JSON.parse(localStorage.getItem("user")).id,
@@ -68,20 +85,34 @@ const BuyPost = () => {
       console.error("Payment error:", error);
     } finally {
       setIsLoading(false);
-      setShowLoading(false); // Ẩn loading nếu có lỗi
+      setShowLoading(false);
     }
   };
 
   const fetchPackagePost = async (isHot) => {
-    let res = await getPackageByType(isHot);
-    setDataPackage(res.data);
-    setInputValues({
-      ...inputValues,
-      isHot: isHot,
-      packageId: res.data[0].id,
-    });
-    setPrice(res.data[0].price);
-    setTotal(res.data[0].price * inputValues.amount);
+    try {
+      const res = await getPackageByType(isHot);
+      if (res?.data?.length > 0) {
+        // Lọc chỉ các gói có isActive = 1
+        const activePackages = res.data.filter((pkg) => pkg.isActive === 1);
+
+        if (activePackages.length > 0) {
+          setDataPackage(activePackages);
+          setInputValues({
+            ...inputValues,
+            isHot: isHot,
+            packageId: activePackages[0].id,
+          });
+          setPrice(activePackages[0].price);
+          setTotal(activePackages[0].price * inputValues.amount);
+        } else {
+          showErrorToast("No active packages available for this type");
+        }
+      }
+    } catch (error) {
+      showErrorToast("Failed to load packages");
+      console.error("Fetch packages error:", error);
+    }
   };
 
   useEffect(() => {
@@ -90,7 +121,6 @@ const BuyPost = () => {
 
   return (
     <Wrapper>
-      {/* Hiển thị LoadingPage khi showLoading = true */}
       {showLoading && (
         <div
           style={{
@@ -119,7 +149,7 @@ const BuyPost = () => {
               className="form-select"
               value={inputValues.isHot}
               name="typePost"
-              onChange={(event) => handleOnChangeType(event)}
+              onChange={handleOnChangeType}
             >
               <option value={0}>Bài viết bình thường</option>
               <option value={1}>Bài viết nổi bật</option>
@@ -129,17 +159,15 @@ const BuyPost = () => {
             <label className="form-label">Các gói bài viết</label>
             <select
               className="form-select"
-              value={inputValues.isHot}
-              name="typePost"
-              onChange={(event) => handleOnChangePackage(event)}
+              name="package"
+              value={inputValues.packageId}
+              onChange={handleOnChangePackage}
             >
-              {dataPackage.map((item, index) => {
-                return (
-                  <option key={index} value={item.id}>
-                    {item.name}
-                  </option>
-                );
-              })}
+              {dataPackage.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.name}
+                </option>
+              ))}
             </select>
           </div>
           <FormRow
@@ -153,6 +181,7 @@ const BuyPost = () => {
             type="number"
             name="amount"
             labelText="Số lượng"
+            min="1"
             value={inputValues.amount}
             onChange={handleOnChangeAmount}
           />
@@ -169,7 +198,7 @@ const BuyPost = () => {
             type="button"
             className="btn btn-block form-btn"
             onClick={handleBuy}
-            disabled={isLoading} // Disable nút khi đang loading
+            disabled={isLoading || !inputValues.packageId}
           >
             {isLoading ? "Đang xử lý..." : "Mua"}
           </button>
