@@ -1,0 +1,65 @@
+.page-title {
+  --background-color: color-mix(in srgb, var(--default-color), transparent 96%);
+  color: var(--default-color);
+  background-color: color-mix(in srgb, #444444, transparent 96%);
+  padding: 20px 0;
+  position: relative;
+}
+
+.page-title h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.section-blog-it {
+  color: #444;
+  background-color: #fff;
+  padding: 60px 0;
+  scroll-margin-top: 88px;
+  overflow: clip;
+}
+
+.section-blog-it article {
+  background-color: var(--surface-color);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  height: 100%;
+}
+
+.widget-item {
+  margin-bottom: 30px;
+  background-color: color-mix(in srgb, #444444, transparent 98%);
+  border: 1px solid color-mix(in srgb, #444444, transparent 90%);
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.search-widget form {
+  background: #fff;
+  border: 1px solid color-mix(in srgb, #444444, transparent 75%);
+  padding: 3px 10px;
+  position: relative;
+  border-radius: 50px;
+  transition: 0.3s;
+}
+
+.search-widget form input[type="text"] {
+  border: 0;
+  padding: 4px 10px;
+  border-radius: 4px;
+  width: calc(100% - 40px);
+  background-color: #fff;
+  color: #444444;
+}
+
+.tags-widget ul a {
+  background-color: color-mix(in srgb, #444444, transparent 94%);
+  color: color-mix(in srgb, #444444, transparent 30%);
+  border-radius: 50px;
+  font-size: 14px;
+  padding: 5px 15px;
+  margin: 0 6px 8px 0;
+  display: inline-block;
+  transition: 0.3s;
+}

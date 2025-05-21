@@ -13,6 +13,10 @@ const links = [
     path: "company",
   },
   {
+    text: "Cẩm nang IT",
+    path: "blog-it",
+  },
+  {
     text: "Liên hệ",
     path: "contact",
   },

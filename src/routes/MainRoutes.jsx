@@ -14,6 +14,7 @@ import UserSetting from "../pages/usersetting";
 import CVPost from "../pages/cv-post";
 import DetailCVUser from "../pages/detail-cv-user";
 import DetailCompany from "../components/company-user/DetailCompany";
+import BlogIT from "../pages/blog-it";
 
 const mainRoutes = {
   path: "/",
@@ -34,6 +35,10 @@ const mainRoutes = {
     {
       path: "company",
       element: <Company />,
+    },
+    {
+      path: "blog-it",
+      element: <BlogIT />,
     },
     {
       path: "contact",
