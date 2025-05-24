@@ -15,7 +15,7 @@ import {
   showErrorToast,
 } from "../../utils/toastNotifications";
 import LogoutUser from "./LogoutUser";
-// import "./Header.css";
+import "./header1.css";
 
 const Header = () => {
   useEffect(() => {
@@ -77,7 +77,7 @@ const Header = () => {
     <>
       <header>
         <div className="header-area header-transparrent">
-          <div className="headder-top header-sticky">
+          <div className="header-navbar-top headder-top header-sticky">
             <div className="container">
               <div className="row align-items-center">
                 <div className="col-lg-3 col-md-2">

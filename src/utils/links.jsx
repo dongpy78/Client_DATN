@@ -5,15 +5,15 @@ const links = [
   },
 
   {
-    text: "Việc làm",
+    text: "Việc làm IT",
     path: "job",
   },
   {
-    text: "Công ty",
+    text: "Công ty IT",
     path: "company",
   },
   {
-    text: "Cẩm nang IT",
+    text: "Blog IT  ",
     path: "blog-it",
   },
   {

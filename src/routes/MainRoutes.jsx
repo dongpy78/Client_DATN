@@ -15,6 +15,7 @@ import CVPost from "../pages/cv-post";
 import DetailCVUser from "../pages/detail-cv-user";
 import DetailCompany from "../components/company-user/DetailCompany";
 import BlogIT from "../pages/blog-it";
+import DetailMainBlogIT from "../components/detail-blog-it/DetailMainBlogIT";
 
 const mainRoutes = {
   path: "/",
@@ -67,6 +68,10 @@ const mainRoutes = {
     {
       path: "/detail-company/:id", // Thêm route mới cho trang chi tiết công việc
       element: <DetailCompany />,
+    },
+    {
+      path: "/blog/:id", // Thêm route mới cho trang chi tiết công việc
+      element: <DetailMainBlogIT />,
     },
   ],
 };

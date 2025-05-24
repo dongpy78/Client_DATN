@@ -7,18 +7,8 @@ const HeroJob = () => {
     <>
       {/* Hero Area Start*/}
       <div className="slider-area ">
-        <div
-          className="single-slider d-flex align-items-center"
-          style={{
-            backgroundImage: `url(${logo1})`,
-            maxWidth: "100%",
-            minHeight: "50vh",
-            backgroundSize: "cover", // hoặc "contain"
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            verticalAlign: "middle",
-          }}
-        >
+        <div className="single-slider d-flex align-items-center">
+          <img style={{ width: "100%", height: "auto" }} src={logo1} />
           <div className="container">
             <div className="row">
               <div className="col-xl-12">

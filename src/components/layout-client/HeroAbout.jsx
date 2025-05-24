@@ -3,25 +3,12 @@ const logo = "assets/img/hero/about.jpg";
 const logo1 = "/assets/img/hero/bg-form.png";
 
 import "../../styles/contact.css";
+import HeroJob from "./HeroJob";
 
 const HeroAbout = () => {
   return (
     <>
-      {/* Hero Area Start*/}
-      <div className="slider-area ">
-        <div
-          className=""
-          style={{
-            backgroundImage: `url(${logo1})`,
-            maxWidth: "100%",
-            height: "50vh", // hoặc giá trị cụ thể
-            backgroundSize: "cover", // hoặc "contain"
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            verticalAlign: "middle",
-          }}
-        ></div>
-      </div>
+      <HeroJob />
 
       <div className="container" style={{ minHeight: "85vh" }}>
         <section className="inner-page-detail">

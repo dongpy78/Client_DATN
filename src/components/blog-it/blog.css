@@ -6,6 +6,13 @@
   position: relative;
 }
 
+.section-blog-it .title a {
+  color: var(--heading-color);
+  transition: 0.3s;
+  font-size: 24px;
+  font-weight: 700;
+}
+
 .page-title h1 {
   font-size: 28px;
   font-weight: 700;
@@ -62,4 +69,37 @@
   margin: 0 6px 8px 0;
   display: inline-block;
   transition: 0.3s;
+}
+
+.section-blog-it .meta-top i {
+  color: color-mix(in srgb, #444444, transparent 40%);
+  font-size: 14px;
+  display: inline-block;
+  line-height: 1;
+}
+
+.section-blog-it .meta-top a {
+  color: color-mix(in srgb, #444444, transparent 40%);
+  font-size: 14px;
+  display: inline-block;
+  line-height: 1;
+  margin-left: 0.2rem;
+}
+
+.user-time-list {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* CSS NEWS */
+/* Style cho danh mục đang được chọn */
+.active-category a {
+  font-weight: bold;
+  color: #1890ff !important;
+}
+
+/* Style cho danh sách danh mục */
+.blog-article:hover {
+  cursor: pointer;
 }
