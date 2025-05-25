@@ -200,7 +200,7 @@ const AddCompany = () => {
           />
           <div className="form-row form-select-image">
             <label htmlFor="thumbnail" className="form-label">
-              Thumbnail (max 0.5MB)
+              Logo công ty
             </label>
             {thumbnailPreview && (
               <img
@@ -220,7 +220,7 @@ const AddCompany = () => {
           </div>
           <div className="form-row form-select-image">
             <label htmlFor="coverImage" className="form-label">
-              Cover Image (max 0.5MB)
+              Ảnh bìa
             </label>
             {coverImagePreview && (
               <img

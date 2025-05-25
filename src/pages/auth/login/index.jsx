@@ -73,6 +73,7 @@ export const action = async ({ request }) => {
 };
 const Login = () => {
   const actionData = useActionData(); // Lấy dữ liệu từ action
+  const [validationErrors, setValidationErrors] = useState({});
 
   useEffect(() => {
     if (actionData?.error) {

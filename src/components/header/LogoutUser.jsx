@@ -81,7 +81,7 @@ const LogoutUser = () => {
               </div>
               <div className="panel-item" onClick={handleSettings}>
                 <FaCog className="panel-icon" />
-                <span>Cài đặt</span>
+                <span>Cài đặt nâng cao</span>
               </div>
               <div className="panel-item" onClick={handleJobUpload}>
                 <FaFileUpload className="panel-icon" />

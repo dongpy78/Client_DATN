@@ -151,9 +151,7 @@ function SendCVModal(props) {
     console.log("cvSend:", cvSend);
 
     if (!inputValue.userId || !inputValue.postId || !cvSend) {
-      showErrorToast(
-        "Vui lòng cung cấp đầy đủ thông tin (userId, postId, file CV)"
-      );
+      showErrorToast("Vui lòng cung cấp đầy đủ thông tin");
       setIsLoading(false);
       return;
     }
