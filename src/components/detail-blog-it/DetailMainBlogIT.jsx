@@ -231,6 +231,7 @@ const DetailMainBlogIT = () => {
                   recentBlogs.map((recentBlog) => (
                     <div className="post-item" key={recentBlog.id}>
                       <img
+                        style={{ objectFit: "cover" }}
                         src={
                           recentBlog.thumbnail || "assets/img/blog/default.webp"
                         }

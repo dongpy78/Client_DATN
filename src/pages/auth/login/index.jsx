@@ -33,7 +33,7 @@ export const action = async ({ request }) => {
       return redirect("/");
     }
 
-    // Chỉ trả về lỗi khi status là 403
+    // Xử lý các mã lỗi khác
     if (response.status === 403) {
       return {
         error: "Tài khoản của bạn đã bị khóa, không thể đăng nhập vào hệ thống",
@@ -41,20 +41,37 @@ export const action = async ({ request }) => {
       };
     }
 
-    // Các trường hợp lỗi khác không trả về gì
-    return null;
+    // Trả về thông báo lỗi chung
+    return {
+      error: "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin",
+      status: response.status,
+    };
   } catch (error) {
-    // Chỉ xử lý lỗi 403
-    if (error?.response?.status === 403) {
-      return {
-        error: "Tài khoản của bạn đã bị khóa, không thể đăng nhập vào hệ thống",
-        status: 403,
-      };
+    // Xử lý lỗi từ API
+    if (error.response) {
+      if (error.response.status === 403) {
+        return {
+          error:
+            "Tài khoản của bạn đã bị khóa, không thể đăng nhập vào hệ thống",
+          status: 403,
+        };
+      }
+      if (error.response.status === 401) {
+        return {
+          error: "Email hoặc mật khẩu không chính xác",
+          status: 401,
+        };
+      }
     }
-    return null;
+
+    // Lỗi mạng hoặc lỗi khác
+    return {
+      error: "Đăng nhập thất bại. Vui lòng thử lại sau",
+      status: 500,
+    };
   }
 };
-const Login = () => {  
+const Login = () => {
   const actionData = useActionData(); // Lấy dữ liệu từ action
 
   useEffect(() => {

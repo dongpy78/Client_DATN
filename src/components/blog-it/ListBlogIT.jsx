@@ -228,7 +228,11 @@ const ListBlogIT = () => {
                         <article className="blog-article">
                           <div className="post-img">
                             <img
-                              style={{ width: "404px", height: "269px" }}
+                              style={{
+                                width: "404px",
+                                height: "269px",
+                                objectFit: "cover",
+                              }}
                               src={
                                 blog.thumbnail || "assets/img/blog/default.webp"
                               }
