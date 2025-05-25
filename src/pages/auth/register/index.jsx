@@ -106,7 +106,6 @@ const Register = () => {
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
 
-    // Kiểm tra password match
     if (data.password !== data["confirm-password"]) {
       showErrorToast("Mật khẩu xác nhận không khớp");
       return;
@@ -133,19 +132,39 @@ const Register = () => {
         showSuccessToast(
           "Đăng ký thành công! Vui lòng kiểm tra email để xác thực tài khoản."
         );
-        // Có thể redirect hoặc làm gì đó sau khi đăng ký thành công
         setTimeout(() => {
           navigate("/auth/login");
         }, 3000);
+      } else {
+        // Xử lý các status code khác nếu cần
+        showErrorToast(response.data?.message || "Đăng ký thất bại");
       }
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message ||
-        error.message ||
-        "Không thể kết nối đến server";
-      // showErrorToast(errorMessage);
+      let errorMessage = "Đăng ký thất bại. Vui lòng thử lại sau";
+
+      if (error.response) {
+        // Xử lý các mã lỗi cụ thể từ API
+        switch (error.response.status) {
+          case 400:
+            if (error.response.data.message === "Email đã tồn tại") {
+              errorMessage =
+                "Email này đã được đăng ký. Vui lòng sử dụng email khác";
+            } else {
+              errorMessage =
+                error.response.data.message || "Thông tin không hợp lệ";
+            }
+            break;
+
+          default:
+          // errorMessage = error.response.data?.message || errorMessage;
+        }
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+
+      showErrorToast(errorMessage);
     } finally {
-      setIsSubmitting(false); // Kết thúc loading dù thành công hay thất bại
+      setIsSubmitting(false);
     }
   };
 
