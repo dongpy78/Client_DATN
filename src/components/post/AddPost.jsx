@@ -13,6 +13,13 @@ import MDEditor from "@uiw/react-md-editor";
 import { marked } from "marked";
 import { useEffect, useState } from "react";
 
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
+// import { registerLocale, setDefaultLocale } from "react-datepicker";
+// import vi from "date-fns/locale/vi";
+
+// registerLocale("vi", vi);
+
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const user = getFromLocalStorage("user");
@@ -85,7 +92,7 @@ const AddPost = () => {
     categoryJobCode: "",
     addressCode: "",
     salaryJobCode: "",
-    amount: "",
+    amount: "1",
     timeEnd: "",
     categoryJoblevelCode: "",
     categoryWorktypeCode: "",
@@ -228,9 +235,10 @@ const AddPost = () => {
             name="amount"
             labelText="Số lượng tuyển"
             value={formValues.amount}
-            onChange={(e) =>
-              setFormValues({ ...formValues, amount: e.target.value })
-            }
+            onChange={(e) => {
+              const value = Math.max(1, e.target.value); // Đảm bảo tối thiểu là 1
+              setFormValues({ ...formValues, amount: value });
+            }}
           />
           <FormRow
             type="datetime-local"
@@ -241,6 +249,25 @@ const AddPost = () => {
               setFormValues({ ...formValues, timeEnd: e.target.value })
             }
           />
+          {/* <div>
+            <label className="form-label">Thời gian kết thúc</label>
+            <DatePicker
+              selected={
+                formValues.timeEnd ? new Date(formValues.timeEnd) : null
+              }
+              onChange={(date) =>
+                setFormValues({ ...formValues, timeEnd: date })
+              }
+              showTimeSelect
+              timeFormat="HH:mm"
+              timeIntervals={15}
+              dateFormat="dd/MM/yyyy HH:mm"
+              locale="vi"
+              placeholderText="Chọn ngày giờ"
+              className="form-input"
+            />
+          </div> */}
+
           <FormRowSelect
             labelText="Chức vụ"
             name="categoryJoblevelCode"
@@ -314,7 +341,7 @@ const AddPost = () => {
           />
         </div>
         <div className="form-center">
-          <SubmitBtn formBtn />
+          <SubmitBtn formBtn submitText="Đăng bài" />
         </div>
       </Form>
     </Wrapper>

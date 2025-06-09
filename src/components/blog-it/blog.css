@@ -9,7 +9,7 @@
 .section-blog-it .title a {
   color: var(--heading-color);
   transition: 0.3s;
-  font-size: 24px;
+  font-size: 19px;
   font-weight: 700;
 }
 
@@ -102,4 +102,18 @@
 /* Style cho danh sách danh mục */
 .blog-article:hover {
   cursor: pointer;
+}
+
+.read-more a {
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  display: inline-block;
+  padding: 8px 30px;
+  transition: 0.3s;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.content h4 {
+  font-size: 18px;
 }

@@ -206,7 +206,12 @@ const AddCompany = () => {
               <img
                 src={thumbnailPreview}
                 alt="Thumbnail Preview"
-                style={{ maxWidth: "100px", marginBottom: "10px" }}
+                style={{
+                  maxWidth: "100px",
+                  height: "100px",
+                  marginBottom: "10px",
+                  marginLeft: "1rem",
+                }}
               />
             )}
             <input
@@ -226,7 +231,12 @@ const AddCompany = () => {
               <img
                 src={coverImagePreview}
                 alt="Cover Image Preview"
-                style={{ maxWidth: "100px", marginBottom: "10px" }}
+                style={{
+                  maxWidth: "300px",
+                  height: "100px",
+                  marginBottom: "10px",
+                  marginLeft: "1rem",
+                }}
               />
             )}
             <input
@@ -271,7 +281,7 @@ const AddCompany = () => {
           </div>
         )}
 
-        <div data-color-mode="light">
+        <div data-color-mode="light" style={{ marginTop: "1rem" }}>
           <label htmlFor="descriptionMarkdown" className="form-label">
             Mô tả (Markdown)
           </label>
@@ -297,7 +307,11 @@ const AddCompany = () => {
           className="form-center"
           style={{ marginTop: "16px", textAlign: "right" }}
         >
-          <button type="submit" className="btn btn-block">
+          <button
+            style={{ fontSize: "14px" }}
+            type="submit"
+            className="btn btn-block"
+          >
             Tạo mới
           </button>
         </div>

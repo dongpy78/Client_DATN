@@ -4789,7 +4789,8 @@ del {
 }
 @media (max-width: 767px) {
   .header-area {
-    padding: 8px 0px;
+    padding: 14px 0px;
+    background-color: var(--heading-color);
   }
 }
 .header-area .header-wrapper {
@@ -4905,7 +4906,7 @@ del {
 }
 @media (max-width: 767px) {
   .header-sticky.sticky-bar.sticky {
-    padding: 8px 0px;
+    padding: 14px 28px 14px 0;
   }
 }
 .slicknav_menu .slicknav_icon-bar {
@@ -6226,7 +6227,7 @@ form.search-box .search-form a {
 .post-details4 ul li {
   color: #5b5c6e;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
   display: block;
 }
 .post-details4 ul li span {
@@ -6265,7 +6266,7 @@ form.search-box .search-form a {
 }
 @media (max-width: 767px) {
   .job-listing-area .count-job span {
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
   }
 }
 .job-listing-area .count-job .select-job-items {

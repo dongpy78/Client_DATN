@@ -294,7 +294,7 @@ const DetailProfileAdmin = () => {
                 style={{ width: "100px", height: "100px", objectFit: "cover" }}
               />
             ) : (
-              <p>Không có ảnh đại diện</p>
+              <p></p>
             )}
             <input
               type="file"
@@ -310,7 +310,11 @@ const DetailProfileAdmin = () => {
           className="form-center"
           style={{ marginTop: "16px", textAlign: "right" }}
         >
-          <button type="submit" className="btn btn-block">
+          <button
+            style={{ fontSize: "14px" }}
+            type="submit"
+            className="btn btn-block"
+          >
             Lưu
           </button>
         </div>

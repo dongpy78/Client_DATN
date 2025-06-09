@@ -38,10 +38,25 @@ export const checkDefaultTheme = () => {
   return isDarkTheme;
 };
 
+// export const adminAccessLoader = () => {
+//   const user = getFromLocalStorage("user");
+
+//   if (!user) {
+//     return redirect("/auth/login");
+//   }
+
+//   if (user.roleCode === "CANDIDATE") {
+//     return redirect("/not-found"); // Hoặc redirect("/") nếu bạn muốn chuyển về trang chủ
+//   }
+
+//   return null;
+// };
+
 const isDarkThemeEnabled = checkDefaultTheme();
 
 const AdminRoutes = {
   path: "/admin",
+  // loader: adminAccessLoader,
   element: <LayoutAdmin isDarkThemeEnabled={isDarkThemeEnabled} />,
   children: [
     { index: true, path: "", element: <Home /> },

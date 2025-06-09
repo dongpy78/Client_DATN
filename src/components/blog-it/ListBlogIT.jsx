@@ -209,7 +209,7 @@ const ListBlogIT = () => {
 
       <div className="container">
         <div className="row">
-          <div className="col-lg-8">
+          <div className="col-lg-8 order-lg-1 order-2">
             {/* Blog Posts Section */}
             <section id="blog-posts" className="section-blog-it">
               <div
@@ -243,18 +243,14 @@ const ListBlogIT = () => {
                               }
                             />
                           </div>
-                          <h2 className="title" style={{ margin: "30px 0" }}>
+                          <h2 className="title" style={{ margin: "10px 0" }}>
                             <Link to={`/blog/${blog.id}`}>{blog.title}</Link>
                           </h2>
                           <div className="meta-top">
                             <ul className="user-time-list">
                               <li className="">
                                 <i className="bi bi-person" />{" "}
-                                <Link to={`/blog/${blog.id}`}>
-                                  {blog.userId
-                                    ? `User ${blog.userId}`
-                                    : "Unknown"}
-                                </Link>
+                                <Link to={`/blog/${blog.id}`}>Admin</Link>
                               </li>
                               <li className="">
                                 <i className="bi bi-clock" />{" "}
@@ -266,7 +262,7 @@ const ListBlogIT = () => {
                               </li>
                             </ul>
                           </div>
-                          <div className="content">
+                          <div style={{ height: "160px" }} className="content">
                             <p
                               dangerouslySetInnerHTML={{
                                 __html: DOMPurify.sanitize(
@@ -276,9 +272,9 @@ const ListBlogIT = () => {
                                 ),
                               }}
                             />
-                            <div className="read-more">
-                              <Link to={`/blog/${blog.id}`}>Read More</Link>
-                            </div>
+                          </div>
+                          <div className="read-more">
+                            <Link to={`/blog/${blog.id}`}>Đọc tiếp</Link>
                           </div>
                         </article>
                       </div>
@@ -315,7 +311,7 @@ const ListBlogIT = () => {
             </section>
           </div>
 
-          <div className="col-lg-4 sidebar">
+          <div className="col-lg-4 sidebar order-lg-2 order-1">
             <div
               className="widgets-container"
               data-aos="fade-up"

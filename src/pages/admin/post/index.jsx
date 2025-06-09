@@ -14,6 +14,7 @@ import {
   useLoaderData,
   useNavigate,
 } from "react-router-dom";
+import PostTableWrapper from "../../../assets/wrappers/PostTableWrapper";
 
 export const loader = async ({ request }) => {
   const params = new URLSearchParams(request.url.split("?")[1]);
@@ -205,25 +206,58 @@ const Post = () => {
       filteredJobs = filteredJobs.filter((job) => job.statusCode === status);
     }
     setTypePost(filteredJobs.slice((currentPage - 1) * 5, currentPage * 5)); // Phân trang
+    console.log(setTypePost);
     setTotalCount(filteredJobs.length); // Cập nhật tổng số lượng sau lọc
   };
 
   return (
     <>
-      <SearchPost />
+      <>
+        <SearchPost />
 
-      <PostTable
-        typePost={typePost}
-        currentPage={currentPage}
-        totalCount={totalCount}
-      />
-      {numOfPages > 1 && (
-        <PagePagination
-          numOfPages={Math.ceil(totalCount / 5)} // Cập nhật numOfPages dựa trên tổng số sau lọc
-          currentPage={currentPage}
-          handlePageChange={handlePageChange}
-        />
-      )}
+        {/* Thêm điều kiện kiểm tra nếu không có bài đăng */}
+        {typePost.length === 0 ? (
+          <PostTableWrapper>
+            <div>
+              <h4>Chưa có bài đăng tuyển dụng nào</h4>
+              {/* <p className="text-muted">
+                Bạn có thể tạo bài đăng mới bằng cách nhấn vào nút bên dưới
+              </p> */}
+              <div style={{ marginTop: "2rem" }}>
+                <Link
+                  style={{ fontSize: "14px" }}
+                  to="/admin/post/add"
+                  className="btn btn-primary mt-3"
+                >
+                  Tạo bài đăng mới
+                </Link>
+                <Link
+                  style={{ marginLeft: "1rem", fontSize: "14px" }}
+                  to="/admin/post/buy-post"
+                  className="btn btn-primary mt-3"
+                >
+                  Mua thêm lượt đăng bài
+                </Link>
+              </div>
+            </div>
+          </PostTableWrapper>
+        ) : (
+          <>
+            <PostTable
+              typePost={typePost}
+              currentPage={currentPage}
+              totalCount={totalCount}
+            />
+            {numOfPages > 1 && (
+              <PagePagination
+                numOfPages={Math.ceil(totalCount / 5)}
+                currentPage={currentPage}
+                handlePageChange={handlePageChange}
+              />
+            )}
+          </>
+        )}
+      </>
     </>
   );
 };

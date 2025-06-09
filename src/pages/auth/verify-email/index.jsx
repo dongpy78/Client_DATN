@@ -119,8 +119,8 @@ const VerifyEmail = () => {
             <StatusIcon success>✓</StatusIcon>
             <Title>Xác thực thành công!</Title>
             <Message>
-              Email của bạn đã được xác thực. Bạn sẽ được chuyển hướng đến trang
-              đăng nhập...
+              Email của bạn đã được xác thực. Bạn vui lòng đăng nhập để truy cập
+              vào hệ thống...
             </Message>
           </>
         )}

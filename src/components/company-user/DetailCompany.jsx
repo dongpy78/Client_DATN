@@ -35,7 +35,7 @@ const CoverWrapper = styled.div`
   img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
   }
 `;
 
@@ -74,7 +74,7 @@ const CompanyImageLogo = styled.div`
     height: 100%;
     border: 1px solid #eee;
     border-radius: 10px;
-    object-fit: contain;
+    object-fit: cover;
   }
 `;
 

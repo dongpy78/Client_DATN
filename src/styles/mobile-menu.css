@@ -32,14 +32,14 @@
 .mobile-menu a {
   text-decoration: none;
   color: #333;
-  font-size: 16px;
+  font-size: 14px;
   color: #252b60;
   font-weight: 500;
-  font-family: "Barlow", sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 .mobile-menu a:hover {
-  color: #fff;
+  color: #47b2e4;
 }
 
 /* Nút mở menu */
@@ -48,7 +48,7 @@
   border: none;
   font-size: 24px;
   position: absolute;
-  top: -54px;
+  top: -40px;
   right: 12px;
   cursor: pointer;
   z-index: 1100;

@@ -77,7 +77,7 @@ const Header = () => {
     <>
       <header>
         <div className="header-area header-transparrent">
-          <div className="header-navbar-top headder-top header-sticky">
+          <div className="header-navbar-top headder-top">
             <div className="container">
               <div className="row align-items-center">
                 <div className="col-lg-3 col-md-2">

@@ -44,7 +44,7 @@ const HistoryTradeCV = () => {
         }
       } catch (error) {
         console.error("Error fetching data:", error);
-        showErrorToast("Failed to load data");
+        // showErrorToast("Failed to load data");
       }
     };
 

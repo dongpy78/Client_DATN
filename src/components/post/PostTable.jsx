@@ -6,23 +6,25 @@ import { FaEdit, FaFileAlt } from "react-icons/fa";
 import LoadingPage from "../../pages/loading-page/LoadingPage";
 
 const PostTable = ({ typePost, currentPage = 1, totalCount = 0 }) => {
-  if (!typePost || typePost.length === 0) {
-    return (
-      <PostTableWrapper>
-        {/* <LoadingPage /> */}
-        <Link to="/admin/post/add" className="btn add-user-btn">
-          Thêm bài đăng
-        </Link>
-        <Link
-          style={{ marginLeft: "1rem" }}
-          to="/admin/post/buy-post"
-          className="btn add-user-btn"
-        >
-          Mua thêm lượt đăng bài
-        </Link>
-      </PostTableWrapper>
-    );
-  }
+  // if (!typePost || typePost.length === 0) {
+  //   return (
+  //     <div>
+  //       <PostTableWrapper>
+  //         <p>Chưa có bài đăng nào.</p>
+  //         <Link to="/admin/post/add" className="btn add-user-btn">
+  //           Thêm bài đăng
+  //         </Link>
+  //         <Link
+  //           style={{ marginLeft: "1rem" }}
+  //           to="/admin/post/buy-post"
+  //           className="btn add-user-btn"
+  //         >
+  //           Mua thêm lượt đăng bài
+  //         </Link>
+  //       </PostTableWrapper>
+  //     </div>
+  //   );
+  // }
 
   const itemsPerPage = 5;
 
