@@ -9,6 +9,7 @@ const SubmitBtn = ({ formBtn, submitText = "Submit" }) => {
       type="submit"
       className={`btn btn-block ${formBtn && "form-btn"}`}
       disabled={isSubmitting}
+      style={{ fontSize: "14px" }}
     >
       {isSubmitting ? "Đang gửi..." : submitText}
     </button>

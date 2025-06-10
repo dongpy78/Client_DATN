@@ -15,7 +15,6 @@ import { Link } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import LoadingPage from "../../pages/loading-page/LoadingPage";
 import "./blog.css";
-import TitleBlog from "./TitleBlog";
 import HeroJob from "../layout-client/HeroJob";
 
 const ListBlogIT = () => {
@@ -29,45 +28,56 @@ const ListBlogIT = () => {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedTag, setSelectedTag] = useState(null);
-  const blogsPerPage = 5; // Tăng lên 10 để hiển thị tất cả bài viết
+  const blogsPerPage = 5;
 
-  // Hàm fetchBlogs cập nhật để hỗ trợ lọc theo danh mục
   const fetchBlogs = useCallback(
     async (page = 1, searchQuery = "", categoryId = null) => {
       setLoading(true);
       try {
-        const params = {
-          page,
-          limit: blogsPerPage,
-          search: searchQuery,
-        };
+        let allBlogs = [];
+        let currentPage = 1;
+        const limit = 10; // Tăng limit để giảm số lần gọi
+        let hasMore = true;
 
-        let response;
-        if (categoryId) {
-          // Nếu có categoryId thì gọi API lấy bài viết theo danh mục
-          response = await getBlogsByCategory(categoryId, params);
-        } else {
-          // Ngược lại gọi API lấy tất cả bài viết
-          response = await getAllBlogIT(params);
+        while (hasMore) {
+          const params = { page: currentPage, limit, search: searchQuery };
+          let response;
+          if (categoryId) {
+            response = await getBlogsByCategory(categoryId, params);
+          } else {
+            response = await getAllBlogIT(params);
+          }
+
+          console.log(`Blogs response for page ${currentPage}:`, response.data);
+          const fetchedBlogs = Array.isArray(
+            response.data.data.posts || response.data.data.blogs
+          )
+            ? response.data.data.posts || response.data.data.blogs
+            : [];
+          const publishedBlogs = fetchedBlogs.filter(
+            (blog) => blog.statusCode === "PUBLISHED"
+          );
+          allBlogs = [...allBlogs, ...publishedBlogs];
+          currentPage += 1;
+          hasMore =
+            fetchedBlogs.length === limit &&
+            allBlogs.length < response.data.data.total;
         }
 
-        console.log(`Blogs response for page ${page}:`, response.data);
-        const fetchedBlogs = Array.isArray(
-          response.data.data.posts || response.data.data.blogs
-        )
-          ? response.data.data.posts || response.data.data.blogs
-          : [];
+        // Phân trang thủ công
+        const startIndex = (page - 1) * blogsPerPage;
+        const endIndex = startIndex + blogsPerPage;
+        setBlogs(allBlogs.slice(startIndex, endIndex));
+        setTotalBlogs(allBlogs.length);
 
-        setBlogs(fetchedBlogs);
-        setTotalBlogs(Number(response.data.data.total) || 0);
-
-        if (fetchedBlogs.length === 0 && page > 1) {
+        if (allBlogs.length === 0 && page > 1) {
           showErrorToast("Không còn bài viết nào ở trang này.");
         }
       } catch (error) {
         console.error("Error fetching blogs:", error);
         showErrorToast("Lỗi khi tải bài blog: " + error.message);
         setBlogs([]);
+        setTotalBlogs(0);
       } finally {
         setLoading(false);
       }
@@ -75,20 +85,57 @@ const ListBlogIT = () => {
     []
   );
 
-  // Hàm xử lý khi click vào danh mục
-  const handleCategoryClick = (categoryId) => {
-    setSelectedCategory(categoryId);
-    setCurrentPage(0);
-    fetchBlogs(1, search, categoryId);
-  };
-  // Lấy danh sách bài blog gần đây
+  const fetchBlogsByTag = useCallback(
+    async (tagId, page = 1, searchQuery = "") => {
+      setLoading(true);
+      try {
+        let allBlogs = [];
+        let currentPage = 1;
+        const limit = 10;
+        let hasMore = true;
+
+        while (hasMore) {
+          const params = { page: currentPage, limit, search: searchQuery };
+          const response = await getBlogsByTag(tagId, params);
+          const fetchedBlogs = Array.isArray(response.data.data.posts)
+            ? response.data.data.posts
+            : [];
+          const publishedBlogs = fetchedBlogs.filter(
+            (blog) => blog.statusCode === "PUBLISHED"
+          );
+          allBlogs = [...allBlogs, ...publishedBlogs];
+          currentPage += 1;
+          hasMore =
+            fetchedBlogs.length === limit &&
+            allBlogs.length < response.data.data.total;
+        }
+
+        const startIndex = (page - 1) * blogsPerPage;
+        const endIndex = startIndex + blogsPerPage;
+        setBlogs(allBlogs.slice(startIndex, endIndex));
+        setTotalBlogs(allBlogs.length);
+      } catch (error) {
+        console.error("Error fetching blogs by tag:", error);
+        showErrorToast("Lỗi khi tải bài viết theo tag: " + error.message);
+        setBlogs([]);
+        setTotalBlogs(0);
+      } finally {
+        setLoading(false);
+      }
+    },
+    []
+  );
+
   const fetchRecentBlogs = useCallback(async () => {
     try {
       const response = await getAllBlogIT({ page: 1, limit: 5 });
+      const publishedBlogs = Array.isArray(response.data.data.blogs)
+        ? response.data.data.blogs.filter(
+            (blog) => blog.statusCode === "PUBLISHED"
+          )
+        : [];
       console.log("Recent blogs response:", response.data);
-      setRecentBlogs(
-        Array.isArray(response.data.data.blogs) ? response.data.data.blogs : []
-      );
+      setRecentBlogs(publishedBlogs);
     } catch (error) {
       console.error("Error fetching recent blogs:", error);
       showErrorToast("Lỗi khi tải bài blog gần đây: " + error.message);
@@ -96,7 +143,6 @@ const ListBlogIT = () => {
     }
   }, []);
 
-  // Lấy danh sách danh mục
   const fetchCategories = useCallback(async () => {
     try {
       const response = await getAllCategoryBlog();
@@ -113,37 +159,6 @@ const ListBlogIT = () => {
     }
   }, []);
 
-  const fetchBlogsByTag = async (tagId, page = 1, searchQuery = "") => {
-    setLoading(true);
-    try {
-      const params = {
-        page,
-        limit: blogsPerPage,
-        search: searchQuery,
-      };
-      const response = await getBlogsByTag(tagId, params);
-      const fetchedBlogs = Array.isArray(response.data.data.posts)
-        ? response.data.data.posts
-        : [];
-      setBlogs(fetchedBlogs);
-      setTotalBlogs(Number(response.data.data.total) || 0);
-    } catch (error) {
-      console.error("Error fetching blogs by tag:", error);
-      showErrorToast("Lỗi khi tải bài viết theo tag: " + error.message);
-      setBlogs([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleTagClick = (tagId) => {
-    setSelectedTag(tagId);
-    setSelectedCategory(null); // Hủy chọn danh mục nếu có
-    setCurrentPage(0);
-    fetchBlogsByTag(tagId);
-  };
-
-  // Lấy danh sách thẻ
   const fetchTags = useCallback(async () => {
     try {
       const response = await getAllTags();
@@ -158,35 +173,51 @@ const ListBlogIT = () => {
     }
   }, []);
 
-  // Cập nhật useEffect để truyền selectedCategory vào fetchBlogs
+  const handleCategoryClick = (categoryId) => {
+    setSelectedCategory(categoryId);
+    setSelectedTag(null);
+    setCurrentPage(0);
+    fetchBlogs(1, search, categoryId);
+  };
+
+  const handleTagClick = (tagId) => {
+    setSelectedTag(tagId);
+    setSelectedCategory(null);
+    setCurrentPage(0);
+    fetchBlogsByTag(tagId, 1, search);
+  };
+
   useEffect(() => {
-    fetchBlogs(currentPage + 1, search, selectedCategory);
+    if (selectedTag) {
+      fetchBlogsByTag(selectedTag, currentPage + 1, search);
+    } else {
+      fetchBlogs(currentPage + 1, search, selectedCategory);
+    }
     fetchCategories();
     fetchTags();
     fetchRecentBlogs();
   }, [
     currentPage,
     search,
-    selectedCategory, // Thêm dependency này
+    selectedCategory,
+    selectedTag,
     fetchBlogs,
+    fetchBlogsByTag,
     fetchCategories,
     fetchTags,
     fetchRecentBlogs,
   ]);
 
-  // Xử lý tìm kiếm
   const handleSearch = (value) => {
     setSearch(value);
     setCurrentPage(0);
   };
 
-  // Xử lý thay đổi trang
   const handlePageChange = ({ selected }) => {
     setCurrentPage(selected);
     window.scrollTo(0, 0);
   };
 
-  // Format ngày
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("vi-VN", {
       year: "numeric",
@@ -197,20 +228,11 @@ const ListBlogIT = () => {
 
   return (
     <>
-      {/* <TitleBlog
-        parentTitle="Hệ thống"
-        currentTitle="Blog IT"
-        // mainTitle="Danh sách bài viết IT"
-      /> */}
-
       <HeroJob />
-
       {loading && <LoadingPage />}
-
       <div className="container">
         <div className="row">
           <div className="col-lg-8 order-lg-1 order-2">
-            {/* Blog Posts Section */}
             <section id="blog-posts" className="section-blog-it">
               <div
                 className="container"
@@ -248,11 +270,11 @@ const ListBlogIT = () => {
                           </h2>
                           <div className="meta-top">
                             <ul className="user-time-list">
-                              <li className="">
+                              <li>
                                 <i className="bi bi-person" />{" "}
                                 <Link to={`/blog/${blog.id}`}>Admin</Link>
                               </li>
-                              <li className="">
+                              <li>
                                 <i className="bi bi-clock" />{" "}
                                 <Link to={`/blog/${blog.id}`}>
                                   <time dateTime={blog.createdAt}>
@@ -283,8 +305,6 @@ const ListBlogIT = () => {
                     <p>Không có bài blog nào.</p>
                   )}
                 </div>
-
-                {/* Phân trang */}
                 {totalBlogs > 0 && (
                   <ReactPaginate
                     previousLabel={<FaChevronLeft />}
@@ -310,14 +330,12 @@ const ListBlogIT = () => {
               </div>
             </section>
           </div>
-
           <div className="col-lg-4 sidebar order-lg-2 order-1">
             <div
               className="widgets-container"
               data-aos="fade-up"
               data-aos-delay={200}
             >
-              {/* Search Widget */}
               <div className="search-widget widget-item">
                 <h3 className="widget-title">Tìm kiếm</h3>
                 <Input.Search
@@ -328,7 +346,6 @@ const ListBlogIT = () => {
                   allowClear
                 />
               </div>
-              {/* Recent Posts Widget */}
               <div className="recent-posts-widget widget-item">
                 <h3 className="widget-title">Bài viết mới nhất</h3>
                 {recentBlogs.length > 0 ? (
@@ -356,7 +373,6 @@ const ListBlogIT = () => {
                   <p>Không có bài viết gần đây.</p>
                 )}
               </div>
-              {/* Categories Widget */}
               <div className="categories-widget widget-item">
                 <h3 className="widget-title">Danh mục</h3>
                 <ul className="mt-3">
@@ -392,7 +408,6 @@ const ListBlogIT = () => {
                   ) : (
                     <li>Không có danh mục nào.</li>
                   )}
-                  {/* Thêm nút "Tất cả danh mục" */}
                   <li>
                     <Link
                       to="#"
@@ -437,7 +452,6 @@ const ListBlogIT = () => {
                   ) : (
                     <li>Chưa có chủ đề nào</li>
                   )}
-                  {/* Nút xóa lọc */}
                   {selectedTag && (
                     <li>
                       <Link

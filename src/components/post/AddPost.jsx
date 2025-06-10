@@ -12,6 +12,7 @@ import { getFromLocalStorage } from "../../utils/localStorage";
 import MDEditor from "@uiw/react-md-editor";
 import { marked } from "marked";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // Thay thế import này
 
 // import DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
@@ -342,6 +343,14 @@ const AddPost = () => {
         </div>
         <div className="form-center">
           <SubmitBtn formBtn submitText="Đăng bài" />
+
+          <Link
+            style={{ fontSize: "14px", color: "#fff" }}
+            to="/admin/post/buy-post"
+            className="btn btn-primary mt-3"
+          >
+            Mua thêm lượt đăng bài
+          </Link>
         </div>
       </Form>
     </Wrapper>

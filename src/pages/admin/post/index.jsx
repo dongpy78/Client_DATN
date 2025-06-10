@@ -231,13 +231,6 @@ const Post = () => {
                 >
                   Tạo bài đăng mới
                 </Link>
-                <Link
-                  style={{ marginLeft: "1rem", fontSize: "14px" }}
-                  to="/admin/post/buy-post"
-                  className="btn btn-primary mt-3"
-                >
-                  Mua thêm lượt đăng bài
-                </Link>
               </div>
             </div>
           </PostTableWrapper>

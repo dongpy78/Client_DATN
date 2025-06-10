@@ -196,9 +196,7 @@ const DetailProfileAdmin = () => {
       };
       localStorage.setItem("user", JSON.stringify(updatedUserStorage));
 
-      showSuccessToast(
-        response.data.message || "Cập nhật thông tin thành công"
-      );
+      showSuccessToast("Cập nhật thông tin thành công");
     } catch (error) {
       console.error("Lỗi khi cập nhật thông tin:", error);
       if (error.response) {

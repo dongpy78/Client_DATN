@@ -48,7 +48,7 @@ export const action = async ({ request }) => {
       console.log("Updated user:", updatedUser); // Log user sau khi cập nhật
 
       localStorage.setItem("user", JSON.stringify(updatedUser));
-      showSuccessToast("Company created successfully!");
+      showSuccessToast("Tạo mới công ty thành công");
       return redirect("/admin/company");
     }
   } catch (error) {
