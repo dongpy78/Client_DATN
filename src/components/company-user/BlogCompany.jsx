@@ -193,7 +193,7 @@ const BlogCompany = () => {
             <div className="search-widget widget-item">
               <h3 className="widget-title">Tìm kiếm</h3>
               <Input.Search
-                placeholder="Tìm kiếm bài blog..."
+                placeholder="Tìm kiếm công ty..."
                 onSearch={handleSearch}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}

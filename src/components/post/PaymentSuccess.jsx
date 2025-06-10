@@ -17,21 +17,10 @@ const PaymentSuccess = (props) => {
   let query = useQuery();
   const [message, setMessage] = useState("Đang xử lý...");
   const toastShownRef = useRef(false); // Thêm ref để theo dõi
-
   useEffect(() => {
-    let orderData = JSON.parse(localStorage.getItem("orderData"));
+    const orderData = JSON.parse(localStorage.getItem("orderData"));
     if (orderData) {
-      orderData.paymentId = query.get("paymentId");
-      orderData.token = query.get("token");
-      orderData.PayerID = query.get("PayerID");
-      createNewOrder(orderData);
-    } else {
-      setMessage("Thông tin đơn hàng không hợp lệ");
-    }
-  }, []);
-  useEffect(() => {
-    let orderData = JSON.parse(localStorage.getItem("orderData"));
-    if (orderData) {
+      // Thêm thông tin thanh toán từ query parameters
       orderData.paymentId = query.get("paymentId");
       orderData.token = query.get("token");
       orderData.PayerID = query.get("PayerID");
@@ -43,7 +32,7 @@ const PaymentSuccess = (props) => {
         toastShownRef.current = true;
       }
     }
-  }, []);
+  }, []); // Chỉ chạy một lần khi component mount
 
   let createNewOrder = async (data) => {
     let res = await paymentOrderSuccessService(data);

@@ -299,7 +299,7 @@ const EditPost = () => {
           />
         </div>
         <div className="form-center">
-          <SubmitBtn formBtn />
+          <SubmitBtn formBtn submitText="Cập nhật bài đăng" />
         </div>
       </Form>
     </Wrapper>
