@@ -17,9 +17,14 @@ import { marked } from "marked";
 export const loader = async ({ params }) => {
   const { id } = params;
   try {
-    const response = await axiosInstance.get(`/posts/detail?id=${id}`);
+    const response = await axiosInstance.get(`/posts/detail?id=${id}`, {
+      headers: {
+        "Cache-Control": "no-cache", // Vô hiệu hóa cache
+      },
+    });
+    console.log("Loader data:", response.data.data); // Debug dữ liệu từ loader
     if (response.status === 200) {
-      return response.data.data; // Giả định dữ liệu bài đăng nằm trong response.data.data
+      return response.data.data;
     }
     throw new Error("Failed to fetch post details.");
   } catch (error) {
@@ -34,12 +39,13 @@ export const action = async ({ request, params }) => {
   const updates = Object.fromEntries(formData);
   const { id } = params;
   const user = getFromLocalStorage("user");
-  console.log(user);
 
-  // Chuẩn bị dữ liệu gửi đi
+  console.log("Form data:", updates); // Debug
+  console.log("isHot value:", updates.isHot); // Debug giá trị isHot
+
   const postData = {
     id,
-    userId: user.id, // Lấy từ localStorage hoặc giá trị mặc định
+    userId: user.id,
     name: updates.name,
     categoryJobCode: updates.categoryJobCode,
     addressCode: updates.addressCode,
@@ -53,22 +59,22 @@ export const action = async ({ request, params }) => {
     descriptionHTML:
       updates.descriptionHTML || marked(updates.descriptionMarkdown || ""),
     descriptionMarkdown: updates.descriptionMarkdown || "",
-    isHot: updates.isHot || "0",
+    isHot: updates.isHot === "1" ? "1" : "0", // Áp dụng logic từ AddPost
   };
+
+  console.log("Post data:", postData); // Debug dữ liệu gửi đi
 
   try {
     const response = await axiosInstance.put("/posts/update", postData);
+    console.log("API Response:", response.data); // Debug response
     if (response.status === 200) {
       showSuccessToast("Cập nhật bài đăng thành công!");
       return redirect("/admin/post");
     }
     throw new Error("Failed to update post.");
   } catch (error) {
-    console.error("Full Error:", error);
-    console.error("Error Response Data:", error.response?.data);
-    console.error("Error Status:", error.response?.status);
-    console.error("Error Message:", error.message);
     console.error("Error updating post:", error);
+    console.error("Error Response:", error.response?.data);
     showErrorToast("Có lỗi khi cập nhật bài đăng: " + error.message);
     return { error: error.message };
   }
